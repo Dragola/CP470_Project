@@ -16,6 +16,9 @@
     <string name="RestartButton">Restart Progress</string>
     <string name="settingsButtonText">Settings</string>
     <string name="multipleChoiceButtonText">Multiple Choice</string>
+    <string name="RestartButton">Restart Progress</string>
+  
+    <!-- Joeys Strings (If you use, put them ^)-->
 
     <!--activity_main_menu.xml-->
     <string name="textAddition">Addition</string>
