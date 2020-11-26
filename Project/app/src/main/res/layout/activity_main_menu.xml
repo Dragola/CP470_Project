@@ -93,11 +93,7 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/easyAdd"
         app:layout_constraintStart_toStartOf="parent" />
-        android:layout_marginBottom="8dp"
-        android:onClick="onAdditionClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
-        app:layout_constraintStart_toEndOf="@+id/button11" />
+
 
     <Button
         android:id="@+id/easyAdd"
@@ -106,8 +102,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onAdditionClick"
-        android:text="@string/DifficultyEasy"
-        android:text="@string/btnDifficultyHard"
+        android:text="@string/btnDifficultyEasy"
         app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
         app:layout_constraintStart_toStartOf="parent"
 
@@ -120,8 +115,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onAdditionClick"
-        android:text="@string/DifficultyMedium"
-        android:text="@string/btnDifficultyEasy"
+        android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
         app:layout_constraintStart_toEndOf="@+id/easyAdd" />
 
@@ -132,7 +126,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onAdditionClick"
-        android:text="@string/DifficultyHard"
+        android:text="@string/btnDifficultyHard"
         app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
         app:layout_constraintStart_toEndOf="@+id/medAdd" />
 
@@ -157,17 +151,9 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onMultiplicationClick"
-        android:text="@string/DifficultyEasy"
+        android:text="@string/btnDifficultyEasy"
         app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
         app:layout_constraintEnd_toStartOf="@+id/medMult" />
-        android:id="@+id/button12"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="5dp"
-        android:onClick="onSubtractionClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button13" />
 
     <Button
         android:id="@+id/medMult"
@@ -176,7 +162,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onMultiplicationClick"
-        android:text="@string/DifficultyMedium"
+        android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
         app:layout_constraintEnd_toStartOf="@+id/hardMult" />
 
@@ -212,8 +198,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onDivisionClick"
-        android:text="@string/DifficultyEasy"
-        android:text="@string/btnDifficultyMedium"
+        android:text="@string/btnDifficultyEasy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/medDiv" />
 
@@ -224,7 +209,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onDivisionClick"
-        android:text="@string/DifficultyMedium"
+        android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/hardDiv" />
         android:onClick="onMultiplicationClick"
@@ -254,21 +239,17 @@
         android:text="@string/textSubtraction"
         android:textAlignment="center"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medSub"
+        app:layout_constraintBottom_toTopOf="@+id/easySub"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/easySub"
-        android:layout_width="45dp"
+        android:layout_width="47dp"
         android:layout_height="35dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
-        android:onClick="onSubtractionClick"
-        android:text="@string/DifficultyEasy"
-        android:id="@+id/button23"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:onClick="onDivisionClick"
+        android:onClick="onMultiplicationClick"
         android:text="@string/btnDifficultyEasy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -276,19 +257,9 @@
     <Button
         android:id="@+id/medSub"
         android:layout_width="47dp"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
-        android:onClick="onMultiplicationClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
-        app:layout_constraintEnd_toStartOf="@+id/button24" />
-
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="56dp"
         android:onClick="onSubtractionClick"
         android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -301,8 +272,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:onClick="onSubtractionClick"
-        android:text="@string/DifficultyHard"
-        android:text="@string/btnDifficultyEasy"
+        android:text="@string/btnDifficultyHard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/medSub" />
 

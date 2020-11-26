@@ -138,7 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
             for (TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
             }
-
         }
         else{
             darkEditor.putBoolean("DarkStatus", false);
@@ -147,7 +146,6 @@ public class SettingsActivity extends AppCompatActivity {
             for (RadioButton r: radioButtonList){
                 r.setTextColor(Color.BLACK);
             }
-
             for (TextView t: textViewList){
                 t.setTextColor(Color.BLACK);
             }
@@ -210,10 +208,10 @@ public class SettingsActivity extends AppCompatActivity {
         fontEditor.commit();
     }
     public void onRestartClick(View v){
-
+//This might not even be in settings lmaooooooooooooo
     }
     public void onBugClick(View v){
-
+//Figure out how to send an email
     }
     public void onAgreeClick(View v){
 

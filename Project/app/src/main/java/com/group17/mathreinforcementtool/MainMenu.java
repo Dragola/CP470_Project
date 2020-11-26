@@ -3,7 +3,6 @@ package com.group17.mathreinforcementtool;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,11 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +41,7 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) findViewById(R.id.textMenuMultiple), (TextView) findViewById(R.id.textMenuAddition), (TextView) findViewById(R.id.textMenuSubtraction), (TextView) findViewById(R.id.textMenuMultiple), (TextView) findViewById(R.id.textMenuDivision)));
-        littleButtonList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.easyAdd), (Button) findViewById(R.id.medAdd), (Button) findViewById(R.id.hardAdd), (Button) findViewById(R.id.easyMult), (Button) findViewById(R.id.medMult), (Button) findViewById(R.id.hardMult), (Button) findViewById(R.id.easySub), (Button) findViewById(R.id.medSub), (Button) findViewById(R.id.hardSub), (Button) findViewById(R.id.easyDiv), (Button) findViewById(R.id.medDiv), (Button) findViewById(R.id.hardDiv)));
+        littleButtonList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.easyAdd), (Button) findViewById(R.id.medAdd), (Button) findViewById(R.id.hardAdd), (Button) findViewById(R.id.easyMult), (Button) findViewById(R.id.medMult), (Button) findViewById(R.id.hardMult), (Button) findViewById(R.id.easySub), (Button) findViewById(R.id.easySub), (Button) findViewById(R.id.hardSub), (Button) findViewById(R.id.easyDiv), (Button) findViewById(R.id.medDiv), (Button) findViewById(R.id.hardDiv)));
         buttonList.addAll((Collection<? extends  Button>) Arrays.asList((Button) findViewById(R.id.easyMultipleChoice), (Button) findViewById(R.id.mediumMultipleChoice), (Button) findViewById(R.id.hardMultipleChoice), (Button) findViewById(R.id.settingsButton)));
 
 

@@ -46,7 +46,6 @@
         android:onClick="onSmallClick"
         android:layout_toEndOf="@id/FontLabel"
         android:gravity="center"
-        android:gravity="bottom"
         android:text="@string/smallButton"
         android:textSize="25sp" />
         android:text="@string/smallButton"
