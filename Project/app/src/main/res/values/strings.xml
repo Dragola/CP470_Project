@@ -10,7 +10,7 @@
     <string name="privacyPolicyButton">Privacy Policy</string>
     <string name="agreementButton">User Agreement</string>
     <string name="bugButton">Report a Bug</string>
-    <string name="volumelabel">Volume</string>
+    <string name="volumeLabel">Volume</string>
     <string name="questionText">What is\: </string>
     <string name="levelText">Level</string>
     <string name="RestartButton">Restart Progress</string>

@@ -48,8 +48,6 @@
         android:gravity="center"
         android:text="@string/smallButton"
         android:textSize="25sp" />
-        android:text="@string/smallButton"
-        android:textSize="25sp" />
 
 
     <RadioButton
@@ -60,12 +58,8 @@
         android:onClick="onMedClick"
         android:layout_toEndOf="@id/SmallButton"
         android:gravity="center"
-        android:gravity="bottom"
         android:text="@string/medButton"
         android:textSize="25sp" />
-        android:text="@string/medButton"
-        android:textSize="25sp" />
-
 
     <RadioButton
         android:id="@+id/LargeButton"
@@ -75,9 +69,6 @@
         android:onClick="onLargeClick"
         android:layout_toEndOf="@id/MedButton"
         android:gravity="center"
-        android:gravity="bottom"
-        android:text="@string/largeButton"
-        android:textSize="25sp" />
         android:text="@string/largeButton"
         android:textSize="25sp" />
 
@@ -108,8 +99,6 @@
         android:text="@string/agreementButton"
         android:textSize="30dp"
         android:onClick="onAgreeClick"/>
-        android:layout_above="@id/AgreementButton"
-        android:text="@string/bugButton" />
 
     <Button
         android:id="@+id/PolicyButton"
@@ -125,10 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/FontLabel"
-        android:text="@string/volumelabel"
+        android:text="@string/volumeLabel"
         android:textSize="30sp" />
-        android:text="@string/volumelabel"
-        android:textSize="30sp"/>
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -137,5 +124,4 @@
         android:layout_below="@id/FontLabel"
         android:layout_marginStart="0dp"
         android:layout_toEndOf="@id/VolumeLabel" />
-        android:layout_toEndOf="@id/VolumeLabel"/>
 </RelativeLayout>
