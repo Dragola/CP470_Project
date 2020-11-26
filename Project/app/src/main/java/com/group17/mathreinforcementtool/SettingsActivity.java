@@ -29,7 +29,7 @@ import java.util.ListIterator;
 
 public class SettingsActivity extends AppCompatActivity {
     Switch darkSwitch;
-
+//Test
     List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
     List<TextView> textViewList = new ArrayList<TextView>();
     List<Button> buttonList = new ArrayList<Button>();
