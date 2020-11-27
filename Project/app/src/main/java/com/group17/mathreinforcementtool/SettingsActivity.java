@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
     int medSize = 20;
     int largeSize = 25;
 
+
     SharedPreferences darkPreference;
     SharedPreferences fontPreference;
     SharedPreferences.Editor darkEditor;
@@ -59,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         darkSwitch = findViewById(R.id.DarkSwitch);
 
         radioButtonList.addAll((Collection<? extends RadioButton>) Arrays.asList((RadioButton) findViewById(R.id.SmallButton), (RadioButton) findViewById(R.id.MedButton), (RadioButton) findViewById(R.id.LargeButton)));
-        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) findViewById(R.id.Title), (TextView) findViewById(R.id.FontLabel), (TextView) findViewById(R.id.VolumeLabel)));
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) findViewById(R.id.Title), (TextView) findViewById(R.id.FontLabel)));
         buttonList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.AgreementButton), (Button) findViewById(R.id.PolicyButton), (Button) findViewById(R.id.RestartButton),(Button) findViewById(R.id.BugButton)));
 
         layout = (RelativeLayout) findViewById(R.id.Settings);
@@ -70,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
             darkSwitch.setTextColor(Color.WHITE);
             for (RadioButton r: radioButtonList){
                 r.setTextColor(Color.WHITE);
+                r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
             }
             for (TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
@@ -88,7 +91,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
             textViewList.get(0).setTextSize(30);
             textViewList.get(1).setTextSize(20);
-            ;
+
             for (Button b: buttonList){
                 b.setTextSize(smallSize);
             }
@@ -134,6 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
             darkSwitch.setTextColor(Color.WHITE);
             for (RadioButton r: radioButtonList){
                 r.setTextColor(Color.WHITE);
+                r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
             }
             for (TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
@@ -145,6 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
             darkSwitch.setTextColor(Color.BLACK);
             for (RadioButton r: radioButtonList){
                 r.setTextColor(Color.BLACK);
+                r.setButtonTintList(ColorStateList.valueOf(Color.BLACK));
             }
             for (TextView t: textViewList){
                 t.setTextColor(Color.BLACK);

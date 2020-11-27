@@ -1,16 +1,25 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 public class multipleChoice extends AppCompatActivity {
@@ -27,6 +36,16 @@ public class multipleChoice extends AppCompatActivity {
     RadioButton answerRadioButton3 = null;
     RadioButton answerRadioButton4 = null;
     int correctCount = 0;
+    int smallSize = 15;
+    int medSize = 25;
+    int largeSize = 35;
+
+    List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
+
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
+
+    ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +64,92 @@ public class multipleChoice extends AppCompatActivity {
         answerRadioButton3 = findViewById(R.id.answerRadioButton3);
         answerRadioButton4 = findViewById(R.id.answerRadioButton4);
         generateQuestion();
+
+        radioButtonList.addAll((Collection<? extends RadioButton>) Arrays.asList(answerRadioButton1,answerRadioButton2,answerRadioButton3,answerRadioButton4));
+//        radioButtonList.add(answerRadioButton1);
+        layout = findViewById(R.id.multiChoiceaActivity);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            questionTextView.setTextColor(Color.WHITE);
+            for(RadioButton r: radioButtonList){
+                r.setTextColor(Color.WHITE);
+                r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
+            }
+        } else {
+            layout.setBackgroundColor(Color.WHITE);
+            questionTextView.setTextColor(Color.BLACK);
+            for(RadioButton r: radioButtonList){
+                r.setTextColor(Color.BLACK);
+            }
+        }
+
+        if(fontPreference.getInt("Size", medSize) == 15){
+            questionTextView.setTextSize(smallSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(smallSize);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20){
+            questionTextView.setTextSize(medSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(medSize);
+            }
+
+        } else {
+            questionTextView.setTextSize(largeSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(largeSize);
+            }
+        }
     }
+    protected void onResume(){
+        super.onResume();
+        Log.i("OnResume", "In On Resume");
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            questionTextView.setTextColor(Color.WHITE);
+            for(RadioButton r: radioButtonList){
+                r.setTextColor(Color.WHITE);
+                r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
+            }
+        } else {
+            layout.setBackgroundColor(Color.WHITE);
+            questionTextView.setTextColor(Color.BLACK);
+            for(RadioButton r: radioButtonList){
+                r.setTextColor(Color.BLACK);
+                r.setButtonTintList(ColorStateList.valueOf(Color.BLACK));
+            }
+        }
+
+        if(fontPreference.getInt("Size", medSize) == 15){
+            questionTextView.setTextSize(smallSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(smallSize);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20){
+            questionTextView.setTextSize(medSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(medSize);
+            }
+
+        } else {
+            questionTextView.setTextSize(largeSize);
+            for(RadioButton r: radioButtonList){
+                r.setTextSize(largeSize);
+            }
+        }
+    }
+
+    //    This is here to swap to onResume on back so that flicking the "DarkSwitch" actually works without having to close down the app lmao
+    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+        super.onActivityResult(requestCode, responseCode, data);
+    }
+
+
+
+
     public void onClick(View view){
         //answer picked (pull from button)
         float answer = 0f;
