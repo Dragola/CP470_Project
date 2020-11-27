@@ -109,19 +109,4 @@
         android:textSize="30dp"
         android:onClick="onPolicyClick"/>
 
-    <TextView
-        android:id="@+id/VolumeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/FontLabel"
-        android:text="@string/volumeLabel"
-        android:textSize="30sp" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/FontLabel"
-        android:layout_marginStart="0dp"
-        android:layout_toEndOf="@id/VolumeLabel" />
 </RelativeLayout>
