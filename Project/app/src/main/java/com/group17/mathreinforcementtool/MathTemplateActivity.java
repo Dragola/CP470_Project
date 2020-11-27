@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Random;
 
-public class MathTemplateActivity extends AppCompatActivity
+public class MathTemplateActivity extends AppCompatActivity implements View.OnTouchListener
 {
     String ACTIVITY_NAME = "MathTemplateActivity";
 
@@ -21,10 +23,64 @@ public class MathTemplateActivity extends AppCompatActivity
     TextView textUserInput;
     TextView textDisplayResult;
     TextView textOperator;
+    ImageView imgDisplayResult;
     int min;
     int max;
     int num1;
     int num2;
+    String currentOperation;
+
+    /*
+    ----------------------------------------------------
+    Parameters:   v (View), event (MotionEvent)
+    Return:       boolean
+    Description:  -OnTouchListener for MathTemplateActivity
+                  -This listener performs operations when a
+                  listed button is pressed down
+                  -This is important because it is quicker and
+                  more reliable than onClick() which requires all
+                  three motion operations (down, hold, & release),
+                  making it more suitable to accurately assess time
+    ----------------------------------------------------
+    */
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        if(event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            switch (v.getId())
+            {
+                case R.id.button1: case R.id.button2: case R.id.button3:
+                case R.id.button4: case R.id.button5: case R.id.button6:
+                case R.id.button7: case R.id.button8: case R.id.button9:
+                case R.id.button0:
+                    ButtonNumberClick(v);
+                    break;
+                case R.id.buttonBack:
+                    ButtonBackClick(v);
+                    break;
+                case R.id.buttonOK:
+
+                    switch(currentOperation)
+                    {
+                        case "Addition":
+                            ButtonOKAdditionClick(v);
+                            break;
+                        case "Subtraction":
+                            ButtonOKSubtractionClick(v);
+                            break;
+                        case "Multiplication":
+                            ButtonOKMultiplicationClick(v);
+                            break;
+                        case "Division":
+                            ButtonOKDivisionClick(v);
+                            break;
+                    }
+                    break;
+            }
+        }
+        return true;
+    }
 
     /*
     ----------------------------------------------------
@@ -42,22 +98,18 @@ public class MathTemplateActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_template);
 
-        buttonBack = findViewById(R.id.buttonBack);
-        buttonOK = findViewById(R.id.buttonOKAddition);
         textNum1 = findViewById(R.id.textNum1);
         textNum2 = findViewById(R.id.textNum2);
         textUserInput = findViewById(R.id.textUserInput);
-        textDisplayResult = findViewById(R.id.textDisplayResult);
+        imgDisplayResult = findViewById(R.id.imgDisplayResult);
         textOperator = findViewById(R.id.textOperator);
 
-        String currentOperation = getIntent().getStringExtra("Type");
+        currentOperation = getIntent().getStringExtra("Type");
         String currentDifficulty = getIntent().getStringExtra("Difficulty");
 
         if(currentOperation.equals("Addition"))
         {
             textOperator.setText("+");
-            buttonOK = findViewById(R.id.buttonOKAddition);
-            buttonOK.setVisibility(View.VISIBLE);
             switch(currentDifficulty)
             {
                 case "Easy":
@@ -84,8 +136,6 @@ public class MathTemplateActivity extends AppCompatActivity
         else if(currentOperation.equals("Subtraction"))
         {
             textOperator.setText("-");
-            buttonOK = findViewById(R.id.buttonOKSubtraction);
-            buttonOK.setVisibility(View.VISIBLE);
             switch(currentDifficulty)
             {
                 case "Easy":
@@ -121,8 +171,6 @@ public class MathTemplateActivity extends AppCompatActivity
         else if(currentOperation.equals("Multiplication"))
         {
             textOperator.setText("*");
-            buttonOK = findViewById(R.id.buttonOKMultiplication);
-            buttonOK.setVisibility(View.VISIBLE);
             switch(currentDifficulty)
             {
                 case "Easy":
@@ -149,8 +197,6 @@ public class MathTemplateActivity extends AppCompatActivity
         else if(currentOperation.equals("Division"))
         {
             textOperator.setText("/");
-            buttonOK = findViewById(R.id.buttonOKDivision);
-            buttonOK.setVisibility(View.VISIBLE);
             switch(currentDifficulty)
             {
                 case "Easy":
@@ -179,6 +225,20 @@ public class MathTemplateActivity extends AppCompatActivity
             Log.e(ACTIVITY_NAME, "Invalid Type");
             throw new IllegalStateException();
         }
+
+        //Setting listeners
+        findViewById(R.id.button1).setOnTouchListener(this);
+        findViewById(R.id.button2).setOnTouchListener(this);
+        findViewById(R.id.button3).setOnTouchListener(this);
+        findViewById(R.id.button4).setOnTouchListener(this);
+        findViewById(R.id.button5).setOnTouchListener(this);
+        findViewById(R.id.button6).setOnTouchListener(this);
+        findViewById(R.id.button7).setOnTouchListener(this);
+        findViewById(R.id.button8).setOnTouchListener(this);
+        findViewById(R.id.button9).setOnTouchListener(this);
+        findViewById(R.id.button0).setOnTouchListener(this);
+        findViewById(R.id.buttonBack).setOnTouchListener(this);
+        findViewById(R.id.buttonOK).setOnTouchListener(this);
     }
 
     /*
@@ -189,7 +249,7 @@ public class MathTemplateActivity extends AppCompatActivity
                   -Appends value of the button to textUserInput
     ----------------------------------------------------
     */
-    public void NumberedButtonClick(View v)
+    public void ButtonNumberClick(View v)
     {
         Log.i(ACTIVITY_NAME, "Button Num pressed");
         Button currentButton = findViewById(v.getId());
@@ -221,9 +281,9 @@ public class MathTemplateActivity extends AppCompatActivity
     ----------------------------------------------------
     Parameters:   v (View)
     Return:       None
-    Description:  -Called when an OK button is clicked
-                  -The function ran depends on the operation type of the activity, as only
-                  the OK button corresponding to 'currentOperation' from onCreate() is visible
+    Description:  -Called when the OK button is clicked
+                  -The function ran depends on the operation type
+                  of the activity
                   -If user input is blank, does nothing
                   -Determines if the user input was correct, and
                   updates textDisplayResult accordingly
@@ -241,11 +301,11 @@ public class MathTemplateActivity extends AppCompatActivity
         int userInputNum = Integer.parseInt(userInputText);
         if(userInputNum == num1 + num2)
         {
-            textDisplayResult.setText(getString(R.string.textAnswerCorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
         }
         else
         {
-            textDisplayResult.setText(getString(R.string.textAnswerIncorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
         }
 
         num1 = _getRandomNumber(min, max);
@@ -266,11 +326,11 @@ public class MathTemplateActivity extends AppCompatActivity
         int userInputNum = Integer.parseInt(userInputText);
         if(userInputNum == num1 - num2)
         {
-            textDisplayResult.setText(getString(R.string.textAnswerCorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
         }
         else
         {
-            textDisplayResult.setText(getString(R.string.textAnswerIncorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
         }
 
         num1 = _getRandomNumber(min, max);
@@ -299,11 +359,11 @@ public class MathTemplateActivity extends AppCompatActivity
         int userInputNum = Integer.parseInt(userInputText);
         if(userInputNum == num1 * num2)
         {
-            textDisplayResult.setText(getString(R.string.textAnswerCorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
         }
         else
         {
-            textDisplayResult.setText(getString(R.string.textAnswerIncorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
         }
 
         num1 = _getRandomNumber(min, max);
@@ -324,11 +384,11 @@ public class MathTemplateActivity extends AppCompatActivity
         int userInputNum = Integer.parseInt(userInputText);
         if(userInputNum == num1 / num2)
         {
-            textDisplayResult.setText(getString(R.string.textAnswerCorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
         }
         else
         {
-            textDisplayResult.setText(getString(R.string.textAnswerIncorrect));
+            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
         }
 
         num1 = _getRandomNumber(min, max);
