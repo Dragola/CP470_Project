@@ -9,9 +9,8 @@
 
     <TextView
         android:id="@+id/textNum1"
-        android:layout_width="295dp"
-        android:layout_height="78dp"
-        android:gravity="bottom|end"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
         android:text="9074"
         android:textSize="55sp"
         app:layout_constraintBottom_toTopOf="@+id/textNum2"
@@ -24,15 +23,15 @@
         android:text="0/20"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textNum2"
-        android:layout_width="207dp"
-        android:layout_height="71dp"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
         android:text="4931"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textSize="55sp"
         app:layout_constraintBottom_toTopOf="@+id/textAnswerDisplay"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -41,6 +40,7 @@
         android:id="@+id/textOperator"
         android:layout_width="88dp"
         android:layout_height="71dp"
+        android:layout_marginEnd="4dp"
         android:text="+"
         android:textAlignment="viewEnd"
         android:textSize="60sp"
@@ -59,9 +59,9 @@
 
     <TextView
         android:id="@+id/textUserInput"
-        android:layout_width="248dp"
+        android:layout_width="250dp"
         android:layout_height="62dp"
-        android:gravity="right"
+        android:gravity="left"
 
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
@@ -196,7 +196,7 @@
         android:layout_width="89dp"
         android:layout_height="69dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pbCorrectAnswerCount"
         app:srcCompat="@android:color/transparent" />
 
@@ -205,10 +205,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="53dp"
         android:layout_height="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:max="20"
         android:min="0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCorrectAnswerCount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
