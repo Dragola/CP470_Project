@@ -1,8 +1,13 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,9 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 public class MathTemplateActivity extends AppCompatActivity implements View.OnTouchListener
@@ -24,6 +36,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     TextView textUserInput;
     TextView textOperator;
     TextView textCorrectAnswerCount;
+    TextView answerString;
     ProgressBar pbCorrectAnswerCount;
     ImageView imgDisplayResult;
     long timeStart;
@@ -34,8 +47,20 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     int correctAnswerCount = 0;
     int incorrectAnswerCount = 0;
     int buttonPressCount = 0;
+    int btnSmallSize = 15;
+    int btnMedSize = 25;
+    int smallSize = 35;
+    int medSize = 45;
+    int largeSize = 55;
     String currentOperation;
     String currentDifficulty;
+
+    List<TextView> textViewList = new ArrayList<TextView>();
+    List<Button> buttonList = new ArrayList<Button>();
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
+
+    ConstraintLayout layout;
 
     /*
     ----------------------------------------------------
@@ -116,7 +141,60 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         pbCorrectAnswerCount = findViewById(R.id.pbCorrectAnswerCount);
         currentOperation = getIntent().getStringExtra("Type");
         currentDifficulty = getIntent().getStringExtra("Difficulty");
+        answerString = findViewById(R.id.textAnswerDisplay);
 
+        layout = findViewById(R.id.textDisplayLastResult);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList(textNum1, textNum2, textUserInput, textOperator));
+        buttonList.addAll((Collection<?extends Button>) Arrays.asList((Button) findViewById(R.id.button0), (Button) findViewById(R.id.button1), (Button) findViewById(R.id.button2), (Button) findViewById(R.id.button3), (Button) findViewById(R.id.button4), (Button) findViewById(R.id.button5), (Button) findViewById(R.id.button6), (Button) findViewById(R.id.button7), (Button) findViewById(R.id.button8), (Button) findViewById(R.id.button9), (Button) findViewById(R.id.buttonOK), (Button) findViewById(R.id.buttonBack))   );
+
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            textCorrectAnswerCount.setTextColor(Color.WHITE);
+            answerString.setTextColor(Color.WHITE);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
+            for(Button b: buttonList){
+                b.setTextColor(Color.WHITE);
+            }
+        } else {
+            layout.setBackgroundColor(Color.WHITE);
+            textCorrectAnswerCount.setTextColor(Color.BLACK);
+            answerString.setTextColor(Color.BLACK);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.BLACK);
+            }
+            for(Button b: buttonList){
+                b.setTextColor(Color.BLACK);
+            }
+        }
+
+        if(fontPreference.getInt("Size", medSize) == 15){
+            for(TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(btnSmallSize);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20){
+            for(TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(btnMedSize);
+            }
+
+        } else {
+            for(TextView t: textViewList){
+                t.setTextSize(largeSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(smallSize);
+            }
+        }
         if(currentOperation.equals("Addition"))
         {
             textOperator.setText("+");
@@ -251,6 +329,61 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         findViewById(R.id.button0).setOnTouchListener(this);
         findViewById(R.id.buttonBack).setOnTouchListener(this);
         findViewById(R.id.buttonOK).setOnTouchListener(this);
+    }
+
+    protected void onResume(){
+        super.onResume();
+        Log.i("OnResume", "In On Resume");
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            textCorrectAnswerCount.setTextColor(Color.WHITE);
+            answerString.setTextColor(Color.WHITE);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
+            for(Button b: buttonList){
+                b.setTextColor(Color.WHITE);
+            }
+        } else {
+            layout.setBackgroundColor(Color.WHITE);
+            textCorrectAnswerCount.setTextColor(Color.BLACK);
+            answerString.setTextColor(Color.BLACK);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.BLACK);
+            }
+            for(Button b: buttonList){
+                b.setTextColor(Color.BLACK);
+            }
+        }
+
+        if(fontPreference.getInt("Size", medSize) == 15){
+            for(TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(btnSmallSize);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20){
+            for(TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(btnMedSize);
+            }
+
+        } else {
+            for(TextView t: textViewList){
+                t.setTextSize(largeSize);
+            }
+            for(Button b: buttonList){
+                b.setTextSize(smallSize);
+            }
+        }
+    }
+
+    //    This is here to swap to onResume on back so that flicking the "DarkSwitch" actually works without having to close down the app lmao
+    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+        super.onActivityResult(requestCode, responseCode, data);
     }
 
     /*
