@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -153,8 +155,44 @@ public class MainMenu extends AppCompatActivity {
     }
 
 //    This is here to swap to onResume on back so that flicking the "DarkSwitch" actually works without having to close down the app lmao
-    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+    protected void onActivityResult(int requestCode, int responseCode, Intent data)
+    {
         super.onActivityResult(requestCode, responseCode, data);
+
+        // Coming from MathTemplateActivity (maybe more if same stats are tracked)
+        if(requestCode == 10)
+        {
+            if(responseCode == RESULT_OK)
+            {
+                /*
+                 * This is all the data returned from MathTemplateActivity
+                 *
+                 * Operation            - Currently can be "Addition", "Subtraction", "Multiplication", or "Division"
+                 * Difficulty           - "Easy", "Medium", or "Hard"
+                 * totalTimeSeconds     - The time elapsed since starting the activity, in seconds
+                 * incorrectAnswerCount - How many times the user inputted an incorrect answer
+                 * buttonPressCount     - The amount of times the user pressed a button (fun stat)
+                 *
+                 * Some stats are implied as well. For example,
+                 * Total Question Count - 20 + IncorrectAnswerCount (CorrectAnswer = 20 always)
+                 * Attempted Addition   - 1 (If currentOperation == "Addition")
+                 */
+
+                String currentOperation = data.getStringExtra("Operation");
+                String currentDifficulty = data.getStringExtra("Difficulty");
+                long totalTimeSeconds = Integer.parseInt(data.getStringExtra("TotalTimeSeconds"));
+                int incorrectAnswerCount = Integer.parseInt(data.getStringExtra("IncorrectAnswerCount"));
+                int buttonPressCount = Integer.parseInt(data.getStringExtra("ButtonPressCount"));
+
+                // Stat use example (Display Time)
+                long totalTimeMinutes = TimeUnit.SECONDS.toMinutes(totalTimeSeconds);
+                String displayTime = getString(R.string.Show_MTA_Time, totalTimeMinutes,
+                        totalTimeSeconds - TimeUnit.MINUTES.toSeconds(totalTimeMinutes));
+
+                Toast t = Toast.makeText(this, displayTime, Toast.LENGTH_LONG);
+                t.show();
+            }
+        }
     }
 
     //swap to settings activity

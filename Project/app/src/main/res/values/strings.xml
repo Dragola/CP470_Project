@@ -28,6 +28,7 @@
     <string name="btnDifficultyEasy">Easy</string>
     <string name="btnDifficultyMedium">Medium</string>
     <string name="btnDifficultyHard">Hard</string>
+    <string name="Show_MTA_Time">Your time was %1$d:%2$02d!</string>
 
     <!--activity_math_template.xml-->
     <string name="btnBack">Back</string>
@@ -35,5 +36,6 @@
     <string name="textAnswerDisplay">Answer:</string>
     <string name="textAnswerCorrect">Yes</string>
     <string name="textAnswerIncorrect">No</string>
+    <string name="textCorrectAnswerCount">%1$d/20</string>
 
 </resources>

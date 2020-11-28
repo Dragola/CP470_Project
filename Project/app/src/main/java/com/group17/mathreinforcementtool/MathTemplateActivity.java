@@ -2,33 +2,40 @@ package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.Calendar;
 import java.util.Random;
 
 public class MathTemplateActivity extends AppCompatActivity implements View.OnTouchListener
 {
     String ACTIVITY_NAME = "MathTemplateActivity";
 
-    Button buttonBack;
-    Button buttonOK;
     TextView textNum1;
     TextView textNum2;
     TextView textUserInput;
-    TextView textDisplayResult;
     TextView textOperator;
+    TextView textCorrectAnswerCount;
+    ProgressBar pbCorrectAnswerCount;
     ImageView imgDisplayResult;
+    long timeStart;
     int min;
     int max;
     int num1;
     int num2;
+    int correctAnswerCount = 0;
+    int incorrectAnswerCount = 0;
+    int buttonPressCount = 0;
     String currentOperation;
+    String currentDifficulty;
 
     /*
     ----------------------------------------------------
@@ -48,6 +55,8 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     {
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
+            buttonPressCount++;
+
             switch (v.getId())
             {
                 case R.id.button1: case R.id.button2: case R.id.button3:
@@ -103,9 +112,10 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         textUserInput = findViewById(R.id.textUserInput);
         imgDisplayResult = findViewById(R.id.imgDisplayResult);
         textOperator = findViewById(R.id.textOperator);
-
+        textCorrectAnswerCount = findViewById(R.id.textCorrectAnswerCount);
+        pbCorrectAnswerCount = findViewById(R.id.pbCorrectAnswerCount);
         currentOperation = getIntent().getStringExtra("Type");
-        String currentDifficulty = getIntent().getStringExtra("Difficulty");
+        currentDifficulty = getIntent().getStringExtra("Difficulty");
 
         if(currentOperation.equals("Addition"))
         {
@@ -226,6 +236,8 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
             throw new IllegalStateException();
         }
 
+        timeStart = Calendar.getInstance().getTimeInMillis();
+
         //Setting listeners
         findViewById(R.id.button1).setOnTouchListener(this);
         findViewById(R.id.button2).setOnTouchListener(this);
@@ -302,10 +314,20 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         if(userInputNum == num1 + num2)
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+            correctAnswerCount++;
+            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+            pbCorrectAnswerCount.incrementProgressBy(1);
+
+            if(correctAnswerCount >= 20)
+            {
+                AllQuestionsFinished();
+            }
         }
         else
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+            incorrectAnswerCount++;
         }
 
         num1 = _getRandomNumber(min, max);
@@ -313,6 +335,8 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         textNum1.setText(String.valueOf(num1));
         textNum2.setText(String.valueOf(num2));
         textUserInput.setText("");
+
+        // if questioncount == 25 finish somehow.
     }
 
     public void ButtonOKSubtractionClick(View v)
@@ -327,10 +351,20 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         if(userInputNum == num1 - num2)
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+            correctAnswerCount++;
+            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+            pbCorrectAnswerCount.incrementProgressBy(1);
+
+            if(correctAnswerCount >= 20)
+            {
+                AllQuestionsFinished();
+            }
         }
         else
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+            incorrectAnswerCount++;
         }
 
         num1 = _getRandomNumber(min, max);
@@ -346,6 +380,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         textNum1.setText(String.valueOf(num1));
         textNum2.setText(String.valueOf(num2));
         textUserInput.setText("");
+
     }
 
     public void ButtonOKMultiplicationClick(View v)
@@ -360,10 +395,20 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         if(userInputNum == num1 * num2)
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+            correctAnswerCount++;
+            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+            pbCorrectAnswerCount.incrementProgressBy(1);
+
+            if(correctAnswerCount >= 20)
+            {
+                AllQuestionsFinished();
+            }
         }
         else
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+            incorrectAnswerCount++;
         }
 
         num1 = _getRandomNumber(min, max);
@@ -371,6 +416,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         textNum1.setText(String.valueOf(num1));
         textNum2.setText(String.valueOf(num2));
         textUserInput.setText("");
+
     }
 
     public void ButtonOKDivisionClick(View v)
@@ -385,10 +431,20 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         if(userInputNum == num1 / num2)
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+            correctAnswerCount++;
+            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+            pbCorrectAnswerCount.incrementProgressBy(1);
+
+            if(correctAnswerCount >= 20)
+            {
+                AllQuestionsFinished();
+            }
         }
         else
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+            incorrectAnswerCount++;
         }
 
         num1 = _getRandomNumber(min, max);
@@ -396,8 +452,30 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         textNum1.setText(String.valueOf(num1));
         textNum2.setText(String.valueOf(num2));
         textUserInput.setText("");
+
     }
 
+    public void AllQuestionsFinished()
+    {
+        long timeEnd = Calendar.getInstance().getTimeInMillis();
+        long totalTimeSeconds = (timeEnd - timeStart) / 1000;
+
+        Intent stats = new Intent();
+        stats.putExtra("Operation", currentOperation);
+        stats.putExtra("Difficulty", currentDifficulty);
+
+        // The time elapsed since starting the activity, in seconds
+        stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
+
+        // How many times the user inputted an incorrect answer
+        stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
+
+        // The amount of times the user pressed a button (fun stat)
+        stats.putExtra("ButtonPressCount", Integer.toString(buttonPressCount));
+
+        setResult(RESULT_OK, stats);
+        finish();
+    }
     /*
     ----------------------------------------------------
     Parameters:   min (int), max (int)

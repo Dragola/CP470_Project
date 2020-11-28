@@ -212,10 +212,6 @@
         android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/hardDiv" />
-        android:onClick="onMultiplicationClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
-        app:layout_constraintEnd_toStartOf="@+id/button25" />
 
     <Button
         android:id="@+id/hardDiv"
@@ -249,7 +245,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
-        android:onClick="onMultiplicationClick"
+        android:onClick="onSubtractionClick"
         android:text="@string/btnDifficultyEasy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
