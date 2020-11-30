@@ -128,7 +128,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_template);
 
-        textNum1 = findViewById(R.id.textEquation);
+        textNum1 = findViewById(R.id.textNum1);
         textNum2 = findViewById(R.id.textNum2);
         textUserInput = findViewById(R.id.textUserInput);
         imgDisplayResult = findViewById(R.id.imgDisplayResult);

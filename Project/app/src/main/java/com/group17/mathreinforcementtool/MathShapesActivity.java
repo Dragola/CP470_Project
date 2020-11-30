@@ -107,7 +107,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_shapes);
 
-        textNum1 = findViewById(R.id.textEquation);
+        textNum1 = findViewById(R.id.textNum1);
         textNum2 = findViewById(R.id.textNum2);
         textNum3 = findViewById(R.id.textNum3);
         textNumTotal = findViewById(R.id.textNumTotal);

@@ -8,7 +8,7 @@
     tools:context=".MathShapesActivity">
 
     <TextView
-        android:id="@+id/textEquation"
+        android:id="@+id/textNum1"
         android:layout_width="111dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"

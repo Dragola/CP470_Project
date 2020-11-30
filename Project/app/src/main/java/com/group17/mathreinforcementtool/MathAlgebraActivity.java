@@ -33,7 +33,6 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
     }
 
     TextView textEquation;
-    TextView textNum2;
     TextView textUserInput;
     TextView textCorrectAnswerCount;
     ProgressBar pbCorrectAnswerCount;
