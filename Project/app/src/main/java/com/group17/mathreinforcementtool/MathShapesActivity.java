@@ -1,12 +1,8 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,47 +12,36 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
-public class MathTemplateActivity extends AppCompatActivity implements View.OnTouchListener
+public class MathShapesActivity extends AppCompatActivity implements View.OnTouchListener
 {
-    String ACTIVITY_NAME = "MathTemplateActivity";
+    String ACTIVITY_NAME = "MathShapesActivity";
 
     TextView textNum1;
     TextView textNum2;
+    TextView textNum3;
     TextView textUserInput;
-    TextView textOperator;
+    TextView textNumTotal;
     TextView textCorrectAnswerCount;
-    TextView answerString;
     ProgressBar pbCorrectAnswerCount;
     ImageView imgDisplayResult;
+    ImageView imgShapes;
     long timeStart;
     int min;
     int max;
     int num1;
     int num2;
+    int num3;
+    int numTotal;
     int correctAnswerCount = 0;
     int incorrectAnswerCount = 0;
     int buttonPressCount = 0;
-    int btnSmallSize = 15;
-    int btnMedSize = 25;
-    int smallSize = 35;
-    int medSize = 45;
-    int largeSize = 55;
     String currentOperation;
+    String currentOperationInitial;
+    String currentState;
     String currentDifficulty;
-
-    List<TextView> textViewList = new ArrayList<TextView>();
-    List<Button> buttonList = new ArrayList<Button>();
-    SharedPreferences darkPreference;
-    SharedPreferences fontPreference;
-
-    ConstraintLayout layout;
 
     /*
     ----------------------------------------------------
@@ -93,17 +78,11 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
 
                     switch(currentOperation)
                     {
-                        case "Addition":
-                            ButtonOKAdditionClick(v);
+                        case "Perimeter":
+                            ButtonOKPerimeterClick(v);
                             break;
-                        case "Subtraction":
-                            ButtonOKSubtractionClick(v);
-                            break;
-                        case "Multiplication":
-                            ButtonOKMultiplicationClick(v);
-                            break;
-                        case "Division":
-                            ButtonOKDivisionClick(v);
+                        case "Area":
+                            ButtonOKAreaClick(v);
                             break;
                     }
                     break;
@@ -126,84 +105,40 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_math_template);
+        setContentView(R.layout.activity_math_shapes);
 
         textNum1 = findViewById(R.id.textEquation);
         textNum2 = findViewById(R.id.textNum2);
+        textNum3 = findViewById(R.id.textNum3);
+        textNumTotal = findViewById(R.id.textNumTotal);
         textUserInput = findViewById(R.id.textUserInput);
         imgDisplayResult = findViewById(R.id.imgDisplayResult);
-        textOperator = findViewById(R.id.textOperator);
+        imgShapes = findViewById(R.id.imgShapes);
         textCorrectAnswerCount = findViewById(R.id.textCorrectAnswerCount);
         pbCorrectAnswerCount = findViewById(R.id.pbCorrectAnswerCount);
         currentOperation = getIntent().getStringExtra("Type");
         currentDifficulty = getIntent().getStringExtra("Difficulty");
-        answerString = findViewById(R.id.textAnswerDisplay);
+        boolean coin = _coinFlip();
 
-        layout = findViewById(R.id.textDisplayLastResult);
-        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
-        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
-        textViewList.addAll((Collection<? extends TextView>) Arrays.asList(textNum1, textNum2, textUserInput, textOperator));
-        buttonList.addAll((Collection<?extends Button>) Arrays.asList((Button) findViewById(R.id.button0), (Button) findViewById(R.id.button1), (Button) findViewById(R.id.button2), (Button) findViewById(R.id.button3), (Button) findViewById(R.id.button4), (Button) findViewById(R.id.button5), (Button) findViewById(R.id.button6), (Button) findViewById(R.id.button7), (Button) findViewById(R.id.button8), (Button) findViewById(R.id.button9), (Button) findViewById(R.id.buttonOK), (Button) findViewById(R.id.buttonBack))   );
-
-        if (darkPreference.getBoolean("DarkStatus", true) == true) {
-            layout.setBackgroundColor(Color.BLACK);
-            textCorrectAnswerCount.setTextColor(Color.WHITE);
-            answerString.setTextColor(Color.WHITE);
-            for(TextView t: textViewList){
-                t.setTextColor(Color.WHITE);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.WHITE);
-            }
-        } else {
-            layout.setBackgroundColor(Color.WHITE);
-            textCorrectAnswerCount.setTextColor(Color.BLACK);
-            answerString.setTextColor(Color.BLACK);
-            for(TextView t: textViewList){
-                t.setTextColor(Color.BLACK);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.BLACK);
-            }
-        }
-
-        if(fontPreference.getInt("Size", medSize) == 15){
-            for(TextView t: textViewList){
-                t.setTextSize(smallSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(btnSmallSize);
-            }
-        } else if (fontPreference.getInt("Size", medSize) == 20){
-            for(TextView t: textViewList){
-                t.setTextSize(medSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(btnMedSize);
-            }
-
-        } else {
-            for(TextView t: textViewList){
-                t.setTextSize(largeSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(smallSize);
-            }
-        }
-        if(currentOperation.equals("Addition"))
+        if(currentOperation.equals("Perimeter"))
         {
-            textOperator.setText("+");
-            switch(currentDifficulty)
+            currentOperationInitial = "P";
+            imgShapes.setImageResource(R.drawable.triangle);
+
+            switch (currentDifficulty)
             {
                 case "Easy":
-                    min = 1; max = 49;
+                    min = 1;
+                    max = 9;
                     break;
                 case "Medium":
-                    min = 10; max = 499;
+                    min = 1;
+                    max = 50;
                     break;
                 case "Hard":
-                    min = 100; max = 4999;
+                    min = 10;
+                    max = 150;
                     break;
                 default:
                     Log.e(ACTIVITY_NAME, "Invalid Difficulty");
@@ -212,24 +147,38 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
 
             num1 = _getRandomNumber(min, max);
             num2 = _getRandomNumber(min, max);
-            textNum1.setText(String.valueOf(num1));
-            textNum2.setText(String.valueOf(num2));
-            textUserInput.setText("");
+            num3 = _getRandomNumber(min, max);
+            numTotal = num1 + num2 + num3;
+
+            if(coin == true)
+            {
+                currentState = "Addition";
+            }
+            else
+            {
+                currentState = "Subtraction";
+            }
+
         }
 
-        else if(currentOperation.equals("Subtraction"))
+
+        else if(currentOperation.equals("Area"))
         {
-            textOperator.setText("-");
-            switch(currentDifficulty)
+            currentOperationInitial = "A";
+
+            switch (currentDifficulty)
             {
                 case "Easy":
-                    min = 1; max = 49;
+                    min = 2;
+                    max = 4;
                     break;
                 case "Medium":
-                    min = 10; max = 499;
+                    min = 2;
+                    max = 6;
                     break;
                 case "Hard":
-                    min = 100; max = 4999;
+                    min = 2;
+                    max = 8;
                     break;
                 default:
                     Log.e(ACTIVITY_NAME, "Invalid Difficulty");
@@ -238,70 +187,17 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
 
             num1 = _getRandomNumber(min, max);
             num2 = _getRandomNumber(min, max);
+            num3 = _getRandomNumber(min, max);
+            numTotal = num1 * num2 * num3;
 
-            // Ensures no negative answer
-            if(num2 > num1)
+            if(coin == true)
             {
-                int temp = num1;
-                num1 = num2;
-                num2 = temp;
+                currentState = "Multiplication";
             }
-
-            textNum1.setText(String.valueOf(num1));
-            textNum2.setText(String.valueOf(num2));
-            textUserInput.setText("");
-        }
-
-        else if(currentOperation.equals("Multiplication"))
-        {
-            textOperator.setText("*");
-            switch(currentDifficulty)
+            else
             {
-                case "Easy":
-                    min = 2; max = 6;
-                    break;
-                case "Medium":
-                    min = 2; max = 12;
-                    break;
-                case "Hard":
-                    min = 2; max = 16;
-                    break;
-                default:
-                    Log.e(ACTIVITY_NAME, "Invalid Difficulty");
-                    throw new IllegalStateException();
+                currentState = "Division";
             }
-
-            num1 = _getRandomNumber(min, max);
-            num2 = _getRandomNumber(min, max);
-            textNum1.setText(String.valueOf(num1));
-            textNum2.setText(String.valueOf(num2));
-            textUserInput.setText("");
-        }
-
-        else if(currentOperation.equals("Division"))
-        {
-            textOperator.setText("/");
-            switch(currentDifficulty)
-            {
-                case "Easy":
-                    min = 8; max = 49;
-                    break;
-                case "Medium":
-                    min = 15; max = 199;
-                    break;
-                case "Hard":
-                    min = 30; max = 499;
-                    break;
-                default:
-                    Log.e(ACTIVITY_NAME, "Invalid Difficulty");
-                    throw new IllegalStateException();
-            }
-
-            num1 = _getRandomNumber(min, max);
-            num2 = _getRandomNumber(2, min); // Ensures answer is always above 0
-            textNum1.setText(String.valueOf(num1));
-            textNum2.setText(String.valueOf(num2));
-            textUserInput.setText("");
         }
 
         else
@@ -309,6 +205,43 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
             Log.e(ACTIVITY_NAME, "Invalid Type");
             throw new IllegalStateException();
         }
+
+        if(coin == true) // Adding or Multiplying
+        {
+            textNum1.setText(getString(R.string.textUnitMeters, num1));
+            textNum2.setText(getString(R.string.textUnitMeters, num2));
+            textNum3.setText(getString(R.string.textUnitMeters, num3));
+            textNumTotal.setText(getString(R.string.textNumPerimTotalStr, currentOperationInitial, "?"));
+
+        }
+        else if(coin == false) // Subtracting or Dividing
+        {
+            int choosePositions = _getRandomNumber(0, 2);
+
+            if(choosePositions == 0)
+            {
+                textNum1.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum2.setText(getString(R.string.textUnitMeters, num1));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 1)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 2)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMeters, num2));
+                textNum3.setText(getString(R.string.textUnitMetersStr, "?"));
+            }
+
+            textNumTotal.setText(getString(R.string.textNumPerimTotal, currentOperationInitial, numTotal));
+        }
+        textUserInput.setText("");
 
         timeStart = Calendar.getInstance().getTimeInMillis();
 
@@ -325,61 +258,6 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         findViewById(R.id.button0).setOnTouchListener(this);
         findViewById(R.id.buttonBack).setOnTouchListener(this);
         findViewById(R.id.buttonOK).setOnTouchListener(this);
-    }
-
-    protected void onResume(){
-        super.onResume();
-        Log.i("OnResume", "In On Resume");
-        if (darkPreference.getBoolean("DarkStatus", true) == true) {
-            layout.setBackgroundColor(Color.BLACK);
-            textCorrectAnswerCount.setTextColor(Color.WHITE);
-            answerString.setTextColor(Color.WHITE);
-            for(TextView t: textViewList){
-                t.setTextColor(Color.WHITE);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.WHITE);
-            }
-        } else {
-            layout.setBackgroundColor(Color.WHITE);
-            textCorrectAnswerCount.setTextColor(Color.BLACK);
-            answerString.setTextColor(Color.BLACK);
-            for(TextView t: textViewList){
-                t.setTextColor(Color.BLACK);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.BLACK);
-            }
-        }
-
-        if(fontPreference.getInt("Size", medSize) == 15){
-            for(TextView t: textViewList){
-                t.setTextSize(smallSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(btnSmallSize);
-            }
-        } else if (fontPreference.getInt("Size", medSize) == 20){
-            for(TextView t: textViewList){
-                t.setTextSize(medSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(btnMedSize);
-            }
-
-        } else {
-            for(TextView t: textViewList){
-                t.setTextSize(largeSize);
-            }
-            for(Button b: buttonList){
-                b.setTextSize(smallSize);
-            }
-        }
-    }
-
-    //    This is here to swap to onResume on back so that flicking the "DarkSwitch" actually works without having to close down the app lmao
-    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
-        super.onActivityResult(requestCode, responseCode, data);
     }
 
     /*
@@ -431,7 +309,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
                   -Prepares the next question
     ----------------------------------------------------
     */
-    public void ButtonOKAdditionClick(View v)
+    public void ButtonOKPerimeterClick(View v)
     {
         String userInputText = textUserInput.getText().toString();
         if(userInputText.equals(""))
@@ -440,35 +318,99 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         }
 
         int userInputNum = Integer.parseInt(userInputText);
-        if(userInputNum == num1 + num2)
+
+        if(currentState == "Addition")
         {
-            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
-
-            correctAnswerCount++;
-            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
-            pbCorrectAnswerCount.incrementProgressBy(1);
-
-            if(correctAnswerCount >= 20)
+            if (userInputNum == numTotal)
             {
-                AllQuestionsFinished();
+                imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+                correctAnswerCount++;
+                textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+                pbCorrectAnswerCount.incrementProgressBy(1);
+                if (correctAnswerCount >= 20)
+                {
+                    AllQuestionsFinished();
+                }
+            }
+            else
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+                incorrectAnswerCount++;
             }
         }
-        else
+
+        if(currentState == "Subtraction")
         {
-            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
-            incorrectAnswerCount++;
+            if (userInputNum == num3)
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+                correctAnswerCount++;
+                textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+                pbCorrectAnswerCount.incrementProgressBy(1);
+                if (correctAnswerCount >= 20)
+                {
+                    AllQuestionsFinished();
+                }
+            }
+            else
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+                incorrectAnswerCount++;
+            }
         }
+
 
         num1 = _getRandomNumber(min, max);
         num2 = _getRandomNumber(min, max);
-        textNum1.setText(String.valueOf(num1));
-        textNum2.setText(String.valueOf(num2));
+        num3 = _getRandomNumber(min, max);
+        numTotal = num1 + num2 + num3;
+        boolean coin = _coinFlip();
+
+        if(coin == true)
+        {
+            currentState = "Addition";
+
+            textNum1.setText(getString(R.string.textUnitMeters, num1));
+            textNum2.setText(getString(R.string.textUnitMeters, num2));
+            textNum3.setText(getString(R.string.textUnitMeters, num3));
+            textNumTotal.setText(getString(R.string.textNumPerimTotalStr, currentOperationInitial, "?"));
+        }
+        else
+        {
+            currentState = "Subtraction";
+
+            int choosePositions = _getRandomNumber(0, 2);
+
+            if(choosePositions == 0)
+            {
+                textNum1.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum2.setText(getString(R.string.textUnitMeters, num1));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 1)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 2)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMeters, num2));
+                textNum3.setText(getString(R.string.textUnitMetersStr, "?"));
+            }
+
+            textNumTotal.setText(getString(R.string.textNumPerimTotal, currentOperationInitial, numTotal));
+        }
         textUserInput.setText("");
 
-        // if questioncount == 25 finish somehow.
     }
 
-    public void ButtonOKSubtractionClick(View v)
+    public void ButtonOKAreaClick(View v)
     {
         String userInputText = textUserInput.getText().toString();
         if(userInputText.equals(""))
@@ -477,37 +419,94 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         }
 
         int userInputNum = Integer.parseInt(userInputText);
-        if(userInputNum == num1 - num2)
+
+        if(currentState == "Multiplication")
         {
-            imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
-
-            correctAnswerCount++;
-            textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
-            pbCorrectAnswerCount.incrementProgressBy(1);
-
-            if(correctAnswerCount >= 20)
+            if (userInputNum == numTotal)
             {
-                AllQuestionsFinished();
+                imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+                correctAnswerCount++;
+                textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+                pbCorrectAnswerCount.incrementProgressBy(1);
+                if (correctAnswerCount >= 20)
+                {
+                    AllQuestionsFinished();
+                }
+            }
+            else
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+                incorrectAnswerCount++;
             }
         }
-        else
+
+        if(currentState == "Division")
         {
-            imgDisplayResult.setImageResource(R.drawable.img_circle_x);
-            incorrectAnswerCount++;
+            if (userInputNum == num3)
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
+
+                correctAnswerCount++;
+                textCorrectAnswerCount.setText(getString(R.string.textCorrectAnswerCount, correctAnswerCount));
+                pbCorrectAnswerCount.incrementProgressBy(1);
+
+                if (correctAnswerCount >= 20)
+                {
+                    AllQuestionsFinished();
+                }
+            }
+            else
+            {
+                imgDisplayResult.setImageResource(R.drawable.img_circle_x);
+                incorrectAnswerCount++;
+            }
         }
 
         num1 = _getRandomNumber(min, max);
         num2 = _getRandomNumber(min, max);
+        num3 = _getRandomNumber(min, max);
+        numTotal = num1 * num2 * num3;
+        boolean coin = _coinFlip();
 
-        if(num2 > num1)
+        if(coin == true)
         {
-            int temp = num1;
-            num1 = num2;
-            num2 = temp;
-        }
+            currentState = "Multiplication";
 
-        textNum1.setText(String.valueOf(num1));
-        textNum2.setText(String.valueOf(num2));
+            textNum1.setText(getString(R.string.textUnitMeters, num1));
+            textNum2.setText(getString(R.string.textUnitMeters, num2));
+            textNum3.setText(getString(R.string.textUnitMeters, num3));
+            textNumTotal.setText(getString(R.string.textNumPerimTotalStr, currentOperationInitial, "?"));
+        }
+        else
+        {
+            currentState = "Division";
+
+            int choosePositions = _getRandomNumber(0, 2);
+
+            if(choosePositions == 0)
+            {
+                textNum1.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum2.setText(getString(R.string.textUnitMeters, num1));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 1)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMetersStr, "?"));
+                textNum3.setText(getString(R.string.textUnitMeters, num2));
+            }
+
+            else if(choosePositions == 2)
+            {
+                textNum1.setText(getString(R.string.textUnitMeters, num1));
+                textNum2.setText(getString(R.string.textUnitMeters, num2));
+                textNum3.setText(getString(R.string.textUnitMetersStr, "?"));
+            }
+
+            textNumTotal.setText(getString(R.string.textNumPerimTotal, currentOperationInitial, numTotal));
+        }
         textUserInput.setText("");
 
     }
@@ -521,6 +520,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         }
 
         int userInputNum = Integer.parseInt(userInputText);
+
         if(userInputNum == num1 * num2)
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_checkmark);
@@ -617,5 +617,28 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     {
         Random numGenerator = new Random();
         return numGenerator.nextInt((max - min) + 1) + min;
+    }
+
+    /*
+    ----------------------------------------------------
+    Parameters:   min (int), max (int)
+    Return:       num (int)
+    Description:  -Helper function that generates a random number
+                  between min and max
+    ----------------------------------------------------
+    */
+    public boolean _coinFlip()
+    {
+        Random numGenerator = new Random();
+        int num = numGenerator.nextInt((1 - 0) + 1) + 0;
+
+        if(num == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

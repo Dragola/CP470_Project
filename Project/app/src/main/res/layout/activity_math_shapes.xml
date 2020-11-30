@@ -5,16 +5,51 @@
     android:id="@+id/textDisplayLastResult"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MathTemplateActivity">
+    tools:context=".MathShapesActivity">
 
     <TextView
         android:id="@+id/textEquation"
-        android:layout_width="295dp"
-        android:layout_height="78dp"
-        android:gravity="bottom|end"
-        android:text="9074"
-        android:textSize="55sp"
-        app:layout_constraintBottom_toTopOf="@+id/textNum2"
+        android:layout_width="111dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="4dp"
+        android:text="4931m"
+        android:textAlignment="textEnd"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textNum2"
+        android:layout_width="115dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="4931m"
+        android:textAlignment="textStart"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toStartOf="@+id/imgDisplayResult"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textNum3"
+        android:layout_width="118dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="72dp"
+        android:text="4931m"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgShapes" />
+
+    <TextView
+        android:id="@+id/textNumTotal"
+        android:layout_width="152dp"
+        android:layout_height="85dp"
+        android:layout_marginBottom="1dp"
+        android:text="Total P = 13940m"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/textUserInput"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -24,28 +59,8 @@
         android:text="0/20"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textNum2"
-        android:layout_width="207dp"
-        android:layout_height="71dp"
-        android:text="4931"
-        android:textAlignment="textEnd"
-        android:textSize="55sp"
-        app:layout_constraintBottom_toTopOf="@+id/textAnswerDisplay"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textOperator"
-        android:layout_width="88dp"
-        android:layout_height="71dp"
-        android:text="+"
-        android:textAlignment="viewEnd"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/textAnswerDisplay"
-        app:layout_constraintEnd_toStartOf="@+id/textNum2" />
 
     <TextView
         android:id="@+id/textAnswerDisplay"
@@ -54,15 +69,12 @@
         android:text="@string/textAnswerDisplay"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/button1"
-        app:layout_constraintEnd_toStartOf="@+id/textUserInput"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textUserInput"
         android:layout_width="248dp"
         android:layout_height="62dp"
-        android:gravity="right"
-
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintStart_toEndOf="@+id/textAnswerDisplay" />
@@ -93,7 +105,6 @@
         android:layout_width="136dp"
         android:layout_height="101dp"
         android:text="3"
-
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -196,7 +207,7 @@
         android:layout_width="89dp"
         android:layout_height="69dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pbCorrectAnswerCount"
         app:srcCompat="@android:color/transparent" />
 
@@ -205,10 +216,20 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="53dp"
         android:layout_height="8dp"
-        android:layout_marginStart="16dp"
-        android:max="20"
+        android:layout_marginEnd="16dp"
         android:min="0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:max="20"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCorrectAnswerCount" />
+
+    <ImageView
+        android:id="@+id/imgShapes"
+        android:layout_width="147dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/triangle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

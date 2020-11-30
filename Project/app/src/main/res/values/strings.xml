@@ -17,7 +17,7 @@
     <string name="settingsButtonText">Settings</string>
     <string name="multipleChoiceButtonText">Multiple Choice</string>
 
-  
+
     <!-- Joeys Strings (If you use, put them ^)-->
 
     <!--activity_main_menu.xml-->
@@ -25,6 +25,9 @@
     <string name="textSubtraction">Subtraction</string>
     <string name="textMultiplication">Multiplication</string>
     <string name="textDivision">Division</string>
+    <string name="textPerimeter">Perimeter</string>
+    <string name="textArea">Area</string>
+    <string name="textAlgebra">Algebra</string>
     <string name="btnDifficultyEasy">Easy</string>
     <string name="btnDifficultyMedium">Medium</string>
     <string name="btnDifficultyHard">Hard</string>
@@ -38,4 +41,9 @@
     <string name="textAnswerIncorrect">No</string>
     <string name="textCorrectAnswerCount">%1$d/20</string>
 
+    <!--activity_math_shapes.xml-->
+    <string name="textUnitMeters">%1$dm</string>
+    <string name="textUnitMetersStr">%1$sm</string>
+    <string name="textNumPerimTotal">Total %1$s = %2$d</string>
+    <string name="textNumPerimTotalStr">Total %1$s = %2$s</string>
 </resources>

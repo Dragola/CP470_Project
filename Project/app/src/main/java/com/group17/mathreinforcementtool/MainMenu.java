@@ -275,4 +275,34 @@ public class MainMenu extends AppCompatActivity {
         i.putExtra("Difficulty", buttonText);
         startActivityForResult(i, 10);
     }
+
+    public void onPerimeterClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathShapesActivity.class);
+        i.putExtra("Type", "Perimeter");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 11);
+    }
+
+    public void onAreaClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathShapesActivity.class);
+        i.putExtra("Type", "Area");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 11);
+    }
+
+    public void onAlgebraClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathAlgebraActivity.class);
+        i.putExtra("Type", "Algebra");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 12);
+    }
 }
