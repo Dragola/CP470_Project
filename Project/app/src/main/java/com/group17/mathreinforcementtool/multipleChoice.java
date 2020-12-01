@@ -69,9 +69,6 @@ public class multipleChoice extends AppCompatActivity {
         difficulty = getIntent().getIntExtra("Difficulty", 0);
         type = getIntent().getIntExtra("Type", 0);
 
-        //debug
-        //Log.i("MC", "Type in activity= " + Integer.toString(type) + " vs. from intent= "  + Integer.toString(getIntent().getIntExtra("type", 0)));
-
         //find UI elements
         questionTextView = findViewById(R.id.questionTextView);
         questionsCorrectTextView = findViewById(R.id.questionsCorectTextView);
@@ -85,6 +82,7 @@ public class multipleChoice extends AppCompatActivity {
         darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
+        //generate x number of questions
         generateQuestions(10);
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
