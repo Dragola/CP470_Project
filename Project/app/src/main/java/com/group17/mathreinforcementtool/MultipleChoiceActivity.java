@@ -22,17 +22,18 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class multipleChoice extends AppCompatActivity {
+public class MultipleChoiceActivity extends AppCompatActivity {
     int difficulty = 0;
     int type = 0;
-    float number1 = 0f;
-    float number2 = 0f;
-    float numAnswer = 0f;
+    double number1 = 0f;
+    double number2 = 0f;
+    double numAnswer = 0f;
     int max = 9;
     int min = 1;
     TextView questionTextView = null;
@@ -47,12 +48,20 @@ public class multipleChoice extends AppCompatActivity {
     int medSize = 25;
     int largeSize = 35;
 
+
+    long timeStart = Calendar.getInstance().getTimeInMillis();
+
+    String operationString = "";
+    String difficultyString = "";
+    int incorrectAnswerCount = 0;
+
+
     //number generator
     Random rand = new Random();
 
     List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
     ArrayList<String> generatedQuestions = new ArrayList<>();
-    ArrayList<Float> generatedQuestionsNumber = new ArrayList<>();
+    ArrayList<Double> generatedQuestionsNumber = new ArrayList<>();
     int questionNum = 0;
 
     SharedPreferences darkPreference;
@@ -216,15 +225,31 @@ public class multipleChoice extends AppCompatActivity {
             correctCount++;
             text = "Correct!";
         }
-        //answer is wrong just print toast message
+        //answer is wrong so add to incorrect counter
         else{
             text = "Incorrect";
+            incorrectAnswerCount++;
         }
         Toast toast = Toast.makeText(this, text, duration);
         toast.show();
 
-        //WIP- close activity (save any stats or return anything before finishing, and indicate to user that they have completed the 10 questions)
+        //close activity
         if (correctCount >= 10){
+            long timeEnd = Calendar.getInstance().getTimeInMillis();
+            long totalTimeSeconds = (timeEnd - timeStart) / 1000;
+
+            Intent stats = new Intent();
+            //The operation and difficulty
+            stats.putExtra("Operation", operationString);
+            stats.putExtra("Difficulty", difficultyString);
+
+            //The time elapsed since starting the activity, in seconds
+            stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
+
+            //Number of times the user answered with a wrong answer
+            stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
+
+            setResult(RESULT_OK, stats);
             finish();
         }
         return isCorrect;
@@ -288,6 +313,9 @@ public class multipleChoice extends AppCompatActivity {
     public void setMaxMinValues(){
         //easy difficulty
         if(difficulty == 0){
+            //set difficulty string
+            difficultyString = "Easy";
+
             //addition or subtraction
             if(type < 2 ) {
                 max = 9;
@@ -300,6 +328,9 @@ public class multipleChoice extends AppCompatActivity {
         }
         //medium difficulty
         if(difficulty == 1){
+            //set difficulty string
+            difficultyString = "Medium";
+
             //addition or subtraction
             if(type < 2){
                 max = 99;
@@ -313,6 +344,8 @@ public class multipleChoice extends AppCompatActivity {
         }
         //hard difficulty
         if(difficulty == 2){
+            //set difficulty string
+            difficultyString = "Hard";
             //addition or subtraction
             if(type < 2){
                 max = 999;
@@ -353,7 +386,7 @@ public class multipleChoice extends AppCompatActivity {
         //loop until the number of questions required is met
         while (numQuestions > 0) {
             //prevent answer from being repeated, 0, infinite or NaN
-            while (generatedQuestionsNumber.contains(numAnswer) == true || numAnswer == 0 || Float.isInfinite(numAnswer) == true || Float.isNaN(numAnswer) == true) {
+            while (generatedQuestionsNumber.contains(numAnswer) == true || numAnswer == 0 || Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true) {
                 //pick 2 random numbers from the range
                 number1 = (float) rand.nextInt((max - min) + min);
                 number2 = (float) rand.nextInt((max - min) + min);
@@ -361,22 +394,34 @@ public class multipleChoice extends AppCompatActivity {
                 //addition
                 if(type == 0){
                     numAnswer = number1 + number2;
+                    if(operationString.compareTo("") == 0){
+                        operationString = "Addition";
+                    }
                 }
                 //subtraction
                 else if(type == 1){
                     numAnswer = number1 - number2;
+                    if(operationString.compareTo("") == 0){
+                        operationString = "Division";
+                    }
                 }
                 //multiplication
                 else if(type == 2){
                     numAnswer = number1 * number2;
+                    if(operationString.compareTo("") == 0){
+                        operationString = "Multiplication";
+                    }
                 }
                 //division
                 else{
                     numAnswer = number1 / number2;
+                    if(operationString.compareTo("") == 0){
+                        operationString = "/";
+                    }
                 }
             }
             //debug
-            generatedQuestionsNumber.add(numAnswer);
+            generatedQuestionsNumber.add((round(numAnswer, 3)));
             //addition question
             if (type == 0) {
                 //set text for question
@@ -394,6 +439,7 @@ public class multipleChoice extends AppCompatActivity {
             else if (type == 3) {
                 generatedQuestions.add((getString(R.string.questionText) + String.format(" %d / %d", Math.round(number1), Math.round(number2))+ " equals?"));
             }
+            Log.i("MC", generatedQuestions.get(generatedQuestions.size() - 1) + "= " + generatedQuestionsNumber.get(generatedQuestionsNumber.size() -1) + ". Size of array= " + generatedQuestions.size());
             numQuestions -= 1;
         }
         //initial text set
