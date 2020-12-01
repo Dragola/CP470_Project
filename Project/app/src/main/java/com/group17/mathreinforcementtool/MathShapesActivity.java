@@ -35,7 +35,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
     int num2;
     int num3;
     int numTotal;
-    int correctAnswerCount = 0;
+    int correctAnswerCount = 18;
     int incorrectAnswerCount = 0;
     int buttonPressCount = 0;
     String currentOperation;

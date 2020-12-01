@@ -115,13 +115,13 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             switch(currentDifficulty)
             {
                 case "Easy":
-                    min = 1; max = 49;
+                    min = 2; max = 15;
                     break;
                 case "Medium":
-                    min = 10; max = 499;
+                    min = 3; max = 30;
                     break;
                 case "Hard":
-                    min = 100; max = 4999;
+                    min = 4; max = 40;
                     break;
                 default:
                     Log.e(ACTIVITY_NAME, "Invalid Difficulty");
@@ -302,20 +302,36 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
         ArrayList<Tuple> theArray = new ArrayList<Tuple>(); // Create an ArrayList object
         currentEquation = "";
 
-        for(int i = 0; i < 4; i++)
-        {
-            int currentNum = _getRandomNumber(min, max);
-
-            String currentOperator = _getRandomOperator();
-            currentEquation = currentEquation + " " + currentNum + " " + currentOperator;
-
-            Tuple currentTuple = new Tuple(currentNum, currentOperator);
-            theArray.add(i, currentTuple);
-        }
-
         Tuple lastElement = new Tuple(_getRandomNumber(min, max), "");
         currentEquation = currentEquation + " " + lastElement.num;
-        theArray.add(4, lastElement);
+        theArray.add(0, lastElement);
+        int currentNum;
+
+        for(int i = 0; i < min; i++)
+        {
+            String currentOperator = _getRandomOperator();
+            if(currentOperator == "+")
+            {
+                currentNum = _getRandomNumber(min, max);
+            }
+            else if(currentOperator == "-")
+            {
+                currentNum = _getRandomNumber(theArray.get(0).num, max);
+            }
+            else if(currentOperator == "*")
+            {
+                currentNum = _getRandomNumber(2, min);
+            }
+            else // currentOperator == "/"
+            {
+                currentNum = theArray.get(0).num * _getRandomNumber(2, min);
+            }
+
+            currentEquation = currentNum + " " + currentOperator + " " + currentEquation;
+
+            Tuple currentTuple = new Tuple(currentNum, currentOperator);
+            theArray.add(0, currentTuple);
+        }
 
         // Solve it
         Tuple current;

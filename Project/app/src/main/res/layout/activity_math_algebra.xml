@@ -15,7 +15,7 @@
         android:layout_marginTop="128dp"
         android:text="12 + 34 - 56 * 78 / 12"
         android:textAlignment="center"
-        android:textSize="35sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

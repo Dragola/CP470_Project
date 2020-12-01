@@ -169,7 +169,8 @@ public class MainMenu extends AppCompatActivity {
                 /*
                  * This is all the data returned from MathTemplateActivity
                  *
-                 * Operation            - Currently can be "Addition", "Subtraction", "Multiplication", or "Division"
+                 * Operation            - Currently can be "Addition", "Subtraction", "Multiplication",
+                 *                        "Division", "Perimeter", "Area", "Algebra"
                  * Difficulty           - "Easy", "Medium", or "Hard"
                  * totalTimeSeconds     - The time elapsed since starting the activity, in seconds
                  * incorrectAnswerCount - How many times the user inputted an incorrect answer
@@ -285,7 +286,7 @@ public class MainMenu extends AppCompatActivity {
         Intent i = new Intent(this, MathShapesActivity.class);
         i.putExtra("Type", "Perimeter");
         i.putExtra("Difficulty", buttonText);
-        startActivityForResult(i, 11);
+        startActivityForResult(i, 10);
     }
 
     public void onAreaClick(View v)
@@ -295,7 +296,7 @@ public class MainMenu extends AppCompatActivity {
         Intent i = new Intent(this, MathShapesActivity.class);
         i.putExtra("Type", "Area");
         i.putExtra("Difficulty", buttonText);
-        startActivityForResult(i, 11);
+        startActivityForResult(i, 10);
     }
 
     public void onAlgebraClick(View v)
@@ -305,7 +306,7 @@ public class MainMenu extends AppCompatActivity {
         Intent i = new Intent(this, MathAlgebraActivity.class);
         i.putExtra("Type", "Algebra");
         i.putExtra("Difficulty", buttonText);
-        startActivityForResult(i, 12);
+        startActivityForResult(i, 10);
     }
 
     public void onTestLevelSelect(View v)
