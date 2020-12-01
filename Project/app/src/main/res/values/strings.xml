@@ -12,12 +12,11 @@
     <string name="bugButton">Report a Bug</string>
     <string name="volumeLabel">Volume</string>
     <string name="questionText">What is\: </string>
-    <string name="levelText">Level</string>
     <string name="RestartButton">Restart Progress</string>
     <string name="settingsButtonText">Settings</string>
     <string name="multipleChoiceButtonText">Multiple Choice</string>
+    <string name="btnLevelSelect">Test Level Select (Change After)</string>
 
-  
     <!-- Joeys Strings (If you use, put them ^)-->
 
     <!--activity_main_menu.xml-->
@@ -25,6 +24,9 @@
     <string name="textSubtraction">Subtraction</string>
     <string name="textMultiplication">Multiplication</string>
     <string name="textDivision">Division</string>
+    <string name="textPerimeter">Perimeter</string>
+    <string name="textArea">Area</string>
+    <string name="textAlgebra">Algebra</string>
     <string name="btnDifficultyEasy">Easy</string>
     <string name="btnDifficultyMedium">Medium</string>
     <string name="btnDifficultyHard">Hard</string>
@@ -37,5 +39,74 @@
     <string name="textAnswerCorrect">Yes</string>
     <string name="textAnswerIncorrect">No</string>
     <string name="textCorrectAnswerCount">%1$d/20</string>
+
+    <!--activity_math_shapes.xml-->
+    <string name="textUnitMeters">%1$dm</string>
+    <string name="textUnitMetersStr">%1$sm</string>
+    <string name="textNumPerimTotal">Total %1$s = %2$d</string>
+    <string name="textNumPerimTotalStr">Total %1$s = %2$s</string>
+
+    <!--activity_level_select.xml-->
+    <string name="levelText">Level</string>
+    <string name="startLevel">Start</string>
+    <string name="backLevel">Cancel</string>
+
+    <!--activity_level_type_select.xml-->
+    <string name="textSelectType">Select The Type Of Question</string>
+    <string name="btnAlgebra">Algebra</string>
+    <string name="btnGeometry">Geometry</string>
+    <string name="btnCombined">Combined</string>
+    <string name="textAdditionDesc">Add</string>
+    <string name="textSubtractionDesc">Subtract</string>
+    <string name="textMultiplicationDesc">Multiply</string>
+    <string name="textDivisionDesc">Divide</string>
+    <string name="textAreaDesc">Area</string>
+    <string name="textPerimeterDesc">Perimeter</string>
+    <string name="textMCQ">MCQ</string>
+    <string name="textMCQDesc">MCQ</string>
+    <string name="textCalculate">Combined Algebra</string>
+    <string name="textCalculateDesc">Enter the Value</string>
+    <string name="sharedPrefFailed">Failed to generate levels</string>
+
+    <!--activity_level_select.xml Level Descriptions-->
+    <string name="textActivityType">Activity Type:</string>
+    <string name="textLevelDifficulty">Level Difficulty:</string>
+    <string name="textLevelDesc">Level Description:</string>
+    <string name="Addition">Addition</string>
+    <string name="Subtraction">Subtraction</string>
+    <string name="Multiplication">Multiplication</string>
+    <string name="Division">Division</string>
+    <string name="Area">Area</string>
+    <string name="Perimeter">Perimeter</string>
+    <string name="Algebra">Combined Algebra</string>
+    <string name="MCQ">Multiple Choice Questions</string>
+    <string name="Easy">Easy</string>
+    <string name="Medium">Medium</string>
+    <string name="Hard">Hard</string>
+    <string name="AdditionEasyDescription">insert description and rules</string>
+    <string name="AdditionMediumDescription">insert description and rules</string>
+    <string name="AdditionHardDescription">insert description and rules</string>
+    <string name="SubtractionEasyDescription">insert description and rules</string>
+    <string name="SubtractionMediumDescription">insert description and rules</string>
+    <string name="SubtractionHardDescription">insert description and rules</string>
+    <string name="MultiplicationEasyDescription">insert description and rules</string>
+    <string name="MultiplicationMediumDescription">insert description and rules</string>
+    <string name="MultiplicationHardDescription">insert description and rules</string>
+    <string name="DivisionEasyDescription">insert description and rules</string>
+    <string name="DivisionMediumDescription">insert description and rules</string>
+    <string name="DivisionHardDescription">insert description and rules</string>
+    <string name="AreaEasyDescription">insert description and rules</string>
+    <string name="AreaMediumDescription">insert description and rules</string>
+    <string name="AreaHardDescription">insert description and rules</string>
+    <string name="PerimeterEasyDescription">insert description and rules</string>
+    <string name="PerimeterMediumDescription">insert description and rules</string>
+    <string name="PerimeterHardDescription">insert description and rules</string>
+    <string name="AlgebraEasyDescription">insert description and rules</string>
+    <string name="AlgebraMediumDescription">insert description and rules</string>
+    <string name="AlgebraHardDescription">insert description and rules</string>
+    <string name="MCQEasyDescription">insert description and rules</string>
+    <string name="MCQMediumDescription">insert description and rules</string>
+    <string name="MCQHardDescription">insert description and rules</string>
+
 
 </resources>

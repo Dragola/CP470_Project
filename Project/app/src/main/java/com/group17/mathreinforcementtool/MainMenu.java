@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import java.util.logging.Level;
+
 public class MainMenu extends AppCompatActivity {
 
     List<Button> buttonList = new ArrayList<Button>();
@@ -167,7 +169,8 @@ public class MainMenu extends AppCompatActivity {
                 /*
                  * This is all the data returned from MathTemplateActivity
                  *
-                 * Operation            - Currently can be "Addition", "Subtraction", "Multiplication", or "Division"
+                 * Operation            - Currently can be "Addition", "Subtraction", "Multiplication",
+                 *                        "Division", "Perimeter", "Area", "Algebra"
                  * Difficulty           - "Easy", "Medium", or "Hard"
                  * totalTimeSeconds     - The time elapsed since starting the activity, in seconds
                  * incorrectAnswerCount - How many times the user inputted an incorrect answer
@@ -203,22 +206,22 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 0);
-        intent.putExtra("type", 2);
+        intent.putExtra("Difficulty", 0);
+        intent.putExtra("Type", 2);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 1);
-        intent.putExtra("type", 0);
+        intent.putExtra("Difficulty", 1);
+        intent.putExtra("Type", 0);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickHardMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 2);
-        intent.putExtra("type", 0);
+        intent.putExtra("Difficulty", 2);
+        intent.putExtra("Type", 0);
         startActivity(intent);
     }
 
@@ -274,5 +277,41 @@ public class MainMenu extends AppCompatActivity {
         i.putExtra("Type", "Division");
         i.putExtra("Difficulty", buttonText);
         startActivityForResult(i, 10);
+    }
+
+    public void onPerimeterClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathShapesActivity.class);
+        i.putExtra("Type", "Perimeter");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 10);
+    }
+
+    public void onAreaClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathShapesActivity.class);
+        i.putExtra("Type", "Area");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 10);
+    }
+
+    public void onAlgebraClick(View v)
+    {
+        Button currentButton = findViewById(v.getId());
+        String buttonText = currentButton.getText().toString();
+        Intent i = new Intent(this, MathAlgebraActivity.class);
+        i.putExtra("Type", "Algebra");
+        i.putExtra("Difficulty", buttonText);
+        startActivityForResult(i, 10);
+    }
+
+    public void onTestLevelSelect(View v)
+    {
+        Intent intent = new Intent(this, LevelTypeSelect.class);
+        startActivity(intent);
     }
 }

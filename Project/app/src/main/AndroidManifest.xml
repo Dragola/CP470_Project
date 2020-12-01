@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LevelTypeSelect" />
+        <activity android:name=".MathAlgebraActivity" />
+        <activity android:name=".MathShapesActivity" />
         <activity android:name=".MathTemplateActivity" />
         <activity android:name=".multipleChoice" />
         <activity android:name=".LevelSelect" />
-        <activity android:name=".SettingsActivity">
-        </activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

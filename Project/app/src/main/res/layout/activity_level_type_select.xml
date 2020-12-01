@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LevelTypeSelect">
+
+    <Button
+        android:id="@+id/buttonTypeCombined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/btnCombined"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonTypeGeometry"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLevelTypeSelect"
+        android:onClick="onClickCombined"/>
+
+    <Button
+        android:id="@+id/buttonTypeAlgebra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/btnAlgebra"
+        app:layout_constraintEnd_toStartOf="@+id/buttonTypeGeometry"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLevelTypeSelect"
+        android:onClick="onClickAlgebra" />
+
+    <Button
+        android:id="@+id/buttonTypeGeometry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/btnGeometry"
+        app:layout_constraintEnd_toStartOf="@+id/buttonTypeCombined"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonTypeAlgebra"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLevelTypeSelect"
+        android:onClick="onClickGeometry" />
+
+    <FrameLayout
+        android:id="@+id/flLevelType"
+        android:layout_width="363dp"
+        android:layout_height="571dp"
+        android:background="#A5A3A3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTypeAlgebra" />
+
+    <TextView
+        android:id="@+id/textViewLevelTypeSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:text="@string/textSelectType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
