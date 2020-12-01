@@ -16,5 +16,9 @@
     <color name="colorDarkCompleted">#217814</color>
     <color name="colorDarkIncorrect">#781416</color>
     <color name="colorDarkInprogress">#e3c012</color>
+    <!--Colours for LevelSelectDialog-->
+    <color name="colorLightHeaderBackground">#6200EE</color>
+    <color name="colorDarkHeaderBackground">#3700B3</color>
+
 
 </resources>

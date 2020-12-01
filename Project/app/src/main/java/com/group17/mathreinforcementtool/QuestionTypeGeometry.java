@@ -1,0 +1,54 @@
+package com.group17.mathreinforcementtool;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+public class QuestionTypeGeometry extends Fragment {
+    protected static final String ACTIVITY_NAME = "GeometryFragment";
+
+    public QuestionTypeGeometry() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.i(ACTIVITY_NAME, "In onCreate()");
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_question_type_geometry, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Set the button's onClickListeners with the correct Intents
+        Button btnArea = view.findViewById(R.id.btnArea);
+        Button btnPerimeter = view.findViewById(R.id.btnPerimeter);
+        btnArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LevelSelect.class);
+                intent.putExtra("requestCode", "Area");
+                startActivity(intent);
+            }
+        });
+        btnPerimeter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LevelSelect.class);
+                intent.putExtra("requestCode", "Perimeter");
+                startActivity(intent);
+            }
+        });
+    }
+}

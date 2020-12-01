@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import java.util.logging.Level;
+
 public class MainMenu extends AppCompatActivity {
 
     List<Button> buttonList = new ArrayList<Button>();
@@ -203,22 +205,22 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 0);
-        intent.putExtra("type", 2);
+        intent.putExtra("Difficulty", 0);
+        intent.putExtra("Type", 2);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 1);
-        intent.putExtra("type", 0);
+        intent.putExtra("Difficulty", 1);
+        intent.putExtra("Type", 0);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickHardMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
-        intent.putExtra("difficulty", 2);
-        intent.putExtra("type", 0);
+        intent.putExtra("Difficulty", 2);
+        intent.putExtra("Type", 0);
         startActivity(intent);
     }
 
@@ -304,5 +306,11 @@ public class MainMenu extends AppCompatActivity {
         i.putExtra("Type", "Algebra");
         i.putExtra("Difficulty", buttonText);
         startActivityForResult(i, 12);
+    }
+
+    public void onTestLevelSelect(View v)
+    {
+        Intent intent = new Intent(this, LevelTypeSelect.class);
+        startActivity(intent);
     }
 }
