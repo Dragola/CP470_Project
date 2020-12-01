@@ -207,21 +207,21 @@ public class MainMenu extends AppCompatActivity {
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
         intent.putExtra("Difficulty", 0);
-        intent.putExtra("Type", 2);
+        intent.putExtra("Type", 1);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
         intent.putExtra("Difficulty", 1);
-        intent.putExtra("Type", 0);
+        intent.putExtra("Type", 3);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickHardMultipleChoice(View view){
         Intent intent = new Intent(this, multipleChoice.class);
         intent.putExtra("Difficulty", 2);
-        intent.putExtra("Type", 0);
+        intent.putExtra("Type", 1);
         startActivity(intent);
     }
 
