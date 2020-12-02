@@ -81,11 +81,11 @@ public class LevelSelect extends AppCompatActivity {
         }
 
         if(fontPreference.getInt("Size", 15) == 15){
-            size = 15;
+            size = 10;
         } else if (fontPreference.getInt("Size", 15) == 20){
-            size = 20;
+            size = 15;
         } else {
-            size = 25;
+            size = 20;
         }
 
         // Populate layout with n buttons and set their colour, other values and onclick functions
@@ -182,7 +182,7 @@ public class LevelSelect extends AppCompatActivity {
         int columns = 4;
         int rows = (numLevels / columns) + 1;
         int deviceWidth = getDeviceWidth();
-        int paddingValue = 20;
+        int paddingValue = 10;
         int buttonWidth = (deviceWidth-8*paddingValue)/columns;
 
         // Makes the grid layout
