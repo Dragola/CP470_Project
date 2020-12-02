@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,10 @@ public class LevelSelect extends AppCompatActivity {
     private int colorCompleted;
     private int colorInprogress;
 
+    ScrollView layout;
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(ACTIVITY_NAME, "In onCreate()");
@@ -42,6 +48,12 @@ public class LevelSelect extends AppCompatActivity {
         // Get the request code (the math activity to select levels for)
         Intent intent = getIntent();
         String requestCode = intent.getStringExtra("requestCode");
+
+        layout = findViewById(R.id.lvlSelect);
+
+//        layout = findViewById(R.id.textDisplayLastResult);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
         // The current color scheme to use
         colorLocked = ResourcesCompat.getColor(getResources(), R.color.colorLightLocked, null);
@@ -71,6 +83,11 @@ public class LevelSelect extends AppCompatActivity {
         populateLayout(levelsData);
 
         // Save level progression
+
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+        }
+
     }
 
     // Creates default data array for each level

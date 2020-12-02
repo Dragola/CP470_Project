@@ -1,6 +1,8 @@
 package com.group17.mathreinforcementtool;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +12,23 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 
 public class QuestionTypeCombined extends Fragment {
     protected static final String ACTIVITY_NAME = "AlgebraFragment";
 
-    public QuestionTypeCombined() {}
+    public QuestionTypeCombined() {
+    }
+
+    SharedPreferences fontPreference;
+    int smallSize = 15;
+    int medSize = 20;
+    int largeSize = 25;
+    List<Button> btnList = new ArrayList<Button>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +48,7 @@ public class QuestionTypeCombined extends Fragment {
         Button btnMCQ = view.findViewById(R.id.btnMCQ);
         Button btnCalculate = view.findViewById(R.id.btnCalculate);
         Button btnTestLvl = view.findViewById(R.id.btnTestLevelSelect);
+        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnMCQ, btnCalculate));
         btnMCQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,5 +73,22 @@ public class QuestionTypeCombined extends Fragment {
                 startActivity(intent);
             }
         });
+
+        fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        if (fontPreference.getInt("Size", medSize) == 15) {
+            for (Button b : btnList) {
+                b.setTextSize(10);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20) {
+            for (Button b : btnList) {
+                b.setTextSize(15);
+            }
+        } else {
+            for (Button b : btnList) {
+                b.setTextSize(20);
+            }
+
+        }
     }
 }
