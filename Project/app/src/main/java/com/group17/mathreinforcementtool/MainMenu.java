@@ -20,8 +20,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import java.util.logging.Level;
-
 public class MainMenu extends AppCompatActivity {
 
     List<Button> buttonList = new ArrayList<Button>();
@@ -205,21 +203,21 @@ public class MainMenu extends AppCompatActivity {
     }
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
-        Intent intent = new Intent(this, multipleChoice.class);
+        Intent intent = new Intent(this, MultipleChoiceActivity.class);
         intent.putExtra("Difficulty", 0);
         intent.putExtra("Type", 1);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
-        Intent intent = new Intent(this, multipleChoice.class);
+        Intent intent = new Intent(this, MultipleChoiceActivity.class);
         intent.putExtra("Difficulty", 1);
         intent.putExtra("Type", 3);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickHardMultipleChoice(View view){
-        Intent intent = new Intent(this, multipleChoice.class);
+        Intent intent = new Intent(this, MultipleChoiceActivity.class);
         intent.putExtra("Difficulty", 2);
         intent.putExtra("Type", 1);
         startActivity(intent);
