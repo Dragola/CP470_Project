@@ -118,6 +118,23 @@ public class LevelSelect extends AppCompatActivity {
             levelData.add("MCQ" + "/" + "Easy" + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCQEasyDescription" + "/" + Integer.toString(0) + "/" + "2" + "/" + "0");
             levelData.add("MCQ" + "/" + "Medium" + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCQMediumDescription" + "/" + Integer.toString(0) + "/" + "0" + "/" + "1");
             levelData.add("MCQ" + "/" + "Hard" + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCQHardDescription" + "/" + Integer.toString(1) + "/" + "0" + "/" + "2");
+        }else if (requestCode.equals("TestLvl")) {
+            String tempStr = "";
+            for (int i = 1; i <= 75; i++) {
+                if ((i >= 1) && (i <= 13)) {
+                    tempStr = "TestLvl" + "/" + i + "/" + Integer.toString(COLOR_COMPLETED) + "/" + "TestLvlDescription" + "/" + Integer.toString(0) + "/" + "0" + "/" + "0";
+                } else if ((i >= 14) && (i <= 20)) {
+                    tempStr = "TestLvl" + "/" + i + "/" + Integer.toString(COLOR_INPROGRESS) + "/" + "TestLvlDescription" + "/" + Integer.toString(0) + "/" + "0" + "/" + "0";
+                } else if ((i >= 21) && (i <= 40)) {
+                    tempStr = "TestLvl" + "/" + i + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "TestLvlDescription" + "/" + Integer.toString(0) + "/" + "0" + "/" + "0";
+                    if ((i == 22) || (i == 27) || (i == 30) || (i == 34)) {
+                        tempStr = "TestLvl" + "/" + i + "/" + Integer.toString(COLOR_INPROGRESS) + "/" + "TestLvlDescription" + "/" + Integer.toString(0) + "/" + "0" + "/" + "0";
+                    }
+                } else if ((i >= 41) && (i <= 75)) {
+                    tempStr = "TestLvl" + "/" + i + "/" + Integer.toString(COLOR_LOCKED) + "/" + "TestLvlDescription" + "/" + Integer.toString(1) + "/" + "0" + "/" + "0";
+                }
+                levelData.add(tempStr);
+            }
         }
         // saves the list to a SharedPrefrence file
         //saveLevelsToPrefrences(levelData, requestCode);
@@ -188,7 +205,7 @@ public class LevelSelect extends AppCompatActivity {
             // Adds the button to the grid
             grid.addView(buttonLevel);
             // if the button is not locked
-            if (isLocked == 0) {
+            if ((isLocked == 0) && (levelType.compareTo("TestLvl") != 0)) {
                 // Sets the on click listener (Adding a if statement should be able to lock a button)
                 int buttonLevelId = buttonLevel.getId();
                 Button button = (Button) findViewById(buttonLevelId);

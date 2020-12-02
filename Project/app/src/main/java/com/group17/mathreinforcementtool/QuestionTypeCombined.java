@@ -33,6 +33,7 @@ public class QuestionTypeCombined extends Fragment {
         // Set the button's onClickListeners with the correct Intents
         Button btnMCQ = view.findViewById(R.id.btnMCQ);
         Button btnCalculate = view.findViewById(R.id.btnCalculate);
+        Button btnTestLvl = view.findViewById(R.id.btnTestLevelSelect);
         btnMCQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +47,14 @@ public class QuestionTypeCombined extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LevelSelect.class);
                 intent.putExtra("requestCode", "Algebra");
+                startActivity(intent);
+            }
+        });
+        btnTestLvl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LevelSelect.class);
+                intent.putExtra("requestCode", "TestLvl");
                 startActivity(intent);
             }
         });
