@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item android:id="@+id/BugButton"
+            android:title="@string/bugButton"
+            android:orderInCategory="101"
+            app:showAsAction="never" />
+
+    <item android:id="@+id/AgreementButton"
+        android:title="@string/agreementButton"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/PolicyButton"
+        android:title="@string/privacyPolicyButton"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/about"
+        android:title="Version"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
+</menu>
