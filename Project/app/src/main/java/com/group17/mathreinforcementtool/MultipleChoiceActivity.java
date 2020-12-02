@@ -47,10 +47,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     int smallSize = 15;
     int medSize = 25;
     int largeSize = 35;
+    int questionNum = 0;
 
-
+    //statistics
     long timeStart = Calendar.getInstance().getTimeInMillis();
-
     String operationString = "";
     String difficultyString = "";
     int incorrectAnswerCount = 0;
@@ -59,11 +59,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     //number generator
     Random rand = new Random();
 
+    //Arrays/Lists
     List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
     ArrayList<String> generatedQuestions = new ArrayList<>();
     ArrayList<Double> generatedQuestionsNumber = new ArrayList<>();
-    int questionNum = 0;
 
+    //Dark mode and font preferences
     SharedPreferences darkPreference;
     SharedPreferences fontPreference;
 
@@ -195,14 +196,13 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             answerRadioButton4.setChecked(false);
         }
         //check answer
-        boolean isCorrect = correctAnswer(answer);
+        correctAnswer(answer);
 
         //only increase index if not at the end of ArrayList
         if(questionNum < generatedQuestions.size()){
             //only increment if question wasn't true (prevent jumping index)
-            if(isCorrect == false) {
-                questionNum += 1;
-            }
+            questionNum += 1;
+
         }
         //push back index
         else{
@@ -212,14 +212,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         updateTexts();
         return;
     }
-    public boolean correctAnswer(float answer){
-        boolean isCorrect = false;
+    public void correctAnswer(float answer){
         CharSequence text;
         int duration= Toast.LENGTH_SHORT;
 
         //if answer is correct increment counter and print toast
         if(answer == generatedQuestionsNumber.get(questionNum)){
-            isCorrect = true;
             generatedQuestions.remove(questionNum);
             generatedQuestionsNumber.remove(questionNum);
             correctCount++;
@@ -228,6 +226,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //answer is wrong so add to incorrect counter
         else{
             text = "Incorrect";
+            Log.i("MC", "Answer= " + answer + " != " + generatedQuestionsNumber.get(questionNum));
             incorrectAnswerCount++;
         }
         Toast toast = Toast.makeText(this, text, duration);
@@ -252,7 +251,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             setResult(RESULT_OK, stats);
             finish();
         }
-        return isCorrect;
+        return;
     }
 
     public void updateTexts(){
@@ -276,12 +275,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             else {
                 answerSpot = pickAnswerSpot(String.format("%.3f", round(generatedQuestionsNumber.get(questionNum), 3)));
             }
-            ArrayList<Float> generatedAnswers = new ArrayList<>();
+            ArrayList<Double> generatedAnswers = new ArrayList<>();
             for (int i = 0; i < 4; i++) {
                 if (i != answerSpot) {
                     String answerText;
 
-                    float answer = (generateRandomAnswer(generatedAnswers));
+                    double answer = (generateRandomAnswer(generatedAnswers, generatedQuestionsNumber.get(questionNum)));
                     generatedAnswers.add(answer);
 
                     //if the number is whole then print number as integer (no decimal)
@@ -290,7 +289,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     }
                     //number is a decimal so print as decimal number (up to 3 decimal points)
                     else {
-                        answerText = String.format("%.3f", round(answer, 3));
+                        answerText = String.format("%.3f", answer);
                     }
 
                     //set buttons text
@@ -386,7 +385,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //loop until the number of questions required is met
         while (numQuestions > 0) {
             //prevent answer from being repeated, 0, infinite or NaN
-            while (generatedQuestionsNumber.contains(numAnswer) == true || numAnswer == 0 || Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true) {
+            while (Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true || numAnswer == 0 || generatedQuestionsNumber.contains(round(numAnswer, 3)) == true) {
                 //pick 2 random numbers from the range
                 number1 = (float) rand.nextInt((max - min) + min);
                 number2 = (float) rand.nextInt((max - min) + min);
@@ -420,7 +419,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     }
                 }
             }
-            //debug
             generatedQuestionsNumber.add((round(numAnswer, 3)));
             //addition question
             if (type == 0) {
@@ -439,52 +437,53 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             else if (type == 3) {
                 generatedQuestions.add((getString(R.string.questionText) + String.format(" %d / %d", Math.round(number1), Math.round(number2))+ " equals?"));
             }
-            Log.i("MC", generatedQuestions.get(generatedQuestions.size() - 1) + "= " + generatedQuestionsNumber.get(generatedQuestionsNumber.size() -1) + ". Size of array= " + generatedQuestions.size());
+            Log.i("MC", "New question: " + generatedQuestions.get(generatedQuestions.size() - 1) + "= " + generatedQuestionsNumber.get(generatedQuestionsNumber.size() -1) + ". Size of array= " + generatedQuestions.size());
             numQuestions -= 1;
         }
         //initial text set
         updateTexts();
         return;
     }
-    public float generateRandomAnswer(ArrayList<Float> generatedAnswers) {
-        float randomAnswer;
-        int i = 0;
+    public double generateRandomAnswer(ArrayList<Double> generatedAnswers, double answer) {
+        double randomAnswer;
         //addition
         if (type == 0) {
-            randomAnswer = (((float) rand.nextInt((max - min) + min)) + ((float) rand.nextInt((max - min) + min)));
+            randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
         }
         //subtraction
         else if (type == 1) {
-            randomAnswer = (((float) rand.nextInt((max - min) + min)) - ((float) rand.nextInt((max - min) + min)));
+            randomAnswer = (((double) rand.nextInt((max - min) + min)) - ((double) rand.nextInt((max - min) + min)));
         }
         //multiplication
         else if (type == 2) {
-            randomAnswer = (((float) rand.nextInt((max - min) + min)) * ((float) rand.nextInt((max - min) + min)));
+            randomAnswer = (((double) rand.nextInt((max - min) + min)) * ((double) rand.nextInt((max - min) + min)));
         }
         //division
         else {
-            randomAnswer = (((float) rand.nextInt((max - min) + min)) / ((float) rand.nextInt((max - min) + min)));
+            randomAnswer = (((double) rand.nextInt((max - min) + min)) / ((double) rand.nextInt((max - min) + min)));
         }
         //keep randomizing answer until it doesn't match the answer, isn't an already generated answer, isn't infinite or NaN
-        while (generatedAnswers.contains(randomAnswer) == true || Float.isInfinite(randomAnswer) == true || Float.isNaN(randomAnswer) == true) {
+        while (Double.isInfinite(randomAnswer) == true || Double.isNaN(randomAnswer) == true|| round(randomAnswer, 3) == answer ||generatedAnswers.contains(round(randomAnswer, 3)) == true) {
             //addition
             if (type == 0) {
-                randomAnswer = (((float) rand.nextInt((max - min) + min)) + ((float) rand.nextInt((max - min) + min)));
+                randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
             }
             //subtraction
             else if (type == 1) {
-                randomAnswer = (((float) rand.nextInt((max - min) + min)) - ((float) rand.nextInt((max - min) + min)));
+                randomAnswer = (((double) rand.nextInt((max - min) + min)) - ((double) rand.nextInt((max - min) + min)));
             }
             //multiplication
             else if (type == 2) {
-                randomAnswer = (((float) rand.nextInt((max - min) + min)) * ((float) rand.nextInt((max - min) + min)));
+                randomAnswer = (((double) rand.nextInt((max - min) + min)) * ((double) rand.nextInt((max - min) + min)));
             }
             //division
             else {
-                randomAnswer = (((float) rand.nextInt((max - min) + min)) / ((float) rand.nextInt((max - min) + min)));
+                randomAnswer = (((double) rand.nextInt((max - min) + min)) / ((double) rand.nextInt((max - min) + min)));
             }
+            //Log.i("MC", "Check random answer= " + randomAnswer);
         }
-        return randomAnswer;
+        //Log.i("MC", "New random answer= " + randomAnswer);
+        return round(randomAnswer, 3);
     }
 
 
