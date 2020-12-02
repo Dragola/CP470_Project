@@ -47,12 +47,10 @@
         android:layout_width="136dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="259dp"
-        android:layout_marginBottom="11dp"
         android:text="@string/multipleChoiceButtonText"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/easyMultipleChoice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +60,7 @@
         android:layout_width="95dp"
         android:layout_height="54dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="296dp"
         android:layout_marginBottom="448dp"
         android:onClick="onClickEasyMultipleChoice"
@@ -71,8 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple" />
 
     <Button
         android:id="@+id/mediumMultipleChoice"
