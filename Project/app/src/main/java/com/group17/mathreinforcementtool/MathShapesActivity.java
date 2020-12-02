@@ -1,18 +1,27 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 public class MathShapesActivity extends AppCompatActivity implements View.OnTouchListener
@@ -25,6 +34,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
     TextView textUserInput;
     TextView textNumTotal;
     TextView textCorrectAnswerCount;
+    TextView answerString;
     ProgressBar pbCorrectAnswerCount;
     ImageView imgDisplayResult;
     ImageView imgShapes;
@@ -42,6 +52,16 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
     String currentOperationInitial;
     String currentState;
     String currentDifficulty;
+
+    SharedPreferences fontPreference;
+    SharedPreferences darkPreference;
+    int smallSize = 15;
+    int medSize = 20;
+    int largeSize = 25;
+    List<Button> btnList = new ArrayList<Button>();
+    List<TextView> textViewList = new ArrayList<TextView>();
+    ConstraintLayout layout;
+    TextView titleString;
 
     /*
     ----------------------------------------------------
@@ -119,7 +139,58 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
         currentOperation = getIntent().getStringExtra("Type");
         currentDifficulty = getIntent().getStringExtra("Difficulty");
         boolean coin = _coinFlip();
+        answerString = findViewById(R.id.textAnswerDisplay);
 
+        textViewList.addAll((Collection<? extends  TextView>) Arrays.asList(textNum1,textNum2,textNum3,textNumTotal, textUserInput));
+        btnList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.button0), (Button) findViewById(R.id.button1), (Button) findViewById(R.id.button2), (Button) findViewById(R.id.button3), (Button) findViewById(R.id.button4), (Button) findViewById(R.id.button5), (Button) findViewById(R.id.button6), (Button) findViewById(R.id.button7), (Button) findViewById(R.id.button8), (Button) findViewById(R.id.button9), (Button) findViewById(R.id.buttonOK), (Button) findViewById(R.id.buttonBack)));
+
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        layout = findViewById(R.id.textDisplayLastResult);
+
+        if(darkPreference.getBoolean("DarkStatus", true) == true){
+            layout.setBackgroundColor(Color.BLACK);
+            textCorrectAnswerCount.setTextColor(Color.WHITE);
+            imgShapes.setColorFilter(Color.WHITE);
+            answerString.setTextColor(Color.WHITE);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+            textCorrectAnswerCount.setTextColor(Color.BLACK);
+            imgShapes.setColorFilter(Color.BLACK);
+            answerString.setTextColor(Color.BLACK);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.BLACK);
+            }
+        }
+        if (fontPreference.getInt("Size", medSize) == 15) {
+            for (Button b : btnList) {
+                b.setTextSize(10);
+            }
+            for(TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
+            answerString.setTextSize(smallSize);
+        } else if (fontPreference.getInt("Size", medSize) == 20) {
+            for (Button b : btnList) {
+                b.setTextSize(15);
+            }
+            for(TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
+            answerString.setTextSize(medSize);
+        } else {
+            for (Button b : btnList) {
+                b.setTextSize(20);
+            }
+            for(TextView t: textViewList){
+                t.setTextSize(largeSize);
+            }
+            answerString.setTextSize(largeSize);
+        }
 
         if(currentOperation.equals("Perimeter"))
         {

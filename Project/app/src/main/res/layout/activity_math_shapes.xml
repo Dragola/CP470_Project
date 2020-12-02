@@ -47,15 +47,16 @@
         android:layout_height="85dp"
         android:layout_marginBottom="1dp"
         android:text="Total P = 13940m"
-        android:textAlignment="center"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/textUserInput"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="bottom"/>
 
     <TextView
         android:id="@+id/textCorrectAnswerCount"
         android:layout_width="85dp"
         android:layout_height="23dp"
+        android:layout_marginTop="2dp"
         android:text="0/20"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -69,12 +70,14 @@
         android:text="@string/textAnswerDisplay"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/button1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="bottom"/>
 
     <TextView
         android:id="@+id/textUserInput"
         android:layout_width="248dp"
         android:layout_height="62dp"
+        android:gravity="bottom|left"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintStart_toEndOf="@+id/textAnswerDisplay" />
@@ -204,9 +207,11 @@
 
     <ImageView
         android:id="@+id/imgDisplayResult"
-        android:layout_width="89dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textNumTotal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pbCorrectAnswerCount"
         app:srcCompat="@android:color/transparent" />
@@ -217,8 +222,8 @@
         android:layout_width="53dp"
         android:layout_height="8dp"
         android:layout_marginEnd="16dp"
-        android:min="0"
         android:max="20"
+        android:min="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCorrectAnswerCount" />
 
