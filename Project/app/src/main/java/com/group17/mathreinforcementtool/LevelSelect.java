@@ -182,7 +182,7 @@ public class LevelSelect extends AppCompatActivity {
         int columns = 4;
         int rows = (numLevels / columns) + 1;
         int deviceWidth = getDeviceWidth();
-        int paddingValue = 10;
+        int paddingValue = 20;
         int buttonWidth = (deviceWidth-8*paddingValue)/columns;
 
         // Makes the grid layout
