@@ -60,8 +60,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
-        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+            darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+            fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
         darkEditor = darkPreference.edit();
         fontEditor = fontPreference.edit();
 

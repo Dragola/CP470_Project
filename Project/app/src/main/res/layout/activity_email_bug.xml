@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Email"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EmailBug">
@@ -10,9 +11,9 @@
         android:id="@+id/buttonSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Send Bug"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="137dp"
-        android:text="Send Bug"/>
+        tools:layout_editor_absoluteX="137dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -22,11 +23,14 @@
         tools:layout_editor_absoluteX="117dp" />
 
     <TextView
+
+        android:id="@+id/greetingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="Hello, it seems that you have found a bug. Enter a description of the bug you found into the box at the bottom and click the button to email the bug to us."
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
