@@ -39,6 +39,7 @@ public class LevelSelect extends AppCompatActivity {
     ScrollView layout;
     SharedPreferences darkPreference;
     SharedPreferences fontPreference;
+    int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,14 @@ public class LevelSelect extends AppCompatActivity {
             Toast toast = Toast.makeText(getBaseContext(), R.string.sharedPrefFailed, Toast.LENGTH_LONG);
             toast.show();
             finish();
+        }
+
+        if(fontPreference.getInt("Size", 15) == 15){
+            size = 15;
+        } else if (fontPreference.getInt("Size", 15) == 20){
+            size = 20;
+        } else {
+            size = 25;
         }
 
         // Populate layout with n buttons and set their colour, other values and onclick functions
@@ -207,6 +216,7 @@ public class LevelSelect extends AppCompatActivity {
             buttonLevel.setText(difficulty);
             buttonLevel.setWidth(buttonWidth);
             buttonLevel.setLayoutParams(layoutParams);
+            buttonLevel.setTextSize(size);
             // Set dynamic colour based on level completion
             if (colorCode == COLOR_COMPLETED) {
                 buttonLevel.setBackgroundColor(colorCompleted);
@@ -221,6 +231,7 @@ public class LevelSelect extends AppCompatActivity {
             }
             // Adds the button to the grid
             grid.addView(buttonLevel);
+
             // if the button is not locked
             if ((isLocked == 0) && (levelType.compareTo("TestLvl") != 0)) {
                 // Sets the on click listener (Adding a if statement should be able to lock a button)

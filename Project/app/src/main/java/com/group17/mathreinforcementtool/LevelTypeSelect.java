@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class LevelTypeSelect extends AppCompatActivity {
     List<Button> btnList = new ArrayList<Button>();
     ConstraintLayout layout;
     TextView titleString;
+    FrameLayout fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class LevelTypeSelect extends AppCompatActivity {
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
         darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
         titleString =  findViewById(R.id.textViewLevelTypeSelect);
+        fragment = findViewById(R.id.flLevelType);
 
         btnList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.buttonTypeAlgebra), (Button) findViewById(R.id.buttonTypeGeometry),(Button) findViewById(R.id.buttonTypeCombined)));
 
@@ -45,6 +48,7 @@ public class LevelTypeSelect extends AppCompatActivity {
         if(darkPreference.getBoolean("DarkStatus", true) == true){
             layout.setBackgroundColor(Color.BLACK);
            titleString.setTextColor(Color.WHITE);
+           fragment.setBackgroundColor(Color.parseColor("#332F2F"));
         }
         if (fontPreference.getInt("Size", medSize) == 15) {
             for (Button b : btnList) {
