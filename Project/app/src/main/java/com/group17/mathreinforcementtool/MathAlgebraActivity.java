@@ -235,7 +235,6 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
     */
     public void ButtonNumberClick(View v)
     {
-        Log.i(ACTIVITY_NAME, "Button Num pressed");
         Button currentButton = findViewById(v.getId());
         String buttonText = currentButton.getText().toString();
         String userInputText = textUserInput.getText().toString();
@@ -301,6 +300,7 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
         {
             imgDisplayResult.setImageResource(R.drawable.img_circle_x);
             incorrectAnswerCount++;
+            Log.i(ACTIVITY_NAME, "Equation: " + currentEquation + ", Answer: " + numTotal);
         }
 
         _generateNewEquation();
@@ -375,17 +375,35 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
         currentEquation = currentEquation + " " + lastElement.num;
         theArray.add(0, lastElement);
         int currentNum;
+        String lastOperator = "";
+        String currentOperator = _getRandomOperator();
 
         for(int i = 0; i < min; i++)
         {
-            String currentOperator = _getRandomOperator();
+            while(currentOperator == lastOperator)
+            {
+                currentOperator = _getRandomOperator();
+            }
+
             if(currentOperator == "+")
             {
                 currentNum = _getRandomNumber(min, max);
             }
             else if(currentOperator == "-")
             {
-                currentNum = _getRandomNumber(theArray.get(0).num, max);
+                if(theArray.get(0).nextOperator == "*")
+                {
+                    currentOperator = "+";
+                }
+
+                if(theArray.get(0).num <= max)
+                {
+                    currentNum = _getRandomNumber(theArray.get(0).num, max);
+                }
+                else
+                {
+                    currentNum = _getRandomNumber(theArray.get(0).num, theArray.get(0).num + 10);
+                }
             }
             else if(currentOperator == "*")
             {
@@ -393,13 +411,23 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             }
             else // currentOperator == "/"
             {
-                currentNum = theArray.get(0).num * _getRandomNumber(2, min);
+
+                if(theArray.get(0).nextOperator == "-")
+                {
+                    currentOperator = "*";
+                    currentNum = _getRandomNumber(2, min);
+                }
+                else
+                {
+                    currentNum = theArray.get(0).num * _getRandomNumber(2, min);
+                }
             }
 
             currentEquation = currentNum + " " + currentOperator + " " + currentEquation;
-
             Tuple currentTuple = new Tuple(currentNum, currentOperator);
             theArray.add(0, currentTuple);
+
+            lastOperator = currentOperator;
         }
 
         // Solve it

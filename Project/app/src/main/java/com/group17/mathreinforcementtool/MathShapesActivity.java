@@ -341,7 +341,6 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
     */
     public void ButtonNumberClick(View v)
     {
-        Log.i(ACTIVITY_NAME, "Button Num pressed");
         Button currentButton = findViewById(v.getId());
         String buttonText = currentButton.getText().toString();
         String userInputText = textUserInput.getText().toString();

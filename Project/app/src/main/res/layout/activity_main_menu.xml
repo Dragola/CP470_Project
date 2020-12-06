@@ -197,7 +197,7 @@
         android:layout_width="47dp"
         android:layout_height="35dp"
         android:layout_marginBottom="12dp"
-        android:onClick="onPerimeterClick"
+        android:onClick="onAlgebraClick"
         android:text="@string/btnDifficultyMedium"
         app:layout_constraintBottom_toTopOf="@+id/textMenuArea"
         app:layout_constraintEnd_toStartOf="@+id/hardPerim2" />
@@ -240,7 +240,7 @@
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginBottom="12dp"
-        android:onClick="onPerimeterClick"
+        android:onClick="onAlgebraClick"
         android:text="@string/btnDifficultyHard"
         app:layout_constraintBottom_toTopOf="@+id/textMenuArea"
         app:layout_constraintEnd_toEndOf="parent" />
