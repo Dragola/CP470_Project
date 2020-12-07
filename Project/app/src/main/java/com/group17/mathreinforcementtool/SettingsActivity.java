@@ -26,6 +26,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences.Editor fontEditor;
 
     RelativeLayout layout;
+
+    Snackbar temp;
 
 
     @Override
@@ -134,33 +138,52 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem mi) {
         switch (mi.getItemId()) {
             case R.id.AgreementButton: Log.d("Toolbar", "You pressed the Agreement Button, this will be implemented soon");
-
-                break;
-            case R.id.PolicyButton: Log.d("Toolbar", "You pressed the Policy Button, this will be implemented soon");
                 AlertDialog.Builder builderPol = new AlertDialog.Builder(this);
-                builderPol.setTitle("Temp");
+                builderPol.setTitle(R.string.agreementButton);
+                builderPol.setMessage(R.string.userAgreement);
 
-                builderPol.setPositiveButton("Ok Temp", new DialogInterface.OnClickListener() {
+                builderPol.setPositiveButton(R.string.btnOK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
+                        temp = Snackbar.make(layout, R.string.userAgreed, Snackbar.LENGTH_LONG);
+                        temp.show();
                     }
                 });
-                builderPol.setNegativeButton("Cancel Temp", new DialogInterface.OnClickListener() {
+                builderPol.setNegativeButton(R.string.btnBack, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        System.exit(0);
                     }
                 });
 
                 AlertDialog dialogPol = builderPol.create();
                 dialogPol.show();
                 break;
+            case R.id.PolicyButton: Log.d("Toolbar", "You pressed the Policy Button, this will be implemented soon");
+                AlertDialog.Builder builderAgree = new AlertDialog.Builder(this);
+                builderAgree.setTitle(R.string.privacyPolicyButton);
+                builderAgree.setMessage(R.string.privacyPolicy);
 
-            case R.id.BugButton: Log.d("Toolbar", "You pressed the Bug Button, this will be implemented soon");
+                builderAgree.setPositiveButton(R.string.btnOK, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        temp = Snackbar.make(layout, R.string.userAgreed, Snackbar.LENGTH_LONG);
+                        temp.show();
+                    }
+                });
+                builderAgree.setNegativeButton(R.string.btnBack, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        System.exit(0);
+                    }
+                });
+
+                AlertDialog dialogAgree = builderAgree.create();
+                dialogAgree.show();
+                break;
+
+            case R.id.BugButton: Log.d("Toolbar", "You pressed the Bug Button");
                 Intent intent = new Intent(this, EmailBug.class);
                 startActivity(intent);
 
                 break;
-            case R.id.about: Toast toast = Toast.makeText(this, "You pressed the About Button, this will be implemented soon", Toast.LENGTH_LONG);
+            case R.id.about: Toast toast = Toast.makeText(this, "This is the app called Simply Calculated.  Created by: Amandeep Toora, Bryan Gadd, Colin Sweitzer, Giuseppe Lombardo, and Riley Voigt", Toast.LENGTH_LONG);
                 toast.show();
                 break;
         }

@@ -13,14 +13,18 @@
         android:layout_height="wrap_content"
         android:text="Send Bug"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="137dp" />
+        tools:layout_editor_absoluteX="137dp"
+        android:onClick= "onBugButtonClick"
+        />
 
     <EditText
+        android:id="@+id/bugText"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonSend"
-        tools:layout_editor_absoluteX="117dp" />
+        tools:layout_editor_absoluteX="117dp"
+        />
 
     <TextView
 
