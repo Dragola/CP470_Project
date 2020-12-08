@@ -269,8 +269,11 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         else{
             questionNum = 0;
         }
-        //next question
-        updateTexts();
+        //prevent updating text is activity is finished
+        if (correctCount < numQuestions) {
+            //next question
+            updateTexts();
+        }
         return;
     }
     public void correctAnswer(float answer){
@@ -300,9 +303,11 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, text, duration);
         toast.show();
 
-        //close activity
+        //disable timer if enabled then close activity
         if (correctCount >= numQuestions){
-            timerEnabled = false;
+            if(mode == 2) {
+                timerEnabled = false;
+            }
             exitActivity();
         }
         return;
@@ -553,6 +558,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         return bd.doubleValue();
     }
     private void exitActivity(){
+        //get total time in activity
         long timeEnd = Calendar.getInstance().getTimeInMillis();
         totalTimeSeconds = (timeEnd - timeStart) / 1000;
 
@@ -569,7 +575,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
         //streak
         if(mode == 1){
-            //highest streak
+            //highest streak of correct answers the user had
             stats.putExtra("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
         }
         setResult(RESULT_OK, stats);
@@ -584,6 +590,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 long timeEnd = Calendar.getInstance().getTimeInMillis();
                 totalTimeSeconds = (timeEnd - timeStart) / 1000;
                 timerTextView.setText("Time: " + Long.toString(totalTimeSeconds) + "s");
+            }
+            //stops thread
+            if (timerEnabled == false){
+                this.cancel(true);
             }
             return null;
         }

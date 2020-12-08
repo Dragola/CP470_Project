@@ -178,7 +178,6 @@ public class MainMenu extends AppCompatActivity {
                  * Total Question Count - 20 + IncorrectAnswerCount (CorrectAnswer = 20 always)
                  * Attempted Addition   - 1 (If currentOperation == "Addition")
                  */
-
                 String currentOperation = data.getStringExtra("Operation");
                 String currentDifficulty = data.getStringExtra("Difficulty");
                 long totalTimeSeconds = Integer.parseInt(data.getStringExtra("TotalTimeSeconds"));
@@ -204,7 +203,7 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
-        intent.putExtra("numQuestions", 10);
+        intent.putExtra("numQuestions", 1);
         intent.putExtra("Difficulty", 0);
         intent.putExtra("Type", 1);
         intent.putExtra("Mode", 1);
@@ -213,7 +212,7 @@ public class MainMenu extends AppCompatActivity {
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
-        intent.putExtra("numQuestions", 15);
+        intent.putExtra("numQuestions", 1);
         intent.putExtra("Difficulty", 0);
         intent.putExtra("Type", 1);
         intent.putExtra("Mode", 2);
