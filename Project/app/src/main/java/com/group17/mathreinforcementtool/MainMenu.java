@@ -311,9 +311,15 @@ public class MainMenu extends AppCompatActivity {
         startActivityForResult(i, 10);
     }
 
-    public void onTestLevelSelect(View v)
+    public void onLevelSelectClick(View v)
     {
         Intent intent = new Intent(this, LevelTypeSelect.class);
+        startActivity(intent);
+    }
+
+    public void onNotesClick(View v)
+    {
+        Intent intent = new Intent(this, NoteTakingActivity.class);
         startActivity(intent);
     }
 }

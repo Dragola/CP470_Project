@@ -19,7 +19,6 @@
     <string name="privacyPolicy">This is our Privacy Policy. We promise not to sell your personal information to other companies</string>
     <string name="userAgreed">You have agreed to our terms</string>
 
-
     <!-- Joeys Strings (If you use, put them ^)-->
 
     <!--activity_main_menu.xml-->
@@ -34,6 +33,7 @@
     <string name="btnDifficultyMedium">Medium</string>
     <string name="btnDifficultyHard">Hard</string>
     <string name="Show_MTA_Time">Your time was %1$d:%2$02d!</string>
+    <string name="textNotes">Notes</string>
 
     <!--activity_math_template.xml-->
     <string name="btnBack">Back</string>
@@ -116,4 +116,17 @@
     <string name="timerText">Timer: </string>
     <string name="questionStart">What does </string>
     <string name="questionEnd">\ equal\?</string>
+
+    <!--activity_note_taking.xml-->
+    <string name="noteDelete">Delete Note</string>
+    <string name="noteEdit">Edit Note</string>
+    <string name="dialogDeleteTitle">Are you sure you want to delete this note?</string>
+    <string name="dialogYes">Yes</string>
+    <string name="dialogCancel">Cancel</string>
+    <string name="fabSave">Save Edits</string>
+    <string name="fabNew">Create New Note</string>
+    <string name="etHeading">Enter Note Title</string>
+    <string name="etBody">Enter Note Body</string>
+    <string name="toastEditable">Fields are now editable. Remember to Save!!!</string>
+    <string name="toastNoteIncorrect">Error: Incorrect title.</string>
 </resources>

@@ -55,60 +55,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/easyMultipleChoice"
         android:layout_width="95dp"
         android:layout_height="54dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="296dp"
-        android:layout_marginBottom="448dp"
         android:onClick="onClickEasyMultipleChoice"
         android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuAddition"
+        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple" />
+        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple"
+        app:layout_constraintVertical_bias="0.045" />
 
     <Button
         android:id="@+id/mediumMultipleChoice"
         android:layout_width="95dp"
         android:layout_height="54dp"
         android:layout_marginTop="22dp"
-        android:layout_marginBottom="147dp"
         android:onClick="onClickMediumMultipleChoice"
         android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
+        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
         app:layout_constraintEnd_toStartOf="@+id/hardMultipleChoice"
         app:layout_constraintStart_toEndOf="@+id/easyMultipleChoice"
-        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple" />
+        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple"
+        app:layout_constraintVertical_bias="0.347" />
 
     <Button
         android:id="@+id/hardMultipleChoice"
         android:layout_width="95dp"
         android:layout_height="54dp"
-        android:layout_marginTop="141dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="105dp"
-        android:layout_marginBottom="147dp"
         android:onClick="onClickHardMultipleChoice"
         android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
+        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mediumMultipleChoice"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
         android:id="@+id/settingsButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="368dp"
+        android:layout_marginBottom="356dp"
         android:onClick="onClickSettings"
         android:text="@string/settingsButtonText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textMenuAddition"
@@ -397,16 +398,29 @@
         app:layout_constraintStart_toEndOf="@+id/medSub" />
 
     <Button
-        android:id="@+id/levelSelectTestButton"
+        android:id="@+id/levelSelectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="97dp"
         android:layout_marginEnd="97dp"
         android:layout_marginBottom="24dp"
-        android:onClick="onTestLevelSelect"
+        android:onClick="onLevelSelectClick"
         android:text="@string/btnLevelSelect"
+        app:layout_constraintBottom_toTopOf="@+id/notesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/notesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/textNotes"
+        android:onClick="onNotesClick"
         app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,4 +26,5 @@
     <color name="colorDarkFragmentBackground">#181a18</color>
 
 
+    <color name="borderColor">#000000</color>
 </resources>

@@ -163,7 +163,7 @@ public class LevelSelect extends AppCompatActivity {
             }
         }
         // saves the list to a SharedPrefrence file
-        //saveLevelsToPrefrences(levelData, requestCode);
+        // saveLevelsToPrefrences(levelData, requestCode);
         return levelData;
     }
 
@@ -183,7 +183,7 @@ public class LevelSelect extends AppCompatActivity {
         int rows = (numLevels / columns) + 1;
         int deviceWidth = getDeviceWidth();
         int paddingValue = 20;
-        int buttonWidth = (deviceWidth-8*paddingValue)/columns;
+        int buttonWidth = (deviceWidth-7*paddingValue)/columns;
 
         // Makes the grid layout
         GridLayout grid = (GridLayout) findViewById(R.id.gridLayoutLevels);
@@ -193,7 +193,7 @@ public class LevelSelect extends AppCompatActivity {
         grid.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
 
         // Adds padding to each button
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(buttonWidth, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = paddingValue;
         layoutParams.rightMargin = paddingValue;
         layoutParams.topMargin = paddingValue;
@@ -214,7 +214,6 @@ public class LevelSelect extends AppCompatActivity {
             Button buttonLevel = new Button(this);
             buttonLevel.setTag(difficulty);
             buttonLevel.setText(difficulty);
-            buttonLevel.setWidth(buttonWidth);
             buttonLevel.setLayoutParams(layoutParams);
             buttonLevel.setTextSize(size);
             // Set dynamic colour based on level completion
