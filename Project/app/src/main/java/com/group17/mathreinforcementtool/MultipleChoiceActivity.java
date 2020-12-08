@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -71,6 +72,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
     List<TextView> textViewList = new ArrayList<TextView>();
     ArrayList<String> generatedQuestions = new ArrayList<>();
+    ArrayList<String> stuckQuestions = new ArrayList<>();
+    ArrayList<Float> stuckQuestionsAnswer = new ArrayList<>();
+    ArrayList<Integer> stuckQuestionsTracker = new ArrayList<>();
     ArrayList<Double> generatedQuestionsNumber = new ArrayList<>();
 
     //Dark mode and font preferences
@@ -111,6 +115,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         if(mode == 0){
             streakTextView.setVisibility(View.INVISIBLE);
             timerTextView.setVisibility(View.INVISIBLE);
+            //check for any questions previously stuck on and add before generating more questions
+            checkForStuckQuestions();
         }
         //streak- set timer to invisible
         else if (mode == 1){
@@ -125,8 +131,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         statusProgressBar.setProgress(0);
         statusProgressBar.setMax(100);
 
-        //generate questions then update text (start)
-        generateQuestions(numQuestions);
+        //generate 5 more questions then update text (create other questions in background)
+        new backgroundQuestionGeneration().execute();
+        generateQuestions(5);
         updateTexts();
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
@@ -183,7 +190,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     }
     protected void onResume(){
         super.onResume();
-        Log.i("OnResume", "In On Resume");
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
@@ -234,26 +240,26 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
     public void onClick(View view){
         //answer picked (pull from button)
-        float answer = 0f;
+        double answer = 0f;
 
         //answer1
         if(answerRadioButton1.isChecked()){
-            answer = Float.valueOf((String) answerRadioButton1.getText());
+            answer = Double.valueOf((String) answerRadioButton1.getText());
             answerRadioButton1.setChecked(false);
         }
         //answer2
         else if(answerRadioButton2.isChecked()){
-            answer = Float.valueOf((String) answerRadioButton2.getText());
+            answer = Double.valueOf((String) answerRadioButton2.getText());
             answerRadioButton2.setChecked(false);
         }
         //answer2
         else if(answerRadioButton3.isChecked()){
-            answer = Float.valueOf((String) answerRadioButton3.getText());
+            answer = Double.valueOf((String) answerRadioButton3.getText());
             answerRadioButton3.setChecked(false);
         }
         //answer2
         else if(answerRadioButton4.isChecked()){
-            answer = Float.valueOf((String) answerRadioButton4.getText());
+            answer = Double.valueOf((String) answerRadioButton4.getText());
             answerRadioButton4.setChecked(false);
         }
         //check answer
@@ -276,13 +282,14 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
         return;
     }
-    public void correctAnswer(float answer){
+    public void correctAnswer(double answer){
         CharSequence text;
         int duration= Toast.LENGTH_SHORT;
 
         //if answer is correct increment counter and print toast
         if(answer == generatedQuestionsNumber.get(questionNum)){
-            generatedQuestions.remove(questionNum);
+            //possibly store question is
+            storeStuckQuestion(generatedQuestions.remove(questionNum), answer);
             generatedQuestionsNumber.remove(questionNum);
             correctCount++;
             correctAnswerStreak++;
@@ -296,6 +303,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //answer is wrong so add to incorrect counter
         else{
             text = "Incorrect";
+
+            //only track stuck questions if in standard mode
+            if (mode == 0) {
+                trackStuckQuestions(questionNum);
+            }
+
             Log.i("MC", "Answer= " + answer + " != " + generatedQuestionsNumber.get(questionNum));
             incorrectAnswerCount++;
             correctAnswerStreak = 0;
@@ -332,7 +345,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
         try {
             questionTextView.setText(generatedQuestions.get(questionNum));
-
+            Log.i("MC", "Answer=" + generatedQuestionsNumber.get(questionNum));
             int answerSpot;
 
             //if the number is whole then print number as integer (no decimal)
@@ -450,7 +463,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         setMaxMinValues();
 
         //loop until the number of questions required is met
-        while (numQuestions > 0) {
+        while (numQuestions > 0 && generatedQuestions.size() < numQuestions) {
             //prevent answer from being repeated, 0, infinite or NaN
             while (Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true || numAnswer == 0 || generatedQuestionsNumber.contains(round(numAnswer, 3)) == true) {
                 //pick 2 random numbers from the range
@@ -504,13 +517,22 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             else if (type == 3) {
                 generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d / %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
-            Log.i("MC", "New question: " + generatedQuestions.get(generatedQuestions.size() - 1) + "= " + generatedQuestionsNumber.get(generatedQuestionsNumber.size() -1) + ". Size of array= " + generatedQuestions.size());
             numQuestions -= 1;
         }
         return;
     }
     public double generateRandomAnswer(ArrayList<Double> generatedAnswers, double answer) {
         double randomAnswer;
+        boolean shouldBeNegative = false;
+        boolean shouldBePositive = false;
+        //ensures answer is negative
+        if(answer < 0){
+            shouldBeNegative = true;
+        }
+        //ensures answer is positive
+        else if (answer >= 0){
+            shouldBePositive = true;
+        }
         //addition
         if (type == 0) {
             randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
@@ -527,8 +549,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         else {
             randomAnswer = (((double) rand.nextInt((max - min) + min)) / ((double) rand.nextInt((max - min) + min)));
         }
-        //keep randomizing answer until it doesn't match the answer, isn't an already generated answer, isn't infinite or NaN
-        while (Double.isInfinite(randomAnswer) == true || Double.isNaN(randomAnswer) == true|| round(randomAnswer, 3) == answer ||generatedAnswers.contains(round(randomAnswer, 3)) == true) {
+        //keep randomizing answer until it doesn't match the answer, isn't an already generated answer, isn't infinite or NaN. Also loop until randomAnswer is negative so that it matches the answer
+        while (Double.isInfinite(randomAnswer) == true || Double.isNaN(randomAnswer) == true|| round(randomAnswer, 3) == answer ||generatedAnswers.contains(round(randomAnswer, 3)) == true || (randomAnswer > 0 && shouldBeNegative) || (randomAnswer < 0 && shouldBePositive)){
             //addition
             if (type == 0) {
                 randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
@@ -545,9 +567,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             else {
                 randomAnswer = (((double) rand.nextInt((max - min) + min)) / ((double) rand.nextInt((max - min) + min)));
             }
-            //Log.i("MC", "Check random answer= " + randomAnswer);
         }
-        //Log.i("MC", "New random answer= " + randomAnswer);
         return round(randomAnswer, 3);
     }
 
@@ -561,6 +581,27 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //get total time in activity
         long timeEnd = Calendar.getInstance().getTimeInMillis();
         totalTimeSeconds = (timeEnd - timeStart) / 1000;
+
+        //only store stuck questions if in standard mode
+        if (mode == 0) {
+            //if there are questions the user was stuck on
+            if(stuckQuestions.size() > 0) {
+                //store questions and answers in SharedPreferences
+                SharedPreferences prefs = getSharedPreferences("MultipleChoiceStuckQuestions", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                try {
+                    editor.putInt("Number of Questions", stuckQuestions.size());
+                    for (int i = 0; i < stuckQuestions.size(); i++) {
+                        editor.putString("Question" + i, stuckQuestions.get(i));
+                        editor.putFloat("Answer" + i, stuckQuestionsAnswer.get(i));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //commit the changes
+                editor.commit();
+            }
+        }
 
         Intent stats = new Intent();
         //The operation and difficulty
@@ -581,7 +622,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         setResult(RESULT_OK, stats);
         finish();
     }
-    //used for timer
+    //used to update timerTextView
     private class timerTextUpdate extends AsyncTask<Void, Void, Void>{
         @Override
         protected Void doInBackground(Void... voids) {
@@ -591,11 +632,63 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 totalTimeSeconds = (timeEnd - timeStart) / 1000;
                 timerTextView.setText("Time: " + Long.toString(totalTimeSeconds) + "s");
             }
-            //stops thread
-            if (timerEnabled == false){
-                this.cancel(true);
-            }
+            //close
+            this.cancel(true);
             return null;
+        }
+    }
+    //used to generate remaining questions
+    private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //generate remaining questions
+            generateQuestions(numQuestions);
+            //close
+            this.cancel(true);
+            return null;
+        }
+    }
+    //runs before generated questions so questions are added
+    public void checkForStuckQuestions(){
+        //get sharedPreferences file
+        SharedPreferences prefs = getSharedPreferences("MultipleChoiceStuckQuestions", Context.MODE_PRIVATE);
+        try
+        {
+            //get number of questions to pull (how many where stored)
+            int numStuckQuestions = prefs.getInt("Number of Questions", 0);
+
+            //pull the questions and their answers and place into the questions and answers arrays
+            for(int i=0;i<numStuckQuestions;i++) {
+                generatedQuestions.add(prefs.getString("Question" + i, ""));
+                generatedQuestionsNumber.add((double) prefs.getFloat("Answer" + i, 0));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        //clear data and commit the changes
+        SharedPreferences.Editor editor =prefs.edit();
+        editor.clear();
+        editor.commit();
+    }
+    //puts value in ArrayList to indicate how many times they got the answer wrong (3 or more the question will be saved)
+    public void trackStuckQuestions(int questionIndex){
+        //add integer if not in array
+        if(stuckQuestionsTracker.size() - 1< questionIndex){
+            stuckQuestionsTracker.add(1);
+        }
+        //update integer in array if already exists
+        else {
+            int num = stuckQuestionsTracker.get(questionIndex);
+            stuckQuestionsTracker.set(questionIndex, num + 1);
+        }
+    }
+    //store stuck questions in ArrayList's to be stored later
+    public void storeStuckQuestion(String question, double answer){
+        //if the question was being tracked and it has had 3 or more incorrect answers
+        if(stuckQuestionsTracker.size() > questionNum && stuckQuestionsTracker.get(questionNum) >=3){
+            stuckQuestions.add(question);
+            stuckQuestionsAnswer.add((float)answer);
         }
     }
 }

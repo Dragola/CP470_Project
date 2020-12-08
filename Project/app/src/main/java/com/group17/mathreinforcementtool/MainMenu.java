@@ -36,7 +36,6 @@ public class MainMenu extends AppCompatActivity {
     SharedPreferences darkPreference;
     SharedPreferences fontPreference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +202,7 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
-        intent.putExtra("numQuestions", 1);
+        intent.putExtra("numQuestions", 20);
         intent.putExtra("Difficulty", 0);
         intent.putExtra("Type", 1);
         intent.putExtra("Mode", 1);
