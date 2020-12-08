@@ -69,6 +69,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
     //Arrays/Lists
     List<RadioButton> radioButtonList = new ArrayList<RadioButton>();
+    List<TextView> textViewList = new ArrayList<TextView>();
     ArrayList<String> generatedQuestions = new ArrayList<>();
     ArrayList<Double> generatedQuestionsNumber = new ArrayList<>();
 
@@ -101,6 +102,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         answerRadioButton3 = findViewById(R.id.answerRadioButton3);
         answerRadioButton4 = findViewById(R.id.answerRadioButton4);
         radioButtonList.addAll((Collection<? extends RadioButton>) Arrays.asList(answerRadioButton1,answerRadioButton2,answerRadioButton3,answerRadioButton4));
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList(questionTextView,timerTextView,questionsCorrectTextView,questionTextView, streakTextView));
         layout = findViewById(R.id.multiChoiceaActivity);
         darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
@@ -129,32 +131,51 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
-            questionTextView.setTextColor(Color.WHITE);
+
+//            questionTextView.setTextColor(Color.WHITE);
+//            timerTextView.setTextColor(Color.WHITE);
+//            questionsCorrectTextView.setTextColor(Color.WHITE);
+//            streakTextView.setTextColor(Color.WHITE);
+
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextColor(Color.WHITE);
                 r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
             }
         } else {
-            layout.setBackgroundColor(Color.WHITE);
-            questionTextView.setTextColor(Color.BLACK);
+//            layout.setBackgroundColor(Color.WHITE);
+//            questionTextView.setTextColor(Color.BLACK);
+//            timerTextView.setTextColor(Color.BLACK);
+//            questionsCorrectTextView.setTextColor(Color.BLACK);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextColor(Color.BLACK);
             }
         }
 
         if(fontPreference.getInt("Size", medSize) == 15){
-            questionTextView.setTextSize(smallSize);
+            for(TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(smallSize);
             }
         } else if (fontPreference.getInt("Size", medSize) == 20){
-            questionTextView.setTextSize(medSize);
+            for(TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(medSize);
             }
 
         } else {
-            questionTextView.setTextSize(largeSize);
+            for(TextView t: textViewList){
+                t.setTextSize(largeSize);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(largeSize);
             }
@@ -164,15 +185,17 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         super.onResume();
         Log.i("OnResume", "In On Resume");
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
-            layout.setBackgroundColor(Color.BLACK);
-            questionTextView.setTextColor(Color.WHITE);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextColor(Color.WHITE);
                 r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
             }
         } else {
-            layout.setBackgroundColor(Color.WHITE);
-            questionTextView.setTextColor(Color.BLACK);
+            for(TextView t: textViewList){
+                t.setTextColor(Color.BLACK);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextColor(Color.BLACK);
                 r.setButtonTintList(ColorStateList.valueOf(Color.BLACK));
@@ -180,18 +203,24 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
 
         if(fontPreference.getInt("Size", medSize) == 15){
-            questionTextView.setTextSize(smallSize);
+            for(TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(smallSize);
             }
         } else if (fontPreference.getInt("Size", medSize) == 20){
-            questionTextView.setTextSize(medSize);
+            for(TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(medSize);
             }
 
         } else {
-            questionTextView.setTextSize(largeSize);
+            for(TextView t: textViewList){
+                t.setTextSize(largeSize );
+            }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(largeSize);
             }
