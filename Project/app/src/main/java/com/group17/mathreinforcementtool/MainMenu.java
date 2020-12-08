@@ -204,15 +204,19 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
+        intent.putExtra("numQuestions", 10);
         intent.putExtra("Difficulty", 0);
         intent.putExtra("Type", 1);
+        intent.putExtra("Mode", 1);
         startActivity(intent);
     }
     //medium multiple choice
     public void onClickMediumMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
-        intent.putExtra("Difficulty", 1);
-        intent.putExtra("Type", 3);
+        intent.putExtra("numQuestions", 15);
+        intent.putExtra("Difficulty", 0);
+        intent.putExtra("Type", 1);
+        intent.putExtra("Mode", 2);
         startActivity(intent);
     }
     //medium multiple choice

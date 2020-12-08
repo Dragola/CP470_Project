@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +30,10 @@ import java.util.Random;
 import java.util.TreeMap;
 
 public class MultipleChoiceActivity extends AppCompatActivity {
+    int numQuestions = 0;
     int difficulty = 0;
     int type = 0;
+    int mode = 0;
     double number1 = 0f;
     double number2 = 0f;
     double numAnswer = 0f;
@@ -38,6 +41,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     int min = 1;
     TextView questionTextView = null;
     TextView questionsCorrectTextView = null;
+    TextView streakTextView = null;
+    TextView timerTextView = null;
     ProgressBar statusProgressBar = null;
     RadioButton answerRadioButton1 = null;
     RadioButton answerRadioButton2 = null;
@@ -48,13 +53,16 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     int medSize = 25;
     int largeSize = 35;
     int questionNum = 0;
+    int correctAnswerStreak = 0;
+    int highestCorrectAnswerStreak = 0;
+    boolean timerEnabled = true;
+    long totalTimeSeconds = 0;
 
     //statistics
     long timeStart = Calendar.getInstance().getTimeInMillis();
     String operationString = "";
     String difficultyString = "";
     int incorrectAnswerCount = 0;
-
 
     //number generator
     Random rand = new Random();
@@ -75,13 +83,18 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiple_choice);
 
-        //get difficult and type of questions to generate
+        //get difficult, type of questions (operation) and mode
+
+        numQuestions = getIntent().getIntExtra("numQuestions", 10);
         difficulty = getIntent().getIntExtra("Difficulty", 0);
         type = getIntent().getIntExtra("Type", 0);
+        mode = getIntent().getIntExtra("Mode", 0);
 
         //find UI elements
         questionTextView = findViewById(R.id.questionTextView);
         questionsCorrectTextView = findViewById(R.id.questionsCorectTextView);
+        streakTextView = findViewById(R.id.streakTextView);
+        timerTextView = findViewById(R.id.timerTextView);
         statusProgressBar = findViewById(R.id.statusProgressBar);
         answerRadioButton1 = findViewById(R.id.answerRadioButton1);
         answerRadioButton2 = findViewById(R.id.answerRadioButton2);
@@ -92,8 +105,27 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
-        //generate x number of questions
-        generateQuestions(10);
+        //standard mode- set streak and timer to invisible
+        if(mode == 0){
+            streakTextView.setVisibility(View.INVISIBLE);
+            timerTextView.setVisibility(View.INVISIBLE);
+        }
+        //streak- set timer to invisible
+        else if (mode == 1){
+            timerTextView.setVisibility(View.INVISIBLE);
+        }
+        //timer- set streak to invisible
+        else{
+            streakTextView.setVisibility(View.INVISIBLE);
+            new timerTextUpdate().execute();
+        }
+        //set progress bar
+        statusProgressBar.setProgress(0);
+        statusProgressBar.setMax(100);
+
+        //generate questions then update text (start)
+        generateQuestions(numQuestions);
+        updateTexts();
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
@@ -221,6 +253,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             generatedQuestions.remove(questionNum);
             generatedQuestionsNumber.remove(questionNum);
             correctCount++;
+            correctAnswerStreak++;
+
+            //update highest streak if current streak is higher
+            if (correctAnswerStreak > highestCorrectAnswerStreak){
+                highestCorrectAnswerStreak = correctAnswerStreak;
+            }
             text = "Correct!";
         }
         //answer is wrong so add to incorrect counter
@@ -228,28 +266,15 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             text = "Incorrect";
             Log.i("MC", "Answer= " + answer + " != " + generatedQuestionsNumber.get(questionNum));
             incorrectAnswerCount++;
+            correctAnswerStreak = 0;
         }
         Toast toast = Toast.makeText(this, text, duration);
         toast.show();
 
         //close activity
-        if (correctCount >= 10){
-            long timeEnd = Calendar.getInstance().getTimeInMillis();
-            long totalTimeSeconds = (timeEnd - timeStart) / 1000;
-
-            Intent stats = new Intent();
-            //The operation and difficulty
-            stats.putExtra("Operation", operationString);
-            stats.putExtra("Difficulty", difficultyString);
-
-            //The time elapsed since starting the activity, in seconds
-            stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
-
-            //Number of times the user answered with a wrong answer
-            stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
-
-            setResult(RESULT_OK, stats);
-            finish();
+        if (correctCount >= numQuestions){
+            timerEnabled = false;
+            exitActivity();
         }
         return;
     }
@@ -262,6 +287,15 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         answerRadioButton3.setText("");
         answerRadioButton4.setText("");
 
+        //update correct questions answered and progress bar
+        questionsCorrectTextView.setText(Integer.toString(correctCount) + "/" + Integer.toString(numQuestions));
+        statusProgressBar.setProgress(0);
+        statusProgressBar.setProgress(correctCount * 100 / numQuestions);
+
+        //streak mode- update text
+        if(mode == 1){
+            streakTextView.setText("Streak: " + Integer.toString(correctAnswerStreak));
+        }
         try {
             questionTextView.setText(generatedQuestions.get(questionNum));
 
@@ -291,7 +325,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     else {
                         answerText = String.format("%.3f", answer);
                     }
-
                     //set buttons text
                     if (i == 0) {
                         answerRadioButton1.setText(answerText);
@@ -377,7 +410,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
         return answerSpot;
     }
-    //generate 2 numbers based on the difficulty and put into activity
+    //generate questions based on operator that are not infinite, NaN, or already generated
     public void generateQuestions(int numQuestions) {
         //set values
         setMaxMinValues();
@@ -423,25 +456,23 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             //addition question
             if (type == 0) {
                 //set text for question
-                generatedQuestions.add((getString(R.string.questionText) + String.format(" %d + %d", Math.round(number1), Math.round(number2)) + " equals?"));
+                generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d + %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
             //subtraction question
             else if (type == 1) {
-                generatedQuestions.add((getString(R.string.questionText) + String.format(" %d - %d", Math.round(number1), Math.round(number2))+ " equals?"));
+                generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d - %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
             //multiplication question
             else if (type == 2) {
-                generatedQuestions.add((getString(R.string.questionText) + String.format(" %d * %d", Math.round(number1), Math.round(number2))+ " equals?"));
+                generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d * %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
             //division question
             else if (type == 3) {
-                generatedQuestions.add((getString(R.string.questionText) + String.format(" %d / %d", Math.round(number1), Math.round(number2))+ " equals?"));
+                generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d / %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
             Log.i("MC", "New question: " + generatedQuestions.get(generatedQuestions.size() - 1) + "= " + generatedQuestionsNumber.get(generatedQuestionsNumber.size() -1) + ". Size of array= " + generatedQuestions.size());
             numQuestions -= 1;
         }
-        //initial text set
-        updateTexts();
         return;
     }
     public double generateRandomAnswer(ArrayList<Double> generatedAnswers, double answer) {
@@ -491,5 +522,41 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(decimalPlaces, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+    private void exitActivity(){
+        long timeEnd = Calendar.getInstance().getTimeInMillis();
+        totalTimeSeconds = (timeEnd - timeStart) / 1000;
+
+        Intent stats = new Intent();
+        //The operation and difficulty
+        stats.putExtra("Operation", operationString);
+        stats.putExtra("Difficulty", difficultyString);
+
+        //The time elapsed since starting the activity, in seconds
+        stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
+
+        //Number of times the user answered with a wrong answer
+        stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
+
+        //streak
+        if(mode == 1){
+            //highest streak
+            stats.putExtra("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
+        }
+        setResult(RESULT_OK, stats);
+        finish();
+    }
+    //used for timer
+    private class timerTextUpdate extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //only run timer is enabled
+            while (timerEnabled) {
+                long timeEnd = Calendar.getInstance().getTimeInMillis();
+                totalTimeSeconds = (timeEnd - timeStart) / 1000;
+                timerTextView.setText("Time: " + Long.toString(totalTimeSeconds) + "s");
+            }
+            return null;
+        }
     }
 }

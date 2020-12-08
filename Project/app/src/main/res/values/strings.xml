@@ -11,7 +11,6 @@
     <string name="agreementButton">User Agreement</string>
     <string name="bugButton">Report a Bug</string>
     <string name="volumeLabel">Volume</string>
-    <string name="questionText">What is\: </string>
     <string name="RestartButton">Restart Progress</string>
     <string name="settingsButtonText">Settings</string>
     <string name="multipleChoiceButtonText">Multiple Choice</string>
@@ -112,5 +111,9 @@
     <string name="MCQMediumDescription">insert description and rules</string>
     <string name="MCQHardDescription">insert description and rules</string>
 
-
+    <!--activity_multiple_choice.xml UI Text-->
+    <string name="streakText">Streak: </string>
+    <string name="timerText">Timer: </string>
+    <string name="questionStart">What does </string>
+    <string name="questionEnd">\ equal\?</string>
 </resources>
