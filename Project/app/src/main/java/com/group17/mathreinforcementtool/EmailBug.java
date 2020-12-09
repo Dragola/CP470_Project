@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -122,18 +123,24 @@ public class EmailBug extends AppCompatActivity {
         bugText = findViewById(R.id.bugText);
 //        bugEditor.putString("bugList", bugText.getText().toString()));
 //        bugEditor.commit();
-
-
-        String[] TO = {"mecrocon@gmail.com"};
-        String[] CC = {""};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Bug Problems");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, bugText.getText().toString());
-        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-        bugText.setText("");
+        new sendEmail().execute();
+    }
+    //used to generate remaining questions
+    private class sendEmail extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String[] TO = {"mecrocon@gmail.com"};
+            String[] CC = {""};
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Bug Problems");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, bugText.getText().toString());
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            bugText.setText("");
+            return null;
+        }
     }
 }

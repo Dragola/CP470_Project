@@ -320,4 +320,8 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(this, NoteTakingActivity.class);
         startActivity(intent);
     }
+    public void onStatsClick (View v){
+        Intent intent = new Intent(this, StatsActivity.class);
+        startActivity(intent);
+    }
 }

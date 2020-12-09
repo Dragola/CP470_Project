@@ -15,36 +15,40 @@ import java.util.List;
 public class StatsActivity extends AppCompatActivity {
     //Handler for the spinner
     private Spinner activitySpinner = null;
-    private Spinner modeSpinner = findViewById(R.id.modeSpinner);
-    private Spinner typeSpinner = findViewById(R.id.typeSpinner);
-    private Spinner difficultySpinner = findViewById(R.id.difficultySpinner);
+    private Spinner modeSpinner = null;
+    private Spinner typeSpinner = null;
+    private Spinner difficultySpinner = null;
     private List<String> activitiesList;
     private List<String> modesList;
     private List<String> typesList;
     private List<String> difficultiesList;
 
-
-    //TextView's
-    TextView activityTextView = null;
-    TextView modeTextView = null;
-    TextView typeTextView = null;
-    TextView operationTextView = null;
-    TextView difficultyTextView = null;
+    private String activity = "";
+    private String mode = "";
+    private String type = "";
+    private String operation = "";
+    private String difficulty = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        //locate UI
+        activitySpinner = findViewById(R.id.activitySpinner);
+        modeSpinner = findViewById(R.id.modeSpinner);
+        typeSpinner = findViewById(R.id.typeSpinner);
+        difficultySpinner = findViewById(R.id.difficultySpinner);
+
+        //set UI to invisible
+        modeSpinner.setVisibility(View.INVISIBLE);
+        typeSpinner.setVisibility(View.INVISIBLE);
+        difficultySpinner.setVisibility(View.INVISIBLE);
+
         activitiesSpinner();
-        modesSpinner();
-        typesSpinner();
-        difficultiesSpinner();
     }
 
     public void activitiesSpinner() {
-        activitySpinner = findViewById(R.id.activitySpinner);
-
         activitiesList = Arrays.asList(getResources().getStringArray(R.array.Activities));
 
         //add cities to dropdown menu for spinner
@@ -60,7 +64,18 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //get data for city
-                //activitiesList.get(i);
+                String tempStr = activitiesList.get(i);
+
+                //Multiple choice
+                if(tempStr.compareTo("Multiple Choice") == 0){
+                    activity = tempStr;
+                }
+                //User Input
+                else if (tempStr.compareTo("User Input") == 0){
+                    activity = tempStr;
+                }
+                modesSpinner();
+                modeSpinner.setVisibility(View.VISIBLE);
             }
 
             //if nothing is selected
@@ -70,22 +85,32 @@ public class StatsActivity extends AppCompatActivity {
         });
     }
     public void modesSpinner() {
-        modesList = Arrays.asList(getResources().getStringArray(R.array.Modes));
+        ArrayAdapter<CharSequence> adapter = null;
 
-        //add cities to dropdown menu for spinner
-        ArrayAdapter<CharSequence> adapter =
-                ArrayAdapter.createFromResource(
-                        this, R.array.Modes, android.R.layout.simple_spinner_dropdown_item);
+        if(activity.compareTo("Multiple Choice") == 0) {
+            modesList = Arrays.asList(getResources().getStringArray(R.array.MCModes));
+
+            //add cities to dropdown menu for spinner
+            adapter = ArrayAdapter.createFromResource(this, R.array.MCModes, android.R.layout.simple_spinner_dropdown_item);
+        }
+        else if (activity.compareTo("User Input") == 0) {
+            modesList = Arrays.asList(getResources().getStringArray(R.array.UIModes));
+
+            //add cities to dropdown menu for spinner
+            adapter = ArrayAdapter.createFromResource(this, R.array.UIModes, android.R.layout.simple_spinner_dropdown_item);
+        }
 
         //set adapter and add listener
-        activitySpinner.setAdapter(adapter);
-        activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        modeSpinner.setAdapter(adapter);
+        modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             //once city is selected
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //get data for city
-                //modesList.get(i);
+                String tempStr = modesList.get(i);
+
+                //
             }
 
             //if nothing is selected

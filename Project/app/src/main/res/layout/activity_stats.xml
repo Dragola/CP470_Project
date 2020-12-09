@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/statsConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StatsActivity">
@@ -20,9 +21,9 @@
 
     <Spinner
         android:id="@+id/activitySpinner"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/modeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/modeSpinner"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityTextView" />
@@ -89,5 +90,46 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/typeSpinner"
         app:layout_constraintTop_toBottomOf="@+id/difficultyTextView" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="153dp"
+        android:text="Locate File"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeSpinner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/statsInnerConstraintLayout"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button">
+
+        <TextView
+            android:id="@+id/incorrectAnswersTextView2"
+            android:layout_width="155dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:text="Incorrect Answers:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/correctAnswersTextView" />
+
+        <TextView
+            android:id="@+id/correctAnswersTextView"
+            android:layout_width="155dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:text="Correct Answers:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
