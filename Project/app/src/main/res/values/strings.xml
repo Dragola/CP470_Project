@@ -169,11 +169,8 @@
     <string name="Difficulty">Difficulty</string>
     <string-array name="Activities">
         <item>Multiple Choice</item>
-        <item>User Input</item>
-    </string-array>
-    <string-array name="UIModes">
-        <item>Standard</item>
-        <item>Combination</item>
+        <item>Algebra Input</item>
+        <item>Geometry Input</item>
     </string-array>
     <string-array name="MCModes">
         <item>Standard</item>
@@ -181,11 +178,26 @@
         <item>Timed</item>
         <item>Combination</item>
     </string-array>
-    <string-array name="Types">
+    <string-array name="AlgebraModes">
+        <item>Standard</item>
+        <item>Combination</item>
+    </string-array>
+    <string-array name="GeometryModes">
+        <item>Standard</item>
+    </string-array>
+    <string-array name="MCTypes">
     <item>Addition</item>
     <item>Subtraction</item>
     <item>Multiplication</item>
     <item>Division</item>
+    </string-array>
+    <string-array name="AGTypes">
+        <item>Addition</item>
+        <item>Subtraction</item>
+        <item>Multiplication</item>
+        <item>Division</item>
+        <item>Area</item>
+        <item>Perimeter</item>
     </string-array>
     <string-array name="Difficulty">
         <item>Easy</item>

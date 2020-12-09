@@ -192,7 +192,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         if (mode == 0 || mode == 3) {
             try {
                 //store leftover and stuck questions + answers in SharedPreferences
-                SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences( "MC" + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
                 //store any leftover questions
@@ -621,26 +621,30 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             long timeEnd = Calendar.getInstance().getTimeInMillis();
             totalTimeSeconds = (timeEnd - timeStart) / 1000;
         }
+        Log.i("MC", "exitActivity called");
         SharedPreferences prefs = getSharedPreferences("MCStats" + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
-
-        //create intent
-        Intent stats = new Intent();
+        SharedPreferences.Editor editor = prefs.edit();
 
         //add operation and difficulty to intent
-        stats.putExtra("Operation", typeToString(type));
-        stats.putExtra("Difficulty", difficultyToString(difficulty));
+        editor.putString("Operation", typeToString(type));
+        editor.putString("Difficulty", difficultyToString(difficulty));
 
         //add time elapsed since starting the activity (in seconds) to intent
-        stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
+        editor.putString("TotalTimeSeconds", Long.toString(totalTimeSeconds));
 
         //add number of times the user answered with a wrong answer
-        stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
+        editor.putString("CorrectAnswerCount", Integer.toString(correctCount));
+
+        //add number of times the user answered with a wrong answer
+        editor.putString("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
 
         //highest streak of correct answers the user had
-        stats.putExtra("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
+        editor.putString("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
+
+        editor.commit();
 
         //set result and finish activity
-        setResult(RESULT_OK, stats);
+        setResult(RESULT_OK);
         finish();
     }
     //used to update timerTextView
@@ -703,7 +707,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     public boolean checkForSavedQuestions(){
         boolean areSavedQuestions = false;
         //get sharedPreferences file
-        SharedPreferences prefs = getSharedPreferences(difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("MC" + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
         try
         {
             //get number of leftover questions to pull (how many where stored)

@@ -92,12 +92,13 @@
         app:layout_constraintTop_toBottomOf="@+id/difficultyTextView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/locateFileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="153dp"
         android:text="Locate File"
+        android:onClick="onClickFileLocate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typeSpinner" />
 
@@ -109,7 +110,7 @@
         android:layout_marginEnd="6dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button">
+        app:layout_constraintTop_toBottomOf="@+id/locateFileButton">
 
         <TextView
             android:id="@+id/incorrectAnswersTextView2"

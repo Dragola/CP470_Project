@@ -138,6 +138,7 @@ public class EmailBug extends AppCompatActivity {
             emailIntent.putExtra(Intent.EXTRA_TEXT, bugText.getText().toString());
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             bugText.setText("");
+            this.cancel(true);
             return null;
         }
     }
