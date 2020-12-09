@@ -73,11 +73,12 @@
     <string name="btnMCTime">Timed</string>
     <string name="btnMCStreak">Streak</string>
     <string name="btnMCCombo">Combined</string>
+    <string name="textMCCombo">Combined</string>
+
     <string name="textMCAdditionDesc">MC Addition Description Here</string>
     <string name="textMCSubtractionDesc">MC Subtraction Description Here</string>
     <string name="textMCMultiplicationDesc">MC Multiplication Description Here</string>
     <string name="textMCDivisionDesc">MC Division Description Here</string>
-    <string name="textMCCombo">Combined</string>
     <string name="textMCComboDesc">MC Combo Description Here</string>
 
     <string name="textAreaDesc">Area Description Here</string>

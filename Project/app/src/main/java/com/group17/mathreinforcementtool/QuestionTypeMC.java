@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class QuestionTypeMC extends Fragment {
+public class    QuestionTypeMC extends Fragment {
     protected static final String ACTIVITY_NAME = "MCFragment";
 
     SharedPreferences fontPreference;
@@ -26,6 +27,7 @@ public class QuestionTypeMC extends Fragment {
     int medSize = 20;
     int largeSize = 25;
     List<Button> btnList = new ArrayList<Button>();
+    List<TextView> textViewList;
     public QuestionTypeMC() {}
 
     @Override
@@ -161,7 +163,7 @@ public class QuestionTypeMC extends Fragment {
                 startActivity(intent);
             }
         });
-
+        
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 

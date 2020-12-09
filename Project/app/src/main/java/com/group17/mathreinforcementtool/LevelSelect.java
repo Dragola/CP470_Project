@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LevelSelect extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "LevelSelect";
@@ -65,7 +66,7 @@ public class LevelSelect extends AppCompatActivity {
         colorCompleted = ResourcesCompat.getColor(getResources(), R.color.colorLightCompleted, null);
         colorInprogress = ResourcesCompat.getColor(getResources(), R.color.colorLightInprogress, null);
 
-//        layout = findViewById(R.id.textDisplayLastResult);
+
         darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
@@ -79,7 +80,7 @@ public class LevelSelect extends AppCompatActivity {
         }
 
         // Clears Saved preferences for testing purposes
-        //getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
 
         // Load list of levels for the math activity from shared preferences (completed, uncompleted, unattempted, unavailable)
         levelsData = loadLevelsFromPrefrences(requestCode);
