@@ -1,14 +1,17 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +23,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoteTakingActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "NoteTakingActivity";
@@ -37,6 +42,15 @@ public class NoteTakingActivity extends AppCompatActivity {
     private SQLiteDatabase database;
     private Cursor cursor;
 
+    int smallSize = 15;
+    int medSize = 20;
+    int largeSize = 25;
+    int sizeStatus;
+    boolean darkStatus = false;
+    RelativeLayout layout;
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +61,6 @@ public class NoteTakingActivity extends AppCompatActivity {
 
         noteAdapter =new NoteAdapter(this);
         listViewNotes.setAdapter(noteAdapter);
-
         dbHelper = new NotesDatabaseHelper(this);
         database = dbHelper.getWritableDatabase();
         cursor = database.query(NotesDatabaseHelper.TABLE_NAME, new String[] {"*"}, null, null, null,null,null);
@@ -83,6 +96,26 @@ public class NoteTakingActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+        layout = findViewById(R.id.noteTakingActivity);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            darkStatus = true;
+        }
+        else {
+            layout.setBackgroundColor(Color.WHITE);
+            darkStatus = false;
+        }
+        if(fontPreference.getInt("Size", medSize) == smallSize){
+            sizeStatus = smallSize;
+        }
+        else if(fontPreference.getInt("Size", medSize) == medSize){
+            sizeStatus = medSize;
+        } else{
+            sizeStatus = largeSize  ;
+        }
     }
 
     @Override
@@ -172,6 +205,21 @@ public class NoteTakingActivity extends AppCompatActivity {
             LayoutInflater inflater = NoteTakingActivity.this.getLayoutInflater();
             View result = inflater.inflate(R.layout.notes_row, null);
             TextView note = (TextView) result.findViewById(R.id.tvNoteTitle);
+            if (darkStatus == true){
+                note.setTextColor(Color.WHITE);
+            }
+            else {
+                note.setTextColor(Color.BLACK);
+            }
+            if(sizeStatus == smallSize){
+                note.setTextSize(smallSize);
+            }
+            else if(sizeStatus == medSize){
+                note.setTextSize(medSize);
+            }
+            else{
+                note.setTextSize(largeSize);
+            }
             note.setText(getNoteTitle(position)); // get the string at position
             return result;
         }

@@ -3,11 +3,14 @@ package com.group17.mathreinforcementtool;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,15 @@ public class NoteDetailsActivity extends AppCompatActivity {
     FloatingActionButton fabSave;
     KeyListener mKeyListenerTitle;
     KeyListener mKeyListenerBody;
+
+    int smallSize = 15;
+    int medSize = 20;
+    int largeSize = 25;
+    int sizeStatus;
+    boolean darkStatus = false;
+    ConstraintLayout layout;
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +104,37 @@ public class NoteDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        layout = findViewById(R.id.noteDetailsActivity);
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        if (darkPreference.getBoolean("DarkStatus", true) == true) {
+            layout.setBackgroundColor(Color.BLACK);
+            etNoteBody.setTextColor(Color.WHITE);
+            etNoteTitle.setTextColor(Color.WHITE);
+            etNoteBody.setHintTextColor(Color.WHITE);
+            etNoteTitle.setHintTextColor(Color.WHITE);
+            etNoteTitle.setHighlightColor(Color.WHITE);
+        }
+        else {
+            layout.setBackgroundColor(Color.WHITE);
+            etNoteBody.setTextColor(Color.BLACK);
+            etNoteTitle.setTextColor(Color.BLACK);
+            etNoteBody.setHintTextColor(Color.BLACK);
+            etNoteTitle.setHintTextColor(Color.BLACK);
+        }
+        if(fontPreference.getInt("Size", medSize) == smallSize){
+            etNoteTitle.setTextSize(smallSize);
+            etNoteBody.setTextSize(smallSize);
+        }
+        else if(fontPreference.getInt("Size", medSize) == medSize){
+            etNoteTitle.setTextSize(medSize);
+            etNoteBody.setTextSize(medSize);
+        } else{
+            etNoteTitle.setTextSize(largeSize);
+            etNoteBody.setTextSize(largeSize);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu m){
