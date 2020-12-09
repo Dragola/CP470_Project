@@ -62,6 +62,7 @@
     <string name="btnAlgebra">Algèbre</string>
     <string name="btnGeometry">Géométrie</string>
     <string name="btnCombined">Défis</string>
+    <string name="btnMC">Multiple Choice</string>
 
     <string name="textAdditionDesc">Addition Description Here</string>
     <string name="textSubtractionDesc">Subtraction Description Here</string>
