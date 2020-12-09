@@ -88,8 +88,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_multiple_choice);
 
         //get difficult, type of questions (operation) and mode
-        numQuestions = getIntent().getIntExtra("numQuestions", 10);
         difficulty = getIntent().getIntExtra("Difficulty", 0);
+        numQuestions = numberOfQuestionsBasedOnDifficulty(difficulty);
         type = getIntent().getIntExtra("Type", 0);
         mode = getIntent().getIntExtra("Mode", 0);
 
@@ -319,7 +319,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         int duration= Toast.LENGTH_SHORT;
 
         //if answer is correct increment counter, check if user was stuck on question and print toast
-        if(answer == generatedQuestionsNumber.get(questionNum)){
+        if((float)answer == generatedQuestionsNumber.get(questionNum)){
             answerIsCorrect = true;
             correctCount++;
             correctAnswerStreak++;
@@ -341,6 +341,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //answer is wrong so add to incorrect counter
         else{
             text = "Incorrect";
+            Log.i("MC", "correctAnswer:" + answer + "!=" + generatedQuestionsNumber.get(questionNum));
 
             //only track stuck questions if in standard mode (mode 0)
             if (mode == 0) {
@@ -620,6 +621,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             long timeEnd = Calendar.getInstance().getTimeInMillis();
             totalTimeSeconds = (timeEnd - timeStart) / 1000;
         }
+        SharedPreferences prefs = getSharedPreferences("MCStats" + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
+
         //create intent
         Intent stats = new Intent();
 
@@ -669,20 +672,27 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             }
             //combo mode question generation
             else{
-                Log.i("MC", "backgroundQuestionGeneration: mode == 3");
                 //determine min number of questions needed for each operation (ensure at least x amount of each operator)
                 int questionPerOperation = numQuestions / 4;
+                //store value of type before swapping it (needed for saving questions)
+                int typeBeforeSwapping = type;
 
                 //until array has number of questions req
                 while (generatedQuestions.size() < numQuestions) {
-                    //randomly select operator
-                    type = rand.nextInt((3 - 0) + 0);
-
                     //generate questions
                     generateQuestions(questionPerOperation);
-                    for(int i =0; i < generatedQuestions.size(); i++){
+
+                    //only increment the operator up to division
+                    if(type + 1 < 4) {
+                        type++;
+                    }
+                    //reset type to addition if on division
+                    else{
+                        type = 0;
                     }
                 }
+                //set type back to original value
+                type = typeBeforeSwapping;
             }
             //close thread
             this.cancel(true);
@@ -693,7 +703,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     public boolean checkForSavedQuestions(){
         boolean areSavedQuestions = false;
         //get sharedPreferences file
-        SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
         try
         {
             //get number of leftover questions to pull (how many where stored)
@@ -811,5 +821,22 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             convertStr = "hard";
         }
         return convertStr;
+    }
+    private int numberOfQuestionsBasedOnDifficulty(int difficulty){
+        int tempNum = 0;
+
+        //easy
+        if (difficulty == 0){
+            tempNum = 10;
+        }
+        //medium
+        else if (difficulty == 1){
+            tempNum = 15;
+        }
+        //hard
+        else if (difficulty == 2){
+            tempNum = 20;
+        }
+        return tempNum;
     }
 }

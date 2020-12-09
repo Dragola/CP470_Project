@@ -129,4 +129,32 @@
     <string name="etBody">Enter Note Body</string>
     <string name="toastEditable">Fields are now editable. Remember to Save!!!</string>
     <string name="toastNoteIncorrect">Error: Incorrect title.</string>
+
+    
+    <!--activity_stats.xml-->
+    <string name="Activity">Activity</string>
+    <string name="Mode">Mode</string>
+    <string name="Operation">Operation</string>
+    <string name="Difficulty">Difficulty</string>
+    <string-array name="Activities">
+        <item>Multiple Choice</item>
+        <item>User Input</item>
+    </string-array>
+    <string-array name="Modes">
+        <item>Standard</item>
+        <item>Streak</item>
+        <item>Timed</item>
+        <item>Combination</item>
+    </string-array>
+    <string-array name="Types">
+    <item>Addition</item>
+    <item>Subtraction</item>
+    <item>Multiplication</item>
+    <item>Division</item>
+    </string-array>
+    <string-array name="Difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>

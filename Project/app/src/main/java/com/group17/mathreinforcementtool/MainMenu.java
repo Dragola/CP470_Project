@@ -202,10 +202,10 @@ public class MainMenu extends AppCompatActivity {
     //easy multiple choice
     public void onClickEasyMultipleChoice(View view){
         Intent intent = new Intent(this, MultipleChoiceActivity.class);
-        intent.putExtra("numQuestions", 20);
+        intent.putExtra("numQuestions", 10);
         intent.putExtra("Difficulty", 0);
-        intent.putExtra("Type", 1);
-        intent.putExtra("Mode", 1);
+        intent.putExtra("Type", 0);
+        intent.putExtra("Mode", 3);
         startActivity(intent);
     }
     //medium multiple choice
