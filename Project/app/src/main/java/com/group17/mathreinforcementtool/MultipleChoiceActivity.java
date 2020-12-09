@@ -58,11 +58,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     int highestCorrectAnswerStreak = 0;
     boolean timerEnabled = true;
     long totalTimeSeconds = 0;
+    boolean areSavedQuestions = false;
 
     //statistics
     long timeStart = Calendar.getInstance().getTimeInMillis();
-    String operationString = "";
-    String difficultyString = "";
     int incorrectAnswerCount = 0;
 
     //number generator
@@ -115,8 +114,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         if(mode == 0 || mode == 3){
             streakTextView.setVisibility(View.INVISIBLE);
             timerTextView.setVisibility(View.INVISIBLE);
+
             //check for any questions previously stuck on and add to questions array before generating more questions for the array
-            checkForSavedQuestions();
+            areSavedQuestions = checkForSavedQuestions();
         }
         //streak- set timer to invisible
         else if (mode == 1){
@@ -127,21 +127,21 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             streakTextView.setVisibility(View.INVISIBLE);
             new timerTextUpdate().execute();
         }
-        //start question generation in background
-        new backgroundQuestionGeneration().execute();
-
         //set progress bar
         statusProgressBar.setProgress(0);
         statusProgressBar.setMax(100);
 
-        //if there are no previous questions
-        if(generatedQuestions.size() == 0) {
+        //if there are no previous questions then generate a new starting question while new ones are generated in background
+        if(areSavedQuestions == false) {
             //generate a starting question (so not calling to update text multiple times)
             generateQuestions(1);
         }
-
         //updateText's
         updateTexts();
+
+        //start question generation in background
+        new backgroundQuestionGeneration().execute();
+
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
 
@@ -188,20 +188,17 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("MC", "onDestroy called, mode= " + mode);
         //only store leftover and stuck questions if in standard mode or combo mode (mode == 1/3)
         if (mode == 0 || mode == 3) {
-            Log.i("MC", "onDestroy valid mode for saving");
             try {
                 //store leftover and stuck questions + answers in SharedPreferences
-                SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyString + type + mode, Context.MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
                 //store any leftover questions
                 if (generatedQuestions.size() > 0) {
                     editor.putInt("Number of leftover Questions", generatedQuestions.size());
                     for (int i = 0; i < generatedQuestions.size(); i++) {
-                        Log.i("MC", "onDestroy saving leftover question:" + generatedQuestions.get(i));
                         editor.putString("Leftover Question" + i, generatedQuestions.get(i));
                         editor.putFloat("Leftover Answer" + i, generatedQuestionsNumber.get(i));
                     }
@@ -210,7 +207,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 if (stuckQuestions.size() > 0) {
                     editor.putInt("Number of stuck Questions", stuckQuestions.size());
                     for (int i = 0; i < stuckQuestions.size(); i++) {
-                        Log.i("MC", "onDestroy saving stuck question:" + generatedQuestions.get(i));
                         editor.putString("Stuck Question" + i, stuckQuestions.get(i));
                         editor.putFloat("Stuck Answer" + i, stuckQuestionsAnswer.get(i));
                     }
@@ -296,18 +292,20 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             answerRadioButton4.setChecked(false);
         }
         //check answer
-        correctAnswer(answer);
+        boolean isAnswerCorrect = correctAnswer(answer);
 
         //only increase index if not at the end of ArrayList
         if(questionNum < generatedQuestions.size()){
-            //only increment if question wasn't true (prevent jumping index)
-            questionNum += 1;
+            //only increment if question wasn't true (prevent jumping index if question is right)
+            if(isAnswerCorrect == false) {
+                questionNum += 1;
+            }
         }
-        //push back index
+        //push back index if index is out of array
         else{
             questionNum = 0;
         }
-        //prevent updating text is activity is finished
+        //prevent updating text if activity finished
         if (correctCount < numQuestions) {
             //next question
             updateTexts();
@@ -315,17 +313,20 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         return;
     }
     //checks if the answer picked matched the actual answer
-    public void correctAnswer(double answer){
+    public boolean correctAnswer(double answer){
+        boolean answerIsCorrect = false;
         CharSequence text;
         int duration= Toast.LENGTH_SHORT;
 
         //if answer is correct increment counter, check if user was stuck on question and print toast
         if(answer == generatedQuestionsNumber.get(questionNum)){
-            //possibly store question is
-            storeStuckQuestion(generatedQuestions.remove(questionNum), answer);
-            generatedQuestionsNumber.remove(questionNum);
+            answerIsCorrect = true;
             correctCount++;
             correctAnswerStreak++;
+
+            //possibly store question
+            storeStuckQuestion(generatedQuestions.remove(questionNum), answer);
+            generatedQuestionsNumber.remove(questionNum);
 
             //update highest streak if in streak mode (mode 1)
             if (mode == 1) {
@@ -364,7 +365,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             }
             exitActivity();
         }
-        return;
+        return answerIsCorrect;
     }
     //update UI elements
     public void updateTexts(){
@@ -443,9 +444,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     public void setMaxMinValues(){
         //easy difficulty
         if(difficulty == 0){
-            //set difficulty string
-            difficultyString = "Easy";
-
             //addition or subtraction
             if(type < 2 ) {
                 max = 9;
@@ -458,9 +456,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
         //medium difficulty
         if(difficulty == 1){
-            //set difficulty string
-            difficultyString = "Medium";
-
             //addition or subtraction
             if(type < 2){
                 max = 99;
@@ -474,8 +469,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
         //hard difficulty
         if(difficulty == 2){
-            //set difficulty string
-            difficultyString = "Hard";
             //addition or subtraction
             if(type < 2){
                 max = 999;
@@ -525,30 +518,18 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 //addition
                 if(type == 0){
                     numAnswer = number1 + number2;
-                    if(operationString.compareTo("") == 0){
-                        operationString = "Addition";
-                    }
                 }
                 //subtraction
                 else if(type == 1){
                     numAnswer = number1 - number2;
-                    if(operationString.compareTo("") == 0){
-                        operationString = "Division";
-                    }
                 }
                 //multiplication
                 else if(type == 2){
                     numAnswer = number1 * number2;
-                    if(operationString.compareTo("") == 0){
-                        operationString = "Multiplication";
-                    }
                 }
                 //division
                 else{
                     numAnswer = number1 / number2;
-                    if(operationString.compareTo("") == 0){
-                        operationString = "/";
-                    }
                 }
             }
             generatedQuestionsNumber.add((float) round(numAnswer, 3));
@@ -643,8 +624,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         Intent stats = new Intent();
 
         //add operation and difficulty to intent
-        stats.putExtra("Operation", operationString);
-        stats.putExtra("Difficulty", difficultyString);
+        stats.putExtra("Operation", typeToString(type));
+        stats.putExtra("Difficulty", difficultyToString(difficulty));
 
         //add time elapsed since starting the activity (in seconds) to intent
         stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
@@ -683,7 +664,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             checkForSavedQuestions();
             //generate questions normally if not in combo mode
             if(mode != 3) {
-                Log.i("MC", "backgroundQuestionGeneration: mode != 3");
                 //generate remaining questions
                 generateQuestions(numQuestions);
             }
@@ -701,7 +681,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     //generate questions
                     generateQuestions(questionPerOperation);
                     for(int i =0; i < generatedQuestions.size(); i++){
-                        Log.i("MC", "Combo Question: " + generatedQuestions.get(i));
                     }
                 }
             }
@@ -711,9 +690,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
     }
     //checks for stuck questions in shared preferences add adds them to the questions array before generating new ones and adding those
-    public void checkForSavedQuestions(){
+    public boolean checkForSavedQuestions(){
+        boolean areSavedQuestions = false;
         //get sharedPreferences file
-        SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyString + type + mode, Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
         try
         {
             //get number of leftover questions to pull (how many where stored)
@@ -723,9 +703,11 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             for(int i=0;i<numQuestionsToLoad;i++) {
                 String question = prefs.getString("Leftover Question" + i, "");
                 if(question.compareTo("") != 0) {
+                    if(areSavedQuestions == false){
+                        areSavedQuestions =  true;
+                    }
                     generatedQuestions.add(question);
                     generatedQuestionsNumber.add(prefs.getFloat("Leftover Answer" + i, 0));
-                    Log.i("MC", "checkForSavedQuestions pulled leftover question, question is " + generatedQuestions.get(generatedQuestions.size() -1));
                 }
             }
             //get number of stuck questions to pull (how many where stored)
@@ -735,9 +717,11 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             for(int i=0;i<numQuestionsToLoad;i++) {
                 String question = prefs.getString("Leftover Question" + i, "");
                 if(question.compareTo("") != 0) {
+                    if(areSavedQuestions == false){
+                        areSavedQuestions =  true;
+                    }
                     generatedQuestions.add(prefs.getString("Stuck Question" + i, ""));
                     generatedQuestionsNumber.add(prefs.getFloat("Stuck Answer" + i, 0));
-                    Log.i("MC", "checkForSavedQuestions pulled stuck question, array's size is now " + generatedQuestions.get(generatedQuestions.size() -1));
                 }
             }
         } catch (Exception e){
@@ -747,9 +731,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
         editor.commit();
+        return areSavedQuestions;
     }
     //puts value in ArrayList to indicate how many times they got the answer wrong (3 or more the question will be saved)
-    public void trackStuckQuestions(int questionIndex){
+    private void trackStuckQuestions(int questionIndex){
         //add integer if not in array
         if(stuckQuestionsTracker.size() - 1< questionIndex){
             stuckQuestionsTracker.add(1);
@@ -761,11 +746,70 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
     }
     //store stuck questions in ArrayList's to be stored later (called when question is removed from array)
-    public void storeStuckQuestion(String question, double answer){
+    private void storeStuckQuestion(String question, double answer){
         //if the question was being tracked and it has had 3 or more incorrect answers
         if(stuckQuestionsTracker.size() > questionNum && stuckQuestionsTracker.get(questionNum) >=3){
             stuckQuestions.add(question);
             stuckQuestionsAnswer.add((float)answer);
         }
+    }
+    //convert type to string for saving + stats
+    private String typeToString(int type){
+        String convertStr = "";
+        //addition
+        if(type == 0){
+            convertStr = "Addition";
+        }
+        //subtraction
+        else if(type == 1){
+            convertStr = "Subtraction";
+        }
+        //multiplication
+        else if(type == 2){
+            convertStr = "Multiplication";
+        }
+        //division
+        else if(type == 3){
+            convertStr = "Division";
+        }
+        return convertStr;
+    }
+    //convert mode to string for saving
+    private String modeToString(int mode){
+        String convertStr = "";
+        //standard
+        if(mode == 0){
+            convertStr = "Standard";
+        }
+        //Streak
+        else if(mode == 1){
+            convertStr = "Streak";
+        }
+        //timer
+        else if(mode == 2){
+            convertStr = "Timer";
+        }
+        //combination
+        else if(mode == 3){
+            convertStr = "Combination";
+        }
+        return convertStr;
+    }
+    //convert difficulty to string for saving + stats
+    private String difficultyToString(int difficulty){
+        String convertStr = "";
+        //easy
+        if(difficulty == 0){
+            convertStr = "Easy";
+        }
+        //medium
+        else if(mode == 1){
+            convertStr = "Medium";
+        }
+        //hard
+        else if(mode == 2){
+            convertStr = "hard";
+        }
+        return convertStr;
     }
 }
