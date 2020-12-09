@@ -9,7 +9,6 @@
     tools:context=".SettingsActivity"
     >
 
-
     <TextView
         android:id="@+id/Title"
         android:layout_width="match_parent"
