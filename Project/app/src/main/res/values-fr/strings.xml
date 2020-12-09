@@ -3,12 +3,12 @@
 
     <string name="app_name">Outil de renforcement mathématique</string>
     <string name="settingsTitle">Réglages</string>
-    <string name="darkSwitch">Mode sombre</string>
-    <string name="lightSwitch">Mode lumière</string>
-    <string name="fontText">Taille de police:</string>
+    <string name="darkSwitch">Mode Sombre</string>
+    <string name="lightSwitch">Mode Lumière</string>
+    <string name="fontText">Taille:</string>
     <string name="smallButton">Petit</string>
     <string name="medButton">Moy</string>
-    <string name="largeButton">grand</string>
+    <string name="largeButton">Grand</string>
     <string name="privacyPolicyButton">Politique de confidentialité</string>
     <string name="agreementButton">Accord de l\'utilisateur</string>
     <string name="bugButton">Signaler un bug</string>
@@ -88,6 +88,7 @@
     <string name = "Perimeter"> Périmètre </string>
     <string name = "Algebra"> Algèbre combinée </string>
     <string name = "MCQ"> Questions à choix multiples </string>
+    <string name="testSelevt">Sélection du niveau de test</string>
     <string name="Easy">Facile</string>
     <string name="Medium">Moyen</string>
     <string name="Hard">Dur</string>
@@ -136,5 +137,25 @@
     <string name = "toastEditable"> Les champs sont désormais modifiables. N\'oubliez pas de sauvegarder !!! </string>
     <string name = "toastNoteIncorrect"> Erreur: titre incorrect. </string>
 
-
+    <string name = "Activity"> Activité </string>
+    <string name = "Mode"> Mode </string>
+    <string name = "Operation"> Opération </string>
+    <string name = "Difficulty"> Difficulté </string>
+    <string-array name = "Modes">
+        <item> Standard </item>
+        <item> Série </item>
+        <item> Temporisé </item>
+        <item> Combinaison </item>
+    </string-array>
+    <string-array name = "Types">
+        <item> Ajout </item>
+        <item> Soustraction </item>
+        <item> Multiplication </item>
+        <item> Division </item>
+    </string-array>
+    <string-array name = "Difficulty">
+        <item> Facile </item>
+        <item> Moyen </item>
+        <item> Difficile </item>
+    </string-array>
 </resources>

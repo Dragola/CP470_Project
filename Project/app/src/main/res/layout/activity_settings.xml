@@ -33,7 +33,7 @@
     <TextView
         android:id="@+id/FontLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/DarkSwitch"
         android:text="@string/fontText"
         android:textSize="30sp"/>
@@ -41,7 +41,7 @@
     <RadioButton
         android:id="@+id/SmallButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/DarkSwitch"
         android:onClick="onSmallClick"
         android:layout_toEndOf="@id/FontLabel"
@@ -53,7 +53,7 @@
     <RadioButton
         android:id="@+id/MedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/DarkSwitch"
         android:onClick="onMedClick"
         android:layout_toEndOf="@id/SmallButton"
@@ -64,7 +64,7 @@
     <RadioButton
         android:id="@+id/LargeButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/DarkSwitch"
         android:onClick="onLargeClick"
         android:layout_toEndOf="@id/MedButton"
