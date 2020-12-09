@@ -122,7 +122,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             timerTextView.setVisibility(View.INVISIBLE);
         }
         //timer- set streak to invisible
-        else{
+        else if (mode == 2){
             streakTextView.setVisibility(View.INVISIBLE);
             new timerTextUpdate().execute();
         }
@@ -556,7 +556,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         else if (answer >= 0){
             shouldBePositive = true;
         }
-
         //addition
         if (type == 0) {
             randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
@@ -603,10 +602,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     }
     //save any data then close activity
     private void exitActivity(){
-        //get total time in activity
-        long timeEnd = Calendar.getInstance().getTimeInMillis();
-        totalTimeSeconds = (timeEnd - timeStart) / 1000;
-
+        //only get final time if not in timer mode
+        if(mode != 2) {
+            //get total time in activity
+            long timeEnd = Calendar.getInstance().getTimeInMillis();
+            totalTimeSeconds = (timeEnd - timeStart) / 1000;
+        }
         //only store stuck questions if in standard mode
         if (mode == 0) {
             //if there are questions the user was stuck on
@@ -627,10 +628,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 editor.commit();
             }
         }
-        //create intenet
+        //create intent
         Intent stats = new Intent();
 
-        //add operation and difficulty to intenet
+        //add operation and difficulty to intent
         stats.putExtra("Operation", operationString);
         stats.putExtra("Difficulty", difficultyString);
 
@@ -640,11 +641,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //add number of times the user answered with a wrong answer
         stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
 
-        //add streak if in streak mode (mode 1)
-        if(mode == 1){
-            //highest streak of correct answers the user had
-            stats.putExtra("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
-        }
+        //highest streak of correct answers the user had
+        stats.putExtra("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
+
         //set result and finish activity
         setResult(RESULT_OK, stats);
         finish();
@@ -668,12 +667,27 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     }
     //used to generate remaining questions
     private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void>{
-
         @Override
         protected Void doInBackground(Void... voids) {
-            //generate remaining questions
-            generateQuestions(numQuestions);
+            //generate questions normally if not in combo mode
+            if(mode != 3) {
+                //generate remaining questions
+                generateQuestions(numQuestions);
+            }
+            //combo mode question generation
+            else{
+                //determine min number of questions needed for each operation (ensure at least x amount of each operator)
+                int questionPerOperation = numQuestions / 4;
 
+                //until array has number of questions req
+                while (generatedQuestions.size() < numQuestions) {
+                    //randomly select operator
+                    type = rand.nextInt((3 - 0) + 0);
+
+                    //generate questions
+                    generateQuestions(questionPerOperation);
+                }
+            }
             //close thread
             this.cancel(true);
             return null;
