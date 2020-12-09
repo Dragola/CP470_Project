@@ -168,7 +168,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
         }
         if (fontPreference.getInt("Size", medSize) == 15) {
             for (Button b : btnList) {
-                b.setTextSize(10);
+                b.setTextSize(15);
             }
             for(TextView t: textViewList){
                 t.setTextSize(smallSize);
@@ -176,7 +176,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
             answerString.setTextSize(smallSize);
         } else if (fontPreference.getInt("Size", medSize) == 20) {
             for (Button b : btnList) {
-                b.setTextSize(15);
+                b.setTextSize(20);
             }
             for(TextView t: textViewList){
                 t.setTextSize(medSize);
@@ -184,7 +184,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
             answerString.setTextSize(medSize);
         } else {
             for (Button b : btnList) {
-                b.setTextSize(20);
+                b.setTextSize(25);
             }
             for(TextView t: textViewList){
                 t.setTextSize(largeSize);
