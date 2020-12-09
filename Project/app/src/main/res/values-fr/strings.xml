@@ -36,6 +36,7 @@
     <string name="btnDifficultyHard">Dur</string>
     <string name="Show_MTA_Time">Votre temps était: %1$d:%2$02d!</string>
     <string name="textNotes">Remarques</string>
+    <string name = "Title"> Simplement calculé </string>
 
     <!--activity_math_template.xml-->
     <string name="btnBack">Retour</string>

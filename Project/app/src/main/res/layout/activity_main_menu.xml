@@ -8,430 +8,64 @@
     tools:context=".MainMenu">
 
     <TextView
-        android:id="@+id/textMenuPerimeter"
-        android:layout_width="135dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="2dp"
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/textPerimeter"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medPerim"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textMenuAlgebra"
-        android:layout_width="135dp"
-        android:layout_height="37dp"
-        android:gravity="center"
-        android:text="@string/textAlgebra"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medPerim2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textMenuArea"
-        android:layout_width="135dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="2dp"
-        android:gravity="center"
-        android:text="@string/textArea"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medArea"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textMenuMultiple"
-        android:layout_width="136dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="259dp"
-        android:text="@string/multipleChoiceButtonText"
-        android:textSize="18sp"
+        android:text="@string/Title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/easyMultipleChoice"
-        android:layout_width="95dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="296dp"
-        android:onClick="onClickEasyMultipleChoice"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple"
-        app:layout_constraintVertical_bias="0.045" />
-
-    <Button
-        android:id="@+id/mediumMultipleChoice"
-        android:layout_width="95dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="22dp"
-        android:onClick="onClickMediumMultipleChoice"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
-        app:layout_constraintEnd_toStartOf="@+id/hardMultipleChoice"
-        app:layout_constraintStart_toEndOf="@+id/easyMultipleChoice"
-        app:layout_constraintTop_toBottomOf="@+id/textMenuMultiple"
-        app:layout_constraintVertical_bias="0.347" />
-
-    <Button
-        android:id="@+id/hardMultipleChoice"
-        android:layout_width="95dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="105dp"
-        android:onClick="onClickHardMultipleChoice"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/levelSelectButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mediumMultipleChoice"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
-
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="356dp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
         android:onClick="onClickSettings"
         android:text="@string/settingsButtonText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textMenuAddition"
-        android:layout_width="135dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/textAddition"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/easyAdd"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <Button
-        android:id="@+id/easyAdd"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onAdditionClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <Button
-        android:id="@+id/easyAdd2"
-        android:layout_width="48dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onAlgebraClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuArea"
-        app:layout_constraintEnd_toStartOf="@+id/medPerim2" />
-
-    <Button
-        android:id="@+id/easyPerim"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onPerimeterClick"
-
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuAddition"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/easyArea"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
-
-        android:onClick="onAreaClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuMultiplication"
-        app:layout_constraintEnd_toStartOf="@+id/medArea" />
-
-    <Button
-        android:id="@+id/medAdd"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onAdditionClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
-        app:layout_constraintStart_toEndOf="@+id/easyAdd" />
-
-    <Button
-        android:id="@+id/medPerim"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onPerimeterClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuAddition"
-        app:layout_constraintStart_toEndOf="@+id/easyPerim" />
-
-    <Button
-        android:id="@+id/medPerim2"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onAlgebraClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuArea"
-        app:layout_constraintEnd_toStartOf="@+id/hardPerim2" />
-
-    <Button
-        android:id="@+id/medArea"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="49dp"
-        android:onClick="onAreaClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toBottomOf="@+id/textMenuMultiplication"
-        app:layout_constraintEnd_toStartOf="@+id/hardArea" />
-
-    <Button
-        android:id="@+id/hardAdd"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onAdditionClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuSubtraction"
-        app:layout_constraintStart_toEndOf="@+id/medAdd" />
-
-
-    <Button
-        android:id="@+id/hardPerim"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onPerimeterClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuAddition"
-        app:layout_constraintStart_toEndOf="@+id/medPerim" />
-
-    <Button
-        android:id="@+id/hardPerim2"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onAlgebraClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuArea"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/hardArea"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
-        android:onClick="onAreaClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuMultiplication"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textMenuMultiplication"
-        android:layout_width="170dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/textMultiplication"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medMult"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/easyMult"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onMultiplicationClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
-        app:layout_constraintEnd_toStartOf="@+id/medMult" />
-
-    <Button
-        android:id="@+id/medMult"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onMultiplicationClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
-        app:layout_constraintEnd_toStartOf="@+id/hardMult" />
-
-    <Button
-        android:id="@+id/hardMult"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onMultiplicationClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toTopOf="@+id/textMenuDivision"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textMenuDivision"
-        android:layout_width="135dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/textDivision"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/medDiv"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/easyDiv"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onDivisionClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/medDiv" />
-
-    <Button
-        android:id="@+id/medDiv"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onDivisionClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/hardDiv" />
-
-    <Button
-        android:id="@+id/hardDiv"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onDivisionClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textMenuSubtraction"
-        android:layout_width="135dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/textSubtraction"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/easySub"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <Button
-        android:id="@+id/easySub"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onSubtractionClick"
-        android:text="@string/btnDifficultyEasy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/medSub"
-        android:layout_width="47dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onSubtractionClick"
-        android:text="@string/btnDifficultyMedium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/easySub" />
-
-    <Button
-        android:id="@+id/hardSub"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:onClick="onSubtractionClick"
-        android:text="@string/btnDifficultyHard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/medSub" />
+        app:layout_constraintTop_toBottomOf="@+id/notesButton" />
 
     <Button
         android:id="@+id/levelSelectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="24dp"
         android:onClick="onLevelSelectClick"
         android:text="@string/btnLevelSelect"
-        app:layout_constraintBottom_toTopOf="@+id/notesButton"
+        app:layout_constraintBottom_toTopOf="@+id/statsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <Button
         android:id="@+id/notesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/textNotes"
         android:onClick="onNotesClick"
+        android:text="@string/textNotes"
         app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsButton" />
 
     <Button
         android:id="@+id/statsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="16dp"
         android:onClick="onStatsClick"
         android:text="Stats"
+        app:layout_constraintBottom_toTopOf="@+id/notesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/levelSelectButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

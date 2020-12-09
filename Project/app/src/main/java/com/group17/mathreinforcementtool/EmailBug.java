@@ -121,8 +121,6 @@ public class EmailBug extends AppCompatActivity {
     }
     public void onBugButtonClick(View view) {
         bugText = findViewById(R.id.bugText);
-//        bugEditor.putString("bugList", bugText.getText().toString()));
-//        bugEditor.commit();
         new sendEmail().execute();
     }
     //used to generate remaining questions
