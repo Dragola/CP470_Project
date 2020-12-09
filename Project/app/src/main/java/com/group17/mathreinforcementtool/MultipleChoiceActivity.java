@@ -35,9 +35,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     int difficulty = 0;
     int type = 0;
     int mode = 0;
-    double number1 = 0f;
-    double number2 = 0f;
-    double numAnswer = 0f;
+    float number1 = 0f;
+    float number2 = 0f;
+    float numAnswer = 0f;
     int max = 9;
     int min = 1;
     TextView questionTextView = null;
@@ -73,9 +73,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     List<TextView> textViewList = new ArrayList<TextView>();
     ArrayList<String> generatedQuestions = new ArrayList<>();
     ArrayList<String> stuckQuestions = new ArrayList<>();
+    ArrayList<Float> generatedQuestionsNumber = new ArrayList<>();
     ArrayList<Float> stuckQuestionsAnswer = new ArrayList<>();
     ArrayList<Integer> stuckQuestionsTracker = new ArrayList<>();
-    ArrayList<Double> generatedQuestionsNumber = new ArrayList<>();
 
     //Dark mode and font preferences
     SharedPreferences darkPreference;
@@ -111,11 +111,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
         //standard mode- set streak and timer to invisible and check for stuck questions
-        if(mode == 0){
+        //combo mode- questions are from all 4 operators
+        if(mode == 0 || mode == 3){
             streakTextView.setVisibility(View.INVISIBLE);
             timerTextView.setVisibility(View.INVISIBLE);
             //check for any questions previously stuck on and add to questions array before generating more questions for the array
-            checkForStuckQuestions();
+            checkForSavedQuestions();
         }
         //streak- set timer to invisible
         else if (mode == 1){
@@ -126,26 +127,23 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             streakTextView.setVisibility(View.INVISIBLE);
             new timerTextUpdate().execute();
         }
+        //start question generation in background
+        new backgroundQuestionGeneration().execute();
+
         //set progress bar
         statusProgressBar.setProgress(0);
         statusProgressBar.setMax(100);
 
-        //generate a starting question (so not calling to update text multiple times)
-        generateQuestions(1);
+        //if there are no previous questions
+        if(generatedQuestions.size() == 0) {
+            //generate a starting question (so not calling to update text multiple times)
+            generateQuestions(1);
+        }
 
         //updateText's
         updateTexts();
-
-        //start question generation in background
-        new backgroundQuestionGeneration().execute();
-
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
-
-//            questionTextView.setTextColor(Color.WHITE);
-//            timerTextView.setTextColor(Color.WHITE);
-//            questionsCorrectTextView.setTextColor(Color.WHITE);
-//            streakTextView.setTextColor(Color.WHITE);
 
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
@@ -155,10 +153,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                 r.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
             }
         } else {
-//            layout.setBackgroundColor(Color.WHITE);
-//            questionTextView.setTextColor(Color.BLACK);
-//            timerTextView.setTextColor(Color.BLACK);
-//            questionsCorrectTextView.setTextColor(Color.BLACK);
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
             }
@@ -188,6 +182,43 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             }
             for(RadioButton r: radioButtonList){
                 r.setTextSize(largeSize);
+            }
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("MC", "onDestroy called, mode= " + mode);
+        //only store leftover and stuck questions if in standard mode or combo mode (mode == 1/3)
+        if (mode == 0 || mode == 3) {
+            Log.i("MC", "onDestroy valid mode for saving");
+            try {
+                //store leftover and stuck questions + answers in SharedPreferences
+                SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyString + type + mode, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+
+                //store any leftover questions
+                if (generatedQuestions.size() > 0) {
+                    editor.putInt("Number of leftover Questions", generatedQuestions.size());
+                    for (int i = 0; i < generatedQuestions.size(); i++) {
+                        Log.i("MC", "onDestroy saving leftover question:" + generatedQuestions.get(i));
+                        editor.putString("Leftover Question" + i, generatedQuestions.get(i));
+                        editor.putFloat("Leftover Answer" + i, generatedQuestionsNumber.get(i));
+                    }
+                }
+                //store any stuck questions
+                if (stuckQuestions.size() > 0) {
+                    editor.putInt("Number of stuck Questions", stuckQuestions.size());
+                    for (int i = 0; i < stuckQuestions.size(); i++) {
+                        Log.i("MC", "onDestroy saving stuck question:" + generatedQuestions.get(i));
+                        editor.putString("Stuck Question" + i, stuckQuestions.get(i));
+                        editor.putFloat("Stuck Answer" + i, stuckQuestionsAnswer.get(i));
+                    }
+                }
+                //commit the changes
+                editor.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -486,7 +517,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //loop until the number of questions required is met
         while (numberOfQuestionsToGenerate > 0 && generatedQuestions.size() < numQuestions) {
             //prevent answer from being repeated, 0, infinite or NaN
-            while (Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true || numAnswer == 0 || generatedQuestionsNumber.contains(round(numAnswer, 3)) == true) {
+            while (Float.isInfinite(numAnswer) == true || Float.isNaN(numAnswer) == true || numAnswer == 0 || generatedQuestionsNumber.contains((float)(round(numAnswer, 3))) == true) {
                 //pick 2 random numbers from the range
                 number1 = (float) rand.nextInt((max - min) + min);
                 number2 = (float) rand.nextInt((max - min) + min);
@@ -520,7 +551,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     }
                 }
             }
-            generatedQuestionsNumber.add((round(numAnswer, 3)));
+            generatedQuestionsNumber.add((float) round(numAnswer, 3));
             //addition question
             if (type == 0) {
                 //set text for question
@@ -573,7 +604,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             randomAnswer = (((double) rand.nextInt((max - min) + min)) / ((double) rand.nextInt((max - min) + min)));
         }
         //keep randomizing answer until it doesn't match the answer, isn't an already generated answer, isn't infinite or NaN. Also loop until randomAnswer is negative/positive so that it matches the answer
-        while (Double.isInfinite(randomAnswer) == true || Double.isNaN(randomAnswer) == true|| round(randomAnswer, 3) == answer ||generatedAnswers.contains(round(randomAnswer, 3)) == true || (randomAnswer > 0 && shouldBeNegative) || (randomAnswer < 0 && shouldBePositive)){
+        while (Double.isInfinite(randomAnswer) == true || Double.isNaN(randomAnswer) == true|| round(randomAnswer, 3) == answer ||generatedAnswers.contains((float)(round(randomAnswer, 3))) == true || (randomAnswer > 0 && shouldBeNegative) || (randomAnswer < 0 && shouldBePositive)){
             //addition
             if (type == 0) {
                 randomAnswer = (((double) rand.nextInt((max - min) + min)) + ((double) rand.nextInt((max - min) + min)));
@@ -607,26 +638,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             //get total time in activity
             long timeEnd = Calendar.getInstance().getTimeInMillis();
             totalTimeSeconds = (timeEnd - timeStart) / 1000;
-        }
-        //only store stuck questions if in standard mode
-        if (mode == 0) {
-            //if there are questions the user was stuck on
-            if(stuckQuestions.size() > 0) {
-                //store questions and answers in SharedPreferences
-                SharedPreferences prefs = getSharedPreferences("MultipleChoiceStuckQuestions", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                try {
-                    editor.putInt("Number of Questions", stuckQuestions.size());
-                    for (int i = 0; i < stuckQuestions.size(); i++) {
-                        editor.putString("Question" + i, stuckQuestions.get(i));
-                        editor.putFloat("Answer" + i, stuckQuestionsAnswer.get(i));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //commit the changes
-                editor.commit();
-            }
         }
         //create intent
         Intent stats = new Intent();
@@ -669,13 +680,16 @@ public class MultipleChoiceActivity extends AppCompatActivity {
     private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void>{
         @Override
         protected Void doInBackground(Void... voids) {
+            checkForSavedQuestions();
             //generate questions normally if not in combo mode
             if(mode != 3) {
+                Log.i("MC", "backgroundQuestionGeneration: mode != 3");
                 //generate remaining questions
                 generateQuestions(numQuestions);
             }
             //combo mode question generation
             else{
+                Log.i("MC", "backgroundQuestionGeneration: mode == 3");
                 //determine min number of questions needed for each operation (ensure at least x amount of each operator)
                 int questionPerOperation = numQuestions / 4;
 
@@ -686,6 +700,9 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
                     //generate questions
                     generateQuestions(questionPerOperation);
+                    for(int i =0; i < generatedQuestions.size(); i++){
+                        Log.i("MC", "Combo Question: " + generatedQuestions.get(i));
+                    }
                 }
             }
             //close thread
@@ -694,18 +711,34 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         }
     }
     //checks for stuck questions in shared preferences add adds them to the questions array before generating new ones and adding those
-    public void checkForStuckQuestions(){
+    public void checkForSavedQuestions(){
         //get sharedPreferences file
-        SharedPreferences prefs = getSharedPreferences("MultipleChoiceStuckQuestions", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(numQuestions + difficultyString + type + mode, Context.MODE_PRIVATE);
         try
         {
-            //get number of questions to pull (how many where stored)
-            int numStuckQuestions = prefs.getInt("Number of Questions", 0);
+            //get number of leftover questions to pull (how many where stored)
+            int numQuestionsToLoad = prefs.getInt("Number of leftover Questions", 0);
+
+            //pull the leftover questions and their answers and place into the questions and answers arrays
+            for(int i=0;i<numQuestionsToLoad;i++) {
+                String question = prefs.getString("Leftover Question" + i, "");
+                if(question.compareTo("") != 0) {
+                    generatedQuestions.add(question);
+                    generatedQuestionsNumber.add(prefs.getFloat("Leftover Answer" + i, 0));
+                    Log.i("MC", "checkForSavedQuestions pulled leftover question, question is " + generatedQuestions.get(generatedQuestions.size() -1));
+                }
+            }
+            //get number of stuck questions to pull (how many where stored)
+            numQuestionsToLoad = prefs.getInt("Number of stuck Questions", 0);
 
             //pull the questions and their answers and place into the questions and answers arrays
-            for(int i=0;i<numStuckQuestions;i++) {
-                generatedQuestions.add(prefs.getString("Question" + i, ""));
-                generatedQuestionsNumber.add((double) prefs.getFloat("Answer" + i, 0));
+            for(int i=0;i<numQuestionsToLoad;i++) {
+                String question = prefs.getString("Leftover Question" + i, "");
+                if(question.compareTo("") != 0) {
+                    generatedQuestions.add(prefs.getString("Stuck Question" + i, ""));
+                    generatedQuestionsNumber.add(prefs.getFloat("Stuck Answer" + i, 0));
+                    Log.i("MC", "checkForSavedQuestions pulled stuck question, array's size is now " + generatedQuestions.get(generatedQuestions.size() -1));
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
