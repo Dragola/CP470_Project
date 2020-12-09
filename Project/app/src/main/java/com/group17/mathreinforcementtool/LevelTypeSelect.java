@@ -41,7 +41,7 @@ public class LevelTypeSelect extends AppCompatActivity {
         titleString =  findViewById(R.id.textViewLevelTypeSelect);
         fragment = findViewById(R.id.flLevelType);
 
-        btnList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.buttonTypeAlgebra), (Button) findViewById(R.id.buttonTypeGeometry),(Button) findViewById(R.id.buttonTypeCombined)));
+        btnList.addAll((Collection<? extends Button>) Arrays.asList((Button) findViewById(R.id.buttonTypeAlgebra), (Button) findViewById(R.id.buttonTypeGeometry),(Button) findViewById(R.id.buttonTypeMC)));
 
         layout = findViewById(R.id.lvlSelect);
 
@@ -84,11 +84,11 @@ public class LevelTypeSelect extends AppCompatActivity {
         ft.commit();
     }
 
-    // Loads the Combined fragment when the button is clicked
-    public void onClickCombined(View view){
-        QuestionTypeCombined combinedFragment = new QuestionTypeCombined();
+    // Loads the MC fragment when the button is clicked
+    public void onClickMC(View view){
+        QuestionTypeMC MCFragment = new QuestionTypeMC();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flLevelType, combinedFragment, "Combined_Fragment");
+        ft.replace(R.id.flLevelType, MCFragment, "MC_Fragment");
         ft.commit();
     }
 }

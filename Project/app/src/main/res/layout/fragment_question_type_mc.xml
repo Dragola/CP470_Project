@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuestionTypeMC">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnMCCombo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCCombo"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCTimeDiv"
+                    app:layout_constraintHorizontal_bias="0.458"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition5" />
+
+                <TextView
+                    android:id="@+id/txtAddition5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/textMCCombo"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMCDivisionDescription" />
+
+                <TextView
+                    android:id="@+id/textMCComboDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/textMCComboDesc"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMCCombo" />
+
+                <Button
+                    android:id="@+id/btnMCStreakDiv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStreak"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCTimeDiv"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+
+                <Button
+                    android:id="@+id/btnMCStreakAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStreak"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCTimeAdd"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition" />
+
+                <Button
+                    android:id="@+id/btnMCStanAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStan"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCTimeAdd"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition" />
+
+                <Button
+                    android:id="@+id/btnMCTimeAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCTime"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCStreakAdd"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCStanAdd"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition" />
+
+                <TextView
+                    android:id="@+id/textMCSAdditionDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/textMCAdditionDesc"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMCStanAdd" />
+
+                <Button
+                    android:id="@+id/btnMCTimeSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCTime"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCStreakSub"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCStanSub"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+
+                <TextView
+                    android:id="@+id/txtAddition2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Subtraction"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMCSAdditionDescription" />
+
+                <Button
+                    android:id="@+id/btnMCStanSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStan"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCTimeSub"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+
+                <Button
+                    android:id="@+id/btnMCStreakSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStreak"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCTimeSub"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+
+                <TextView
+                    android:id="@+id/textMCSubtractionDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/textMCSubtractionDesc"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMCStanSub" />
+
+                <Button
+                    android:id="@+id/btnMCStanMulti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStan"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCTimeMulti"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+
+                <Button
+                    android:id="@+id/btnMCTimeMulti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCTime"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCStreakMulti"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCStanMulti"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+
+                <Button
+                    android:id="@+id/btnMCStreakMulti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStreak"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCTimeMulti"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+
+                <Button
+                    android:id="@+id/btnMCStanDiv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCStan"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCTimeDiv"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+
+                <TextView
+                    android:id="@+id/textMCMultiplicationDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/textMCMultiplicationDesc"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMCStanMulti" />
+
+                <Button
+                    android:id="@+id/btnMCTimeDiv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/btnMCTime"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMCStreakDiv"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMCStanDiv"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+
+                <TextView
+                    android:id="@+id/textMCDivisionDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="1dp"
+                    android:text="@string/textMCDivisionDesc"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMCStanDiv" />
+
+                <TextView
+                    android:id="@+id/txtAddition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/Addition"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtAddition3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Multiplication"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMCSubtractionDescription" />
+
+                <TextView
+                    android:id="@+id/txtAddition4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Division"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMCMultiplicationDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

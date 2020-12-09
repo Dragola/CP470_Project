@@ -585,6 +585,9 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         // How many times the user inputted an incorrect answer
         stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
 
+        // Percentage of correct answers
+        stats.putExtra("PercentCorrect", Double.toString(correctAnswerCount/20.0));
+
         // The amount of times the user pressed a button (fun stat)
         stats.putExtra("ButtonPressCount", Integer.toString(buttonPressCount));
 

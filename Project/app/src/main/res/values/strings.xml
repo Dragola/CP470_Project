@@ -60,16 +60,32 @@
     <string name="btnAlgebra">Algebra</string>
     <string name="btnGeometry">Geometry</string>
     <string name="btnCombined">Challenges</string>
+    <string name="btnMC">Multiple Choice</string>
+
     <string name="textAdditionDesc">Addition Description Here</string>
     <string name="textSubtractionDesc">Subtraction Description Here</string>
     <string name="textMultiplicationDesc">Multiplication Description Here</string>
     <string name="textDivisionDesc">Division Description Here</string>
-    <string name="textAreaDesc">Area Description Here</string>
-    <string name="textPerimeterDesc">Perimeter Description Here</string>
-    <string name="textMCQ">MCQ</string>
-    <string name="textMCQDesc">MCQ Description Here</string>
     <string name="textCalculate">Combined Algebra</string>
     <string name="textCalculateDesc">Enter the Value</string>
+
+    <string name="btnMCStan">Standard</string>
+    <string name="btnMCTime">Timed</string>
+    <string name="btnMCStreak">Streak</string>
+    <string name="btnMCCombo">Combined</string>
+    <string name="textMCAdditionDesc">MC Addition Description Here</string>
+    <string name="textMCSubtractionDesc">MC Subtraction Description Here</string>
+    <string name="textMCMultiplicationDesc">MC Multiplication Description Here</string>
+    <string name="textMCDivisionDesc">MC Division Description Here</string>
+    <string name="textMCCombo">Combined</string>
+    <string name="textMCComboDesc">MC Combo Description Here</string>
+
+    <string name="textAreaDesc">Area Description Here</string>
+    <string name="textPerimeterDesc">Perimeter Description Here</string>
+
+    <string name="textMCQStandardDesc">MCQ Description Here</string>
+    <string name="textMCQTimerDesc">MCQ Description Here</string>
+    <string name="textMCQStreakDesc">MCQ Description Here</string>
     <string name="sharedPrefFailed">Failed to generate levels</string>
 
     <!--activity_level_select.xml Level Descriptions-->
@@ -112,6 +128,19 @@
     <string name="MCQEasyDescription">insert description and rules</string>
     <string name="MCQMediumDescription">insert description and rules</string>
     <string name="MCQHardDescription">insert description and rules</string>
+    <string name="MCStandardAddition"></string>
+    <string name="MCTimerAddition"></string>
+    <string name="MCStreakAddition"></string>
+    <string name="MCStandardSubtraction"></string>
+    <string name="MCTimerSubtraction"></string>
+    <string name="MCStreakSubtraction"></string>
+    <string name="MCStandardMultiplication"></string>
+    <string name="MCTimerMultiplication"></string>
+    <string name="MCStreakMultiplication"></string>
+    <string name="MCStandardDivision"></string>
+    <string name="MCTimerDivision"></string>
+    <string name="MCStreakDivision"></string>
+    <string name="MCCombo"></string>
 
     <!--activity_multiple_choice.xml UI Text-->
     <string name="streakText">Streak: </string>
@@ -132,7 +161,7 @@
     <string name="toastEditable">Fields are now editable. Remember to Save!!!</string>
     <string name="toastNoteIncorrect">Error: Incorrect title.</string>
 
-    
+
     <!--activity_stats.xml-->
     <string name="Activity">Activity</string>
     <string name="Mode">Mode</string>

@@ -51,7 +51,8 @@ public class QuestionTypeAlgebra extends Fragment {
         Button btnSubtraction = view.findViewById(R.id.btnSubtraction);
         Button btnMultiplication = view.findViewById(R.id.btnMultiplication);
         Button btnDivision = view.findViewById(R.id.btnDivision);
-        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnAddition,btnDivision,btnMultiplication,btnSubtraction));
+        Button btnCalculate = view.findViewById(R.id.btnCalculate);
+        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnAddition,btnDivision,btnMultiplication,btnSubtraction,btnCalculate));
         btnAddition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +85,14 @@ public class QuestionTypeAlgebra extends Fragment {
                 startActivity(intent);
             }
         });
-
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LevelSelect.class);
+                intent.putExtra("requestCode", "Algebra");
+                startActivity(intent);
+            }
+        });
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 

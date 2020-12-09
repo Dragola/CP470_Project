@@ -12,7 +12,7 @@
     <color name="colorLightIncorrect">#ab1d1f</color>
     <color name="colorLightInprogress">#e3c012</color>
     <color name="colorDarkUnattempted">#6b6964</color>
-    <color name="colorDarkLocked">#33322f</color>
+    <color name="colorDarkLocked">#3b3a37</color>
     <color name="colorDarkCompleted">#217814</color>
     <color name="colorDarkIncorrect">#781416</color>
     <color name="colorDarkInprogress">#e3c012</color>
