@@ -145,6 +145,9 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
             }
+            for(Button b: btnList){
+                b.setTextColor(Color.BLACK);
+            }
         }
         else{
             layout.setBackgroundColor(Color.WHITE);
@@ -153,10 +156,13 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             for(TextView t: textViewList){
                 t.setTextColor(Color.BLACK);
             }
+            for(Button b: btnList){
+                b.setTextColor(Color.BLACK);
+            }
         }
         if (fontPreference.getInt("Size", medSize) == 15) {
             for (Button b : btnList) {
-                b.setTextSize(10);
+                b.setTextSize(15);
             }
             for(TextView t: textViewList){
                 t.setTextSize(smallSize);
@@ -164,7 +170,7 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             answerString.setTextSize(smallSize);
         } else if (fontPreference.getInt("Size", medSize) == 20) {
             for (Button b : btnList) {
-                b.setTextSize(15);
+                b.setTextSize(20);
             }
             for(TextView t: textViewList){
                 t.setTextSize(medSize);
@@ -172,7 +178,7 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
             answerString.setTextSize(medSize);
         } else {
             for (Button b : btnList) {
-                b.setTextSize(20);
+                b.setTextSize(25);
             }
             for(TextView t: textViewList){
                 t.setTextSize(largeSize);

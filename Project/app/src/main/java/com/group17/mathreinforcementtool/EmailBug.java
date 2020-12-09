@@ -120,10 +120,6 @@ public class EmailBug extends AppCompatActivity {
     }
     public void onBugButtonClick(View view) {
         bugText = findViewById(R.id.bugText);
-//        bugEditor.putString("bugList", bugText.getText().toString()));
-//        bugEditor.commit();
-
-
         String[] TO = {"mecrocon@gmail.com"};
         String[] CC = {""};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);

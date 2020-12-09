@@ -39,8 +39,8 @@
 
     <!--activity_math_template.xml-->
     <string name="btnBack">Retour</string>
-    <string name="btnOK">D\'accord</string>
-    <string name="textAnswerDisplay">La solution:</string>
+    <string name="btnOK">Entrer</string>
+    <string name="textAnswerDisplay">Solution:</string>
     <string name="textAnswerCorrect">Oui</string>
     <string name="textAnswerIncorrect">Non</string>
     <string name="textCorrectAnswerCount">%1$d/20</string>
@@ -88,7 +88,7 @@
     <string name = "Perimeter"> Périmètre </string>
     <string name = "Algebra"> Algèbre combinée </string>
     <string name = "MCQ"> Questions à choix multiples </string>
-    <string name="testSelevt">Sélection du niveau de test</string>
+    <string name="testSelect">Sélection du niveau de test</string>
     <string name="Easy">Facile</string>
     <string name="Medium">Moyen</string>
     <string name="Hard">Dur</string>

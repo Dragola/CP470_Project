@@ -43,8 +43,6 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
     int correctAnswerCount = 0;
     int incorrectAnswerCount = 0;
     int buttonPressCount = 0;
-    int btnSmallSize = 15;
-    int btnMedSize = 25;
     int smallSize = 35;
     int medSize = 45;
     int largeSize = 55;
@@ -153,18 +151,13 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
             }
-            for(Button b: buttonList){
-                b.setTextColor(Color.WHITE);
-            }
+
         } else {
             layout.setBackgroundColor(Color.WHITE);
             textCorrectAnswerCount.setTextColor(Color.BLACK);
             answerString.setTextColor(Color.BLACK);
             for(TextView t: textViewList){
                 t.setTextColor(Color.BLACK);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.BLACK);
             }
         }
 
@@ -173,14 +166,14 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
                 t.setTextSize(smallSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(btnSmallSize);
+                b.setTextSize(15);
             }
         } else if (fontPreference.getInt("Size", medSize) == 20){
             for(TextView t: textViewList){
                 t.setTextSize(medSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(btnMedSize);
+                b.setTextSize(20);
             }
 
         } else {
@@ -188,7 +181,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
                 t.setTextSize(largeSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(smallSize);
+                b.setTextSize(25);
             }
         }
         if(currentOperation.equals("Addition"))
@@ -337,18 +330,12 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
             for(TextView t: textViewList){
                 t.setTextColor(Color.WHITE);
             }
-            for(Button b: buttonList){
-                b.setTextColor(Color.WHITE);
-            }
         } else {
             layout.setBackgroundColor(Color.WHITE);
             textCorrectAnswerCount.setTextColor(Color.BLACK);
             answerString.setTextColor(Color.BLACK);
             for(TextView t: textViewList){
                 t.setTextColor(Color.BLACK);
-            }
-            for(Button b: buttonList){
-                b.setTextColor(Color.BLACK);
             }
         }
 
@@ -357,14 +344,14 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
                 t.setTextSize(smallSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(btnSmallSize);
+                b.setTextSize(15);
             }
         } else if (fontPreference.getInt("Size", medSize) == 20){
             for(TextView t: textViewList){
                 t.setTextSize(medSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(btnMedSize);
+                b.setTextSize(20);
             }
 
         } else {
@@ -372,7 +359,7 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
                 t.setTextSize(largeSize);
             }
             for(Button b: buttonList){
-                b.setTextSize(smallSize);
+                b.setTextSize(25);
             }
         }
     }
