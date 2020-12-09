@@ -89,7 +89,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_multiple_choice);
 
         //get difficult, type of questions (operation) and mode
-
         numQuestions = getIntent().getIntExtra("numQuestions", 10);
         difficulty = getIntent().getIntExtra("Difficulty", 0);
         type = getIntent().getIntExtra("Type", 0);
@@ -131,10 +130,14 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         statusProgressBar.setProgress(0);
         statusProgressBar.setMax(100);
 
-        //generate 5 more questions then update text (create other questions in background)
-        new backgroundQuestionGeneration().execute();
-        //generateQuestions(5);
+        //generate a starting question (so not calling to update text multiple times)
+        generateQuestions(1);
+
+        //updateText's
         updateTexts();
+
+        //start question generation in background
+        new backgroundQuestionGeneration().execute();
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
@@ -340,11 +343,10 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         statusProgressBar.setProgress(correctCount * 100 / numQuestions);
 
         //streak mode- update text
-        if(mode == 1){
+        if (mode == 1) {
             streakTextView.setText("Streak: " + Integer.toString(correctAnswerStreak));
         }
         try {
-            Log.i("MC", "Attempting to set questionTextView, questionNum= " + questionNum + ", the generatedQuestions.size()= " + generatedQuestions.size());
             questionTextView.setText(generatedQuestions.get(questionNum));
             Log.i("MC", "Answer=" + generatedQuestionsNumber.get(questionNum));
             int answerSpot;
@@ -385,7 +387,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             questionNum = 0;
             updateTexts();
         }
@@ -499,8 +501,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                         operationString = "/";
                     }
                 }
-                //decrease count
-                numberOfQuestionsToGenerate--;
+
             }
             generatedQuestionsNumber.add((round(numAnswer, 3)));
             //addition question
@@ -520,7 +521,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             else if (type == 3) {
                 generatedQuestions.add((getString(R.string.questionStart) + String.format(" %d / %d", Math.round(number1), Math.round(number2)) + getString(R.string.questionEnd)));
             }
-            numQuestions -= 1;
+            //decrease count
+            numberOfQuestionsToGenerate--;
         }
         return;
     }
