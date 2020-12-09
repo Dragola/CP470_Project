@@ -133,7 +133,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
         //generate 5 more questions then update text (create other questions in background)
         new backgroundQuestionGeneration().execute();
-        generateQuestions(5);
+        //generateQuestions(5);
         updateTexts();
 
         if (darkPreference.getBoolean("DarkStatus", true) == true) {
@@ -344,6 +344,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             streakTextView.setText("Streak: " + Integer.toString(correctAnswerStreak));
         }
         try {
+            Log.i("MC", "Attempting to set questionTextView, questionNum= " + questionNum + ", the generatedQuestions.size()= " + generatedQuestions.size());
             questionTextView.setText(generatedQuestions.get(questionNum));
             Log.i("MC", "Answer=" + generatedQuestionsNumber.get(questionNum));
             int answerSpot;
@@ -458,12 +459,12 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         return answerSpot;
     }
     //generate questions based on operator that are not infinite, NaN, or already generated
-    public void generateQuestions(int numQuestions) {
+    public void generateQuestions(int numberOfQuestionsToGenerate) {
         //set values
         setMaxMinValues();
 
         //loop until the number of questions required is met
-        while (numQuestions > 0 && generatedQuestions.size() < numQuestions) {
+        while (numberOfQuestionsToGenerate > 0 && generatedQuestions.size() < numQuestions) {
             //prevent answer from being repeated, 0, infinite or NaN
             while (Double.isInfinite(numAnswer) == true || Double.isNaN(numAnswer) == true || numAnswer == 0 || generatedQuestionsNumber.contains(round(numAnswer, 3)) == true) {
                 //pick 2 random numbers from the range
@@ -498,6 +499,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                         operationString = "/";
                     }
                 }
+                //decrease count
+                numberOfQuestionsToGenerate--;
             }
             generatedQuestionsNumber.add((round(numAnswer, 3)));
             //addition question
