@@ -14,7 +14,7 @@
     <string name="RestartButton">Restart Progress</string>
     <string name="settingsButtonText">Settings</string>
     <string name="multipleChoiceButtonText">Multiple Choice</string>
-    <string name="btnLevelSelect">Test Level Select (Change After)</string>
+    <string name="btnLevelSelect">Level Select</string>
     <string name="userAgreement">This is the User Agreement, our app uses randomly generated numbers to test your math skills, if this is not okay please select the back button</string>
     <string name="privacyPolicy">This is our Privacy Policy. We promise not to sell your personal information to other companies</string>
     <string name="userAgreed">You have agreed to our terms</string>

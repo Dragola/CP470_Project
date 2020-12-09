@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Outil de renforcement mathématique</string>
+    <string name="settingsTitle">Réglages</string>
+    <string name="darkSwitch">Mode sombre</string>
+    <string name="lightSwitch">Mode lumière</string>
+    <string name="fontText">Taille de police:</string>
+    <string name="smallButton">Petit</string>
+    <string name="medButton">Moy</string>
+    <string name="largeButton">grand</string>
+    <string name="privacyPolicyButton">Politique de confidentialité</string>
+    <string name="agreementButton">Accord de l\'utilisateur</string>
+    <string name="bugButton">Signaler un bug</string>
+    <string name="volumeLabel">Le volume</string>
+    <string name="RestartButton">Redémarrer la progression</string>
+    <string name="settingsButtonText">Réglages</string>
+    <string name="multipleChoiceButtonText">Choix multiple</string>
+    <string name="btnLevelSelect">Sélection de niveau</string>
+    <string name="userAgreement">Ceci est l\'accord d\'utilisation, notre application utilise des nombres générés aléatoirement pour tester vos compétences en mathématiques, si cela ne vous convient pas, veuillez sélectionner le bouton retour</string>
+    <string name="privacyPolicy">Ceci est notre politique de confidentialité. Nous nous engageons à ne pas vendre vos informations personnelles à d\'autres sociétés</string>
+    <string name="userAgreed">Vous avez accepté nos conditions</string>
+
+    <!-- Joeys Strings (If you use, put them ^)-->
+
+    <!--activity_main_menu.xml-->
+    <string name="textAddition">Une addition</string>
+    <string name="textSubtraction">Soustraction</string>
+    <string name="textMultiplication">Multiplication</string>
+    <string name="textDivision">Division</string>
+    <string name="textPerimeter">Périmètre</string>
+    <string name="textArea">Aire</string>
+    <string name="textAlgebra">Algèbre</string>
+    <string name="btnDifficultyEasy">Facile</string>
+    <string name="btnDifficultyMedium">moyen</string>
+    <string name="btnDifficultyHard">Dur</string>
+    <string name="Show_MTA_Time">Votre temps était: %1$d:%2$02d!</string>
+    <string name="textNotes">Remarques</string>
+
+    <!--activity_math_template.xml-->
+    <string name="btnBack">Retour</string>
+    <string name="btnOK">D\'accord</string>
+    <string name="textAnswerDisplay">La solution:</string>
+    <string name="textAnswerCorrect">Oui</string>
+    <string name="textAnswerIncorrect">Non</string>
+    <string name="textCorrectAnswerCount">%1$d/20</string>
+
+    <!--activity_math_shapes.xml-->
+    <string name="textUnitMeters">%1$dm</string>
+    <string name="textUnitMetersStr">%1$sm</string>
+    <string name="textNumPerimTotal">Total %1$s = %2$d</string>
+    <string name="textNumPerimTotalStr">Total %1$s = %2$s</string>
+
+    <!--activity_level_select.xml-->
+    <string name="levelText">Niveau</string>
+    <string name="startLevel">Début</string>
+    <string name="backLevel">Annuler</string>
+
+    <!--activity_level_type_select.xml-->
+    <string name="textSelectType">Sélectionnez le type de question</string>
+    <string name="btnAlgebra">Algèbre</string>
+    <string name="btnGeometry">Géométrie</string>
+    <string name="btnCombined">Défis</string>
+
+    <string name="textAdditionDesc">Addition Description Here</string>
+    <string name="textSubtractionDesc">Subtraction Description Here</string>
+    <string name="textMultiplicationDesc">Multiplication Description Here</string>
+    <string name="textDivisionDesc">Division Description Here</string>
+    <string name="textAreaDesc">Area Description Here</string>
+    <string name="textPerimeterDesc">Perimeter Description Here</string>
+    <string name="textMCQ">MCQ</string>
+    <string name="textMCQDesc">MCQ Description Here</string>
+
+    <string name="textCalculate">Algèbre combinée</string>
+    <string name="textCalculateDesc">Entrez la valeur</string>
+    <string name="sharedPrefFailed">Échec de la génération des niveaux</string>
+
+    <!--activity_level_select.xml Level Descriptions-->
+
+    <string name = "textActivityType"> Type d\'activité: </string>
+    <string name = "textLevelDifficulty"> Niveau de difficulté: </string>
+    <string name = "textLevelDesc"> Description du niveau: </string>
+    <string name = "Addition"> Ajout </string>
+    <string name = "Subtraction"> Soustraction </string>
+    <string name = "Multiplication"> Multiplication </string>
+    <string name = "Division"> Division </string>
+    <string name = "Area"> Aire </string>
+    <string name = "Perimeter"> Périmètre </string>
+    <string name = "Algebra"> Algèbre combinée </string>
+    <string name = "MCQ"> Questions à choix multiples </string>
+    <string name="Easy">Facile</string>
+    <string name="Medium">Moyen</string>
+    <string name="Hard">Dur</string>
+
+    <string name="AdditionEasyDescription">insert description and rules</string>
+    <string name="AdditionMediumDescription">insert description and rules</string>
+    <string name="AdditionHardDescription">insert description and rules</string>
+    <string name="SubtractionEasyDescription">insert description and rules</string>
+    <string name="SubtractionMediumDescription">insert description and rules</string>
+    <string name="SubtractionHardDescription">insert description and rules</string>
+    <string name="MultiplicationEasyDescription">insert description and rules</string>
+    <string name="MultiplicationMediumDescription">insert description and rules</string>
+    <string name="MultiplicationHardDescription">insert description and rules</string>
+    <string name="DivisionEasyDescription">insert description and rules</string>
+    <string name="DivisionMediumDescription">insert description and rules</string>
+    <string name="DivisionHardDescription">insert description and rules</string>
+    <string name="AreaEasyDescription">insert description and rules</string>
+    <string name="AreaMediumDescription">insert description and rules</string>
+    <string name="AreaHardDescription">insert description and rules</string>
+    <string name="PerimeterEasyDescription">insert description and rules</string>
+    <string name="PerimeterMediumDescription">insert description and rules</string>
+    <string name="PerimeterHardDescription">insert description and rules</string>
+    <string name="AlgebraEasyDescription">insert description and rules</string>
+    <string name="AlgebraMediumDescription">insert description and rules</string>
+    <string name="AlgebraHardDescription">insert description and rules</string>
+    <string name="MCQEasyDescription">insert description and rules</string>
+    <string name="MCQMediumDescription">insert description and rules</string>
+    <string name="MCQHardDescription">insert description and rules</string>
+
+    <!--activity_multiple_choice.xml UI Text-->
+    <string name = "streakText"> Streak: </string>
+    <string name = "timerText"> Minuterie: </string>
+    <string name = "questionStart"> Que fait </string>
+    <string name = "questionEnd"> \ equal \? </string>
+
+    <!--activity_note_taking.xml-->
+    <string name = "noteDelete"> Supprimer la note </string>
+    <string name = "noteEdit"> Modifier la note </string>
+    <string name = "dialogDeleteTitle"> Voulez-vous vraiment supprimer cette note? </string>
+    <string name = "dialogYes"> Oui </string>
+    <string name = "dialogCancel"> Annuler </string>
+    <string name = "fabSave"> Enregistrer les modifications </string>
+    <string name = "fabNew"> Créer une nouvelle note </string>
+    <string name = "etHeading"> Entrez le titre de la note </string>
+    <string name = "etBody"> Entrer le corps de la note </string>
+    <string name = "toastEditable"> Les champs sont désormais modifiables. N\'oubliez pas de sauvegarder !!! </string>
+    <string name = "toastNoteIncorrect"> Erreur: titre incorrect. </string>
+
+
+</resources>
