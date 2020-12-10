@@ -138,7 +138,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
             //to show timer initially
             updateTimer();
-            
+
             //create thread for updating timer
             Thread t = new Thread() {
                 @Override
@@ -149,6 +149,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //update timerTextView
                                     updateTimer();
                                     //increment timer
                                     totalTimeSeconds++;
@@ -673,19 +674,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //set result and finish activity
         setResult(RESULT_OK);
         finish();
-    }
-    //used to update timerTextView
-    private class timerTextUpdate extends AsyncTask<Void, Void, Void>{
-        @Override
-        protected Void doInBackground(Void... voids) {
-            //only run timer is enabled
-            while (timerEnabled) {
-                updateTimer();
-            }
-            //close thread
-            this.cancel(true);
-            return null;
-        }
     }
     //used to generate remaining questions
     private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void>{
