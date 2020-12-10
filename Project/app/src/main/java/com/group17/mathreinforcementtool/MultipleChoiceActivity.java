@@ -10,6 +10,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -111,6 +113,14 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
         //standard mode- set streak and timer to invisible and check for stuck questions
         //combo mode- questions are from all 4 operators
+        //if there are no previous questions then generate a new starting question while new ones are generated in background
+        if(areSavedQuestions == false) {
+            //generate a starting question (so not calling to update text multiple times)
+            generateQuestions(1);
+        }
+        //updateText's
+        updateTexts();
+
         if(mode == 0 || mode == 3){
             streakTextView.setVisibility(View.INVISIBLE);
             timerTextView.setVisibility(View.INVISIBLE);
@@ -125,19 +135,36 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //timer- set streak to invisible
         else if (mode == 2){
             streakTextView.setVisibility(View.INVISIBLE);
-            new timerTextUpdate().execute();
+
+            //to show timer initially
+            updateTimer();
+            
+            //create thread for updating timer
+            Thread t = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while (!isInterrupted()) {
+                            Thread.sleep(1000);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateTimer();
+                                    //increment timer
+                                    totalTimeSeconds++;
+                                }
+                            });
+                        }
+                    } catch (InterruptedException e) {
+                    }
+                }
+            };
+            //start thread
+            t.start();
         }
         //set progress bar
         statusProgressBar.setProgress(0);
         statusProgressBar.setMax(100);
-
-        //if there are no previous questions then generate a new starting question while new ones are generated in background
-        if(areSavedQuestions == false) {
-            //generate a starting question (so not calling to update text multiple times)
-            generateQuestions(1);
-        }
-        //updateText's
-        updateTexts();
 
         //start question generation in background
         new backgroundQuestionGeneration().execute();
@@ -653,11 +680,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             //only run timer is enabled
             while (timerEnabled) {
-                long timeEnd = Calendar.getInstance().getTimeInMillis();
-                totalTimeSeconds = (timeEnd - timeStart) / 1000;
-
-                //update timer's text
-                timerTextView.setText("Time: " + Long.toString(totalTimeSeconds) + "s");
+                updateTimer();
             }
             //close thread
             this.cancel(true);
@@ -842,5 +865,11 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             tempNum = 20;
         }
         return tempNum;
+    }
+    private void updateTimer(){
+        //get total time in activity
+
+        //update timer's text
+        timerTextView.setText("Time: " + totalTimeSeconds + "s");
     }
 }
