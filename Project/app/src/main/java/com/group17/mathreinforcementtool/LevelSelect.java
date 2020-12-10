@@ -396,10 +396,6 @@ public class LevelSelect extends AppCompatActivity {
                 levelData.add("MCStreakDivision" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCStreakDivisionEasyDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "3" + "/" + "0" + "/" + "1");
                 levelData.add("MCStreakDivision" + "/" + "Medium" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCStreakDivisionMediumDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "3" + "/" + "1" + "/" + "1");
                 levelData.add("MCStreakDivision" + "/" + "Hard" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCStreakDivisionHardDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "3" + "/" + "2" + "/" + "1");
-            } else if (requestCode.equals("MCCombo")) {
-                levelData.add("MCCombo" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCComboEasyDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "4" + "/" + "0" + "/" + "3");
-                levelData.add("MCCombo" + "/" + "Medium" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCComboMediumDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "4" + "/" + "1" + "/" + "3");
-                levelData.add("MCCombo" + "/" + "Hard" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MCComboHardDescription" +  "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "4" + "/" + "2" + "/" + "3");
             }
         }
         // saves the list to a SharedPrefrence file

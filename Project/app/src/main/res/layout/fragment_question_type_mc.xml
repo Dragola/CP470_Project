@@ -15,28 +15,6 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btnMCCombo"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginTop="1dp"
-                android:text="@string/btnMCCombo"
-                app:layout_constraintEnd_toStartOf="@+id/btnMCTimeDiv"
-                app:layout_constraintHorizontal_bias="0.458"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCombined" />
-
-            <TextView
-                android:id="@+id/txtCombined"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/textMCCombo"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMCStanDiv" />
-
-            <Button
                 android:id="@+id/btnMCStreakDiv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

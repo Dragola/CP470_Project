@@ -59,8 +59,7 @@ public class    QuestionTypeMC extends Fragment {
         Button btnMCStanDiv = view.findViewById(R.id.btnMCStanDiv);
         Button btnMCTimerDiv = view.findViewById(R.id.btnMCTimeDiv);
         Button btnMCStreakDiv = view.findViewById(R.id.btnMCStreakDiv);
-        Button btnMCCombo = view.findViewById(R.id.btnMCCombo);
-        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnMCStanAdd, btnMCTimerAdd, btnMCStreakAdd, btnMCStanSub, btnMCTimerSub, btnMCStreakSub, btnMCStanMulti, btnMCTimerMulti, btnMCStreakMulti, btnMCStanDiv, btnMCTimerDiv, btnMCStreakDiv, btnMCCombo));
+        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnMCStanAdd, btnMCTimerAdd, btnMCStreakAdd, btnMCStanSub, btnMCTimerSub, btnMCStreakSub, btnMCStanMulti, btnMCTimerMulti, btnMCStreakMulti, btnMCStanDiv, btnMCTimerDiv, btnMCStreakDiv));
         btnMCStanAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,20 +156,12 @@ public class    QuestionTypeMC extends Fragment {
                 startActivity(intent);
             }
         });
-        btnMCCombo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LevelSelect.class);
-                intent.putExtra("requestCode", "MCCombo");
-                startActivity(intent);
-            }
-        });
-
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
         darkPreference = this.getActivity().getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMultiplication), (TextView) view.findViewById(R.id.txtDivision)
+        ));
 
-        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMultiplication), (TextView) view.findViewById(R.id.txtDivision), (TextView) view.findViewById(R.id.txtCombined)));
 
         if(darkPreference.getBoolean("DarkStatus", true) == true){
             for (TextView t : textViewList) {

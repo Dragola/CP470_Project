@@ -121,7 +121,8 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //updateText's
         updateTexts();
 
-        if(mode == 0 || mode == 3){
+        //standard mode-set streaka nd timer to invisible
+        if(mode == 0){
             streakTextView.setVisibility(View.INVISIBLE);
             timerTextView.setVisibility(View.INVISIBLE);
 
@@ -813,10 +814,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //timer
         else if(mode == 2){
             convertStr = "Timer";
-        }
-        //combination
-        else if(mode == 3){
-            convertStr = "Combination";
         }
         return convertStr;
     }
