@@ -661,7 +661,7 @@ public class MathShapesActivity extends AppCompatActivity implements View.OnTouc
 
         Intent stats = new Intent();
 
-        SharedPreferences prefs = getSharedPreferences("MTStats" + currentDifficulty + currentOperation + 0, Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("MGStats" + currentDifficulty + currentOperation + 0, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
         //add operation and difficulty to intent

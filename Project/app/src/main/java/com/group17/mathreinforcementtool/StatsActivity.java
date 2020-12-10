@@ -186,6 +186,12 @@ public class StatsActivity extends AppCompatActivity {
             //add MCModes to dropdown menu for spinner
             adapter = ArrayAdapter.createFromResource(this, R.array.MCModes, android.R.layout.simple_spinner_dropdown_item);
         }
+        else if (activity.compareTo("Math Template") == 0) {
+            modesList = Arrays.asList(getResources().getStringArray(R.array.GeometryModes));
+
+            //add AlgebraModes to dropdown menu for spinner
+            adapter = ArrayAdapter.createFromResource(this, R.array.GeometryModes, android.R.layout.simple_spinner_dropdown_item);
+        }
         else if (activity.compareTo("Algebra Input") == 0) {
             modesList = Arrays.asList(getResources().getStringArray(R.array.AlgebraModes));
 
@@ -210,11 +216,11 @@ public class StatsActivity extends AppCompatActivity {
                 mode = modesList.get(i);
 
                 //multiple choice
-                if(activity.compareTo("Multiple Choice") == 0){
+                if(activity.compareTo("Multiple Choice") == 0 || activity.compareTo("Math Template") == 0){
                     typeSpinner.setVisibility(View.VISIBLE);
                     typesSpinner();
                 }
-                //algebra or geometry
+                //algebra, geometry or
                 else{
                     //if mode isn't combination
                     if(mode.compareTo("Combination") != 0){
@@ -306,10 +312,14 @@ public class StatsActivity extends AppCompatActivity {
                     if(mode.compareTo("Streak") == 0) {
                         highestStreak = prefs.getString("HighestStreak", "");
                     }
-                } else if (activity.compareTo("Algebra Input") == 0) {
+                }
+                else if(activity.compareTo("Math Template") == 0){
+                    prefs = getSharedPreferences("MTStats" + difficulty + type + 0, Context.MODE_PRIVATE);
+                }
+                else if (activity.compareTo("Algebra Input") == 0) {
                     prefs = getSharedPreferences("AIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
                 } else if (activity.compareTo("Geometry Input") == 0) {
-                    prefs = getSharedPreferences("GIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
+                    prefs = getSharedPreferences("GIStats" + difficulty + type + 0, Context.MODE_PRIVATE);
                 }
                 //get general stats
                 correctAnswerCount = prefs.getString("CorrectAnswerCount", "");
@@ -335,7 +345,7 @@ public class StatsActivity extends AppCompatActivity {
         //set texts
         correctAnswerCountTextView.setText("Correct Answers: " + correctAnswerCount);
         incorrectAnswerCountTextView.setText("Incorrect Answers: " + incorrectAnswerCount);
-        totalTimeTextView.setText("Total time: " + totalTime);
+        totalTimeTextView.setText("Total time: " + totalTime + "sec");
 
         //show texts
         correctAnswerCountTextView.setVisibility(View.VISIBLE);

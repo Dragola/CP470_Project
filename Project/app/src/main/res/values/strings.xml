@@ -170,6 +170,7 @@
     <string name="Difficulty">Difficulty</string>
     <string-array name="Activities">
         <item>Multiple Choice</item>
+        <item>Math Template</item>
         <item>Algebra Input</item>
         <item>Geometry Input</item>
     </string-array>

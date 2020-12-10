@@ -322,7 +322,7 @@ public class MathAlgebraActivity extends AppCompatActivity implements View.OnTou
 
         Intent stats = new Intent();
 
-        SharedPreferences prefs = getSharedPreferences("MTStats" + currentDifficulty + currentOperation + 0, Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("AIStats" + currentDifficulty + currentOperation + 0, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
         //add operation and difficulty to intent
