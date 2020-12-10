@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Outil de renforcement mathématique</string>
+    <string name="app_name">Simply Calculated</string>
     <string name="settingsTitle">Réglages</string>
     <string name="darkSwitch">Mode Sombre</string>
     <string name="lightSwitch">Mode Lumière</string>

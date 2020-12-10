@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Math Reinforcement Tool</string>
+    <string name="app_name">Simply Calculated</string>
     <string name="settingsTitle">Settings</string>
     <string name="darkSwitch">Dark Mode</string>
     <string name="lightSwitch">Light Mode</string>
