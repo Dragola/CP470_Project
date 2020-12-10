@@ -81,7 +81,7 @@ public class LevelSelect extends AppCompatActivity {
         }
 
         // Clears Saved preferences for testing purposes
-        // getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
+         getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
 
         // Load list of levels for the math activity from shared preferences (completed, uncompleted, unattempted, unavailable)
         levelsData = loadLevelsFromPrefrences(requestCode);

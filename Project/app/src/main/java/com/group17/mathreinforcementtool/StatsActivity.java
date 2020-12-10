@@ -109,16 +109,25 @@ public class StatsActivity extends AppCompatActivity {
 
 
 
-        if(darkPreference.getBoolean("DarkStatus", true) == true){
+        if(darkPreference.getBoolean("DarkStatus", true) == true) {
             layout.setBackgroundColor(Color.BLACK);
-            for (TextView t: textViewList){
+            for (TextView t : textViewList) {
                 t.setTextColor(Color.WHITE);
             }
-            for(Spinner s: spinnerList){
-//                s.setBackgroundColor();
+            for (Spinner s : spinnerList) {
                 s.setBackgroundColor(Color.GRAY);
             }
+            locateFileButton.setBackgroundColor(Color.GRAY);
         }
+            else{
+                layout.setBackgroundColor(Color.WHITE);
+                for (TextView t: textViewList){
+                    t.setTextColor(Color.BLACK);
+                }
+                for(Spinner s: spinnerList){
+                    s.setBackgroundColor(Color.WHITE);
+                }
+            }
         if(fontPreference.getInt("Size", medSize) == smallSize){
             for (TextView t: textViewList){
                 t.setTextSize(smallSize);
