@@ -177,7 +177,6 @@
         <item>Standard</item>
         <item>Streak</item>
         <item>Timed</item>
-        <item>Combination</item>
     </string-array>
     <string-array name="AlgebraModes">
         <item>Standard</item>

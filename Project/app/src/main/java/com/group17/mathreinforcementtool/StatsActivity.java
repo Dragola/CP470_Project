@@ -35,6 +35,17 @@ public class StatsActivity extends AppCompatActivity {
     private String difficulty = "";
 
     private Button locateFileButton = null;
+    private TextView correctAnswerCountTextView = null;
+    private TextView incorrectAnswerCountTextView = null;
+    private TextView totalTimeTextView = null;
+    private TextView highestStreakTextView = null;
+
+    private String correctAnswerCount = "";
+    private String incorrectAnswerCount = "";
+    private String totalTime = "";
+    private String highestStreak = "";
+
+    boolean gotAnswers = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,16 @@ public class StatsActivity extends AppCompatActivity {
         difficultySpinner = findViewById(R.id.difficultySpinner);
         locateFileButton = findViewById(R.id.locateFileButton);
         locateFileButton.setEnabled(false);
+        correctAnswerCountTextView = findViewById(R.id.correctAnswerCountTextView);
+        incorrectAnswerCountTextView = findViewById(R.id.incorrectAnswerCounterTextView);
+        totalTimeTextView = findViewById(R.id.totalTimeTextView);
+        highestStreakTextView = findViewById(R.id.highestStreakTextView);
+
+        //set texts to invisible
+        correctAnswerCountTextView.setVisibility(View.INVISIBLE);
+        incorrectAnswerCountTextView.setVisibility(View.INVISIBLE);
+        totalTimeTextView.setVisibility(View.INVISIBLE);
+        highestStreakTextView.setVisibility(View.INVISIBLE);
 
         //set UI to invisible
         modeSpinner.setVisibility(View.INVISIBLE);
@@ -70,6 +91,12 @@ public class StatsActivity extends AppCompatActivity {
             //item selected
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //set texts to invisible
+                correctAnswerCountTextView.setVisibility(View.INVISIBLE);
+                incorrectAnswerCountTextView.setVisibility(View.INVISIBLE);
+                totalTimeTextView.setVisibility(View.INVISIBLE);
+                highestStreakTextView.setVisibility(View.INVISIBLE);
+
                 activity = activitiesList.get(i);
                 modesSpinner();
                 modeSpinner.setVisibility(View.VISIBLE);
@@ -115,18 +142,12 @@ public class StatsActivity extends AppCompatActivity {
 
                 //multiple choice
                 if(activity.compareTo("Multiple Choice") == 0){
-                    //if not combination then use type
-                    if(mode.compareTo("Combination") != 0){
-                        typeSpinner.setVisibility(View.VISIBLE);
-                        typesSpinner();
-                    }
-                    else{
-                        typeSpinner.setVisibility(View.INVISIBLE);
-                        type = "Addition";
-                    }
+                    typeSpinner.setVisibility(View.VISIBLE);
+                    typesSpinner();
                 }
                 //algebra or geometry
                 else{
+                    //if mode isn't combination
                     if(mode.compareTo("Combination") != 0){
                         typeSpinner.setVisibility(View.VISIBLE);
                         typesSpinner();
@@ -190,10 +211,9 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //get data for city
-                difficulty = modesList.get(i);
+                difficulty = difficultiesList.get(i);
                 locateFileButton.setEnabled(true);
             }
-
             //if nothing is selected
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -204,39 +224,53 @@ public class StatsActivity extends AppCompatActivity {
         new backgroundQuestionGeneration().execute();
     }
     //used to generate remaining questions
-    private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void> {
+    private class backgroundQuestionGeneration extends AsyncTask<String, String, String> {
         @Override
-        protected Void doInBackground(Void... voids) {
-            String correctCount = "";
-            String temp = "";
-
+        protected String doInBackground(String... strings) {
+            SharedPreferences prefs = null;
             try {
                 Log.i("Stats", "backgroundQuestionGeneration created");
+                //multiple choice
                 if (activity.compareTo("Multiple Choice") == 0) {
-                    Log.i("Stats", "backgroundQuestionGeneration: Activity = Multiple Choice. Attempting to get file: " + "MCStats" + difficulty + type + mode);
-
-                    SharedPreferences prefs = getSharedPreferences("MCStats" + difficulty + type + mode, Context.MODE_PRIVATE);
-
-                    correctCount = prefs.getString("CorrectAnswerCount", "");
-
-                    Log.i("Stats", "Correct answers=" + correctCount);
-                    Log.i("Stats", "Incorrect answers=" + prefs.getString("IncorrectAnswerCount", ""));
-                    Log.i("Stats", "TotalTimeSeconds =" + prefs.getString("TotalTimeSeconds", ""));
-                    Log.i("Stats", "Difficulty =" + prefs.getString("Difficulty", ""));
-                    Log.i("Stats", "Operation =" + prefs.getString("Operation", ""));
-                    Log.i("Stats", "Highest Streak =" + prefs.getString("HighestStreak", ""));
+                    prefs = getSharedPreferences("MCStats" + difficulty + type + mode, Context.MODE_PRIVATE);
+                    //get extra variable if in streak mode
+                    if(mode.compareTo("Streak") == 0) {
+                        highestStreak = prefs.getString("HighestStreak", "");
+                    }
                 } else if (activity.compareTo("Algebra Input") == 0) {
-                    SharedPreferences prefs = getSharedPreferences("AIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
+                    prefs = getSharedPreferences("AIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
                 } else if (activity.compareTo("Geometry Input") == 0) {
-                    SharedPreferences prefs = getSharedPreferences("GIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
+                    prefs = getSharedPreferences("GIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
                 }
-                //pull general stuff
-
+                //get general stats
+                correctAnswerCount = prefs.getString("CorrectAnswerCount", "");
+                incorrectAnswerCount = prefs.getString("IncorrectAnswerCount", "");
+                totalTime = prefs.getString("TotalTimeSeconds", "");
             } catch (Exception e){
                 e.printStackTrace();
             }
-            this.cancel(true);
             return null;
         }
+        @Override
+        protected void onPostExecute(String parm) {
+            updateTexts();
+        }
+    }
+    private void updateTexts(){
+        if(highestStreak.compareTo("") != 0) {
+            //set text and show
+            highestStreakTextView.setText("Highest Streak: " + highestStreak);
+            highestStreakTextView.setVisibility(View.VISIBLE);
+        }
+
+        //set texts
+        correctAnswerCountTextView.setText("Correct Answers: " + correctAnswerCount);
+        incorrectAnswerCountTextView.setText("Incorrect Answers: " + incorrectAnswerCount);
+        totalTimeTextView.setText("Total time: " + totalTime);
+
+        //show texts
+        correctAnswerCountTextView.setVisibility(View.VISIBLE);
+        incorrectAnswerCountTextView.setVisibility(View.VISIBLE);
+        totalTimeTextView.setVisibility(View.VISIBLE);
     }
 }
