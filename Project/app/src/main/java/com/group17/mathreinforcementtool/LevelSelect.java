@@ -39,8 +39,6 @@ public class LevelSelect extends AppCompatActivity {
     private int colorCompleted;
     private int colorInprogress;
 
-    private ArrayList<String> levelsData;
-
     protected static final int ACTIVITY_MCQ = 0;
     protected static final int ACTIVITY_USER_INPUT = 1;
 
@@ -48,7 +46,10 @@ public class LevelSelect extends AppCompatActivity {
     SharedPreferences darkPreference;
     SharedPreferences fontPreference;
     int size;
-
+    int completed;
+    String operator;
+    String file;
+    private ArrayList<String> levelsData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(ACTIVITY_NAME, "In onCreate()");
@@ -80,10 +81,11 @@ public class LevelSelect extends AppCompatActivity {
         }
 
         // Clears Saved preferences for testing purposes
-        getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
+        // getSharedPreferences(requestCode, Context.MODE_PRIVATE).edit().clear().apply();
 
         // Load list of levels for the math activity from shared preferences (completed, uncompleted, unattempted, unavailable)
         levelsData = loadLevelsFromPrefrences(requestCode);
+        file = requestCode;
         // If the list doesnt exist yet then make it
         if (levelsData.isEmpty()){
             Log.i(ACTIVITY_NAME, "Generating Prefrences for " + requestCode);
@@ -267,19 +269,36 @@ public class LevelSelect extends AppCompatActivity {
             }
             // Result from User Input Activity
             else if (requestCode == ACTIVITY_USER_INPUT) {
-
+                double percentCompleted = data.getDoubleExtra("PercentCorrect", 0);
+                //saveLevelsToPrefrences(percentCompleted);
+                //saveLevelsToPrefrences(1);
             }
         }
     }
 
     // To be implemented later, saves user's level progression
-    private void saveLevelsToPrefrences(ArrayList<String> levelData, String file){
+    private void saveLevelsToPrefrences(double completed){
+        Log.i(ACTIVITY_NAME, "Saving levels");
         String data = "";
-        if (levelData.size() > 0){
-            data = levelData.get(0);
+        if (levelsData.size() > 0){
+            //"{Level Type}/{Level Difficulty}/{Level Completions}/{Button Color}/{Level Description Tag}/{Progress(Times completed out of 10)}/{Locked (0 or 1)}/{Intent Type}/{Intent Difficulty}/{Intent Mode}"
+            if (completed > 0) {
+                for (String data2 : levelsData) {
+                    Log.i(ACTIVITY_NAME, data2);
+                    String dataArray[] = data2.split("/");
+                    dataArray[2] = Integer.toString(Integer.parseInt(dataArray[2]) + 1);
+                    dataArray[5] = Integer.toString(Integer.parseInt(dataArray[5]) + 1);
+                    dataArray[3] = Integer.toString(COLOR_INPROGRESS);
+                    if (Integer.parseInt(dataArray[5]) > 9){
+                        dataArray[3] = Integer.toString(COLOR_COMPLETED);
+                    }
+                    Log.i(ACTIVITY_NAME, data2);
+                }
+            }
+            data = levelsData.get(0);
         }
-        for (int i = 1; i < levelData.size(); i++){
-            data += "@" + levelData.get(i);
+        for (int i = 1; i < levelsData.size(); i++){
+            data += "@" + levelsData.get(i);
         }
         SharedPreferences sharedPref = getSharedPreferences(file, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -310,39 +329,39 @@ public class LevelSelect extends AppCompatActivity {
         if (requestCode.indexOf("MC") == -1){
             // If were making a file for Addition
             if (requestCode.equals("Addition")){
-                levelData.add("Addition" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionEasyDescription" + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Easy");
-                levelData.add("Addition" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionMediumDescription" + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Medium");
-                levelData.add("Addition" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionHardDescription" + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Hard");
+                levelData.add("Addition" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Easy" + "/" + "0");
+                levelData.add("Addition" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Medium" + "/" + "0");
+                levelData.add("Addition" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AdditionHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Addition" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Subtraction
             } else if (requestCode.equals("Subtraction")) {
-                levelData.add("Subtraction" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionEasyDescription" + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Easy");
-                levelData.add("Subtraction" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionMediumDescription" + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Medium");
-                levelData.add("Subtraction" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionHardDescription" + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Hard");
+                levelData.add("Subtraction" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Easy" + "/" + "0");
+                levelData.add("Subtraction" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Medium" + "/" + "0");
+                levelData.add("Subtraction" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "SubtractionHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Subtraction" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Multiplication
             } else if (requestCode.equals("Multiplication")) {
-                levelData.add("Multiplication" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationEasyDescription" + "/" + Integer.toString(0) + "/" + "Multiplication" + "/" + "Easy");
-                levelData.add("Multiplication" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationMediumDescription" + "/" + Integer.toString(0) + "/" + "Multiplication" + "/" + "Medium");
-                levelData.add("Multiplication" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationHardDescription" + "/" + Integer.toString(1) + "/" + "Multiplication" + "/" + "Hard");
+                levelData.add("Multiplication" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Multiplication" + "/" + "Easy" + "/" + "0");
+                levelData.add("Multiplication" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Multiplication" + "/" + "Medium" + "/" + "0");
+                levelData.add("Multiplication" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "MultiplicationHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "Multiplication" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Division
             } else if (requestCode.equals("Division")) {
-                levelData.add("Division" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionEasyDescription" + "/" + Integer.toString(0) + "/" + "Division" + "/" + "Easy");
-                levelData.add("Division" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionMediumDescription" + "/" + Integer.toString(0) + "/" + "Division" + "/" + "Medium");
-                levelData.add("Division" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionHardDescription" + "/" + Integer.toString(1) + "/" + "Division" + "/" + "Hard");
+                levelData.add("Division" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Division" + "/" + "Easy" + "/" + "0");
+                levelData.add("Division" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Division" + "/" + "Medium" + "/" + "0");
+                levelData.add("Division" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "DivisionHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "Division" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Perimeter
             } else if (requestCode.equals("Perimeter")) {
-                levelData.add("Perimeter" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterEasyDescription" + "/" + Integer.toString(0) + "/" + "Perimeter" + "/" + "Easy");
-                levelData.add("Perimeter" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterMediumDescription" + "/" + Integer.toString(0) + "/" + "Perimeter" + "/" + "Medium");
-                levelData.add("Perimeter" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterHardDescription" + "/" + Integer.toString(1) + "/" + "Perimeter" + "/" + "Hard");
+                levelData.add("Perimeter" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Perimeter" + "/" + "Easy" + "/" + "0");
+                levelData.add("Perimeter" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Perimeter" + "/" + "Medium" + "/" + "0");
+                levelData.add("Perimeter" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "PerimeterHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "Perimeter" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Area
             } else if (requestCode.equals("Area")) {
-                levelData.add("Area" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaEasyDescription" + "/" + Integer.toString(0) + "/" + "Area" + "/" + "Easy");
-                levelData.add("Area" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaMediumDescription" + "/" + Integer.toString(0) + "/" + "Area" + "/" + "Medium");
-                levelData.add("Area" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaHardDescription" + "/" + Integer.toString(1) + "/" + "Area" + "/" + "Hard");
+                levelData.add("Area" + "/" + "Easy" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Area" + "/" + "Easy" + "/" + "0");
+                levelData.add("Area" + "/" + "Medium" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Area" + "/" + "Medium" + "/" + "0");
+                levelData.add("Area" + "/" + "Hard" + "/" + Integer.toString(0)  + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AreaHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "Area" + "/" + "Hard" + "/" + "0");
                 // If were making a file for Algebra
             } else if (requestCode.equals("Algebra")) {
-                levelData.add("Algebra" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraEasyDescription" + "/" + Integer.toString(0) + "/" + "Algebra" + "/" + "Easy");
-                levelData.add("Algebra" + "/" + "Medium" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraMediumDescription" + "/" + Integer.toString(0) + "/" + "Algebra" + "/" + "Medium");
-                levelData.add("Algebra" + "/" + "Hard" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraHardDescription" + "/" + Integer.toString(1) + "/" + "Algebra" + "/" + "Hard");
+                levelData.add("Algebra" + "/" + "Easy" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraEasyDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Algebra" + "/" + "Easy" + "/" + "0");
+                levelData.add("Algebra" + "/" + "Medium" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraMediumDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(0) + "/" + "Algebra" + "/" + "Medium" + "/" + "0");
+                levelData.add("Algebra" + "/" + "Hard" + "/" + Integer.toString(0) + "/" + Integer.toString(COLOR_UNATTEMPTED) + "/" + "AlgebraHardDescription" + "/" + Integer.toString(0) + "/" + Integer.toString(1) + "/" + "Algebra" + "/" + "Hard" + "/" + "0");
             }
         }
         //"{Level Type}/{Level Difficulty}/{Level Completions}/{Button Color}/{Level Description Tag}/{Progress(Times completed out of 10)}/{Locked (0 or 1)}/{Intent Type}/{Intent Difficulty}/{Intent Mode}"
@@ -399,7 +418,7 @@ public class LevelSelect extends AppCompatActivity {
             }
         }
         // saves the list to a SharedPrefrence file
-        saveLevelsToPrefrences(levelData, requestCode);
+        saveLevelsToPrefrences(0);
         return levelData;
     }
 

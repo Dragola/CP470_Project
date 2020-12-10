@@ -75,13 +75,13 @@
     <string name="btnMCCombo">Combined</string>
     <string name="textMCCombo">Combined</string>
 
-    <string name="textMCAdditionDesc">MC Addition Description Here</string>
-    <string name="textMCSubtractionDesc">MC Subtraction Description Here</string>
-    <string name="textMCMultiplicationDesc">MC Multiplication Description Here</string>
-    <string name="textMCDivisionDesc">MC Division Description Here</string>
-    <string name="textMCComboDesc">MC Combo Description Here</string>
+    <string name="textMCAdditionDesc">Add the values and pick the correct answer</string>
+    <string name="textMCSubtractionDesc">Subtract the values and pick the correct answer</string>
+    <string name="textMCMultiplicationDesc">Multiply the values and pick the correct answer</string>
+    <string name="textMCDivisionDesc">Divide the values and pick the correct answer</string>
+    <string name="textMCComboDesc">Use all 4 operations the values and pick the correct answer</string>
 
-    <string name="textAreaDesc">Area Description Here</string>
+    <string name="textAreaDesc">Calculate the area of the </string>
     <string name="textPerimeterDesc">Perimeter Description Here</string>
 
     <string name="textMCQStandardDesc">MCQ Description Here</string>
