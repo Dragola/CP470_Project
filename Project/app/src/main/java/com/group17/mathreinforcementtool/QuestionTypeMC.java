@@ -27,7 +27,7 @@ public class    QuestionTypeMC extends Fragment {
     int medSize = 20;
     int largeSize = 25;
     List<Button> btnList = new ArrayList<Button>();
-    List<TextView> textViewList;
+    List<TextView> textViewList = new ArrayList<TextView>();
     public QuestionTypeMC() {}
 
     @Override
@@ -58,7 +58,7 @@ public class    QuestionTypeMC extends Fragment {
         Button btnMCTimerDiv = view.findViewById(R.id.btnMCTimeDiv);
         Button btnMCStreakDiv = view.findViewById(R.id.btnMCStreakDiv);
         Button btnMCCombo = view.findViewById(R.id.btnMCCombo);
-        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnMCStanAdd,btnMCTimerAdd,btnMCStreakAdd,btnMCStanSub,btnMCTimerSub,btnMCStreakSub,btnMCStanMulti,btnMCTimerMulti,btnMCStreakMulti,btnMCStanDiv,btnMCTimerDiv,btnMCStreakDiv,btnMCCombo));
+        btnList.addAll((Collection<? extends Button>) Arrays.asList(btnMCStanAdd, btnMCTimerAdd, btnMCStreakAdd, btnMCStanSub, btnMCTimerSub, btnMCStreakSub, btnMCStanMulti, btnMCTimerMulti, btnMCStreakMulti, btnMCStanDiv, btnMCTimerDiv, btnMCStreakDiv, btnMCCombo));
         btnMCStanAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,22 +163,34 @@ public class    QuestionTypeMC extends Fragment {
                 startActivity(intent);
             }
         });
-        
+
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
 
-        if(fontPreference.getInt("Size", medSize) == 15){
-            for(Button b: btnList){
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMultiplication), (TextView) view.findViewById(R.id.txtDivision), (TextView) view.findViewById(R.id.txtCombined)
+                //                , (TextView) view.findViewById(R.id.textMCSAdditionDescription), (TextView) view.findViewById(R.id.textMCSubtractionDescription), (TextView) view.findViewById(R.id.textMCMultiplicationDescription), (TextView) view.findViewById(R.id.textMCDivisionDescription), (TextView) view.findViewById(R.id.textMCComboDescription)
+        ));
+
+        if (fontPreference.getInt("Size", medSize) == 15) {
+            for (Button b : btnList) {
                 b.setTextSize(10);
             }
-        }
-        else if(fontPreference.getInt("Size", medSize) == 20){
-            for(Button b: btnList){
+            for (TextView t : textViewList) {
+                t.setTextSize(15);
+            }
+        } else if (fontPreference.getInt("Size", medSize) == 20) {
+            for (Button b : btnList) {
                 b.setTextSize(15);
             }
-        } else{
-            for(Button b: btnList){
+            for (TextView t : textViewList) {
+                t.setTextSize(20);
+            }
+        } else {
+            for (Button b : btnList) {
                 b.setTextSize(20);
+            }
+            for (TextView t : textViewList) {
+                t.setTextSize(25);
             }
         }
     }

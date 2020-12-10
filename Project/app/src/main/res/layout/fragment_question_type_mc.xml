@@ -17,16 +17,16 @@
             <Button
                 android:id="@+id/btnMCCombo"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="500dp"
                 android:layout_marginTop="1dp"
                 android:text="@string/btnMCCombo"
                 app:layout_constraintEnd_toStartOf="@+id/btnMCTimeDiv"
                 app:layout_constraintHorizontal_bias="0.458"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition5" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCombined" />
 
             <TextView
-                android:id="@+id/txtAddition5"
+                android:id="@+id/txtCombined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -58,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCTimeDiv"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDivision" />
 
             <Button
                 android:id="@+id/btnMCStreakAdd"
@@ -114,10 +114,10 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCStreakSub"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCStanSub"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSubtraction" />
 
             <TextView
-                android:id="@+id/txtAddition2"
+                android:id="@+id/txtSubtraction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -136,7 +136,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCTimeSub"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSubtraction" />
 
             <Button
                 android:id="@+id/btnMCStreakSub"
@@ -148,7 +148,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCTimeSub"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition2" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSubtraction" />
 
             <TextView
                 android:id="@+id/textMCSubtractionDescription"
@@ -170,7 +170,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCTimeMulti"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+                app:layout_constraintTop_toBottomOf="@+id/txtMultiplication" />
 
             <Button
                 android:id="@+id/btnMCTimeMulti"
@@ -181,7 +181,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCStreakMulti"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCStanMulti"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+                app:layout_constraintTop_toBottomOf="@+id/txtMultiplication" />
 
             <Button
                 android:id="@+id/btnMCStreakMulti"
@@ -192,7 +192,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCTimeMulti"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition3" />
+                app:layout_constraintTop_toBottomOf="@+id/txtMultiplication" />
 
             <Button
                 android:id="@+id/btnMCStanDiv"
@@ -203,7 +203,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCTimeDiv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDivision" />
 
             <TextView
                 android:id="@+id/textMCMultiplicationDescription"
@@ -225,7 +225,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnMCStreakDiv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnMCStanDiv"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddition4" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDivision" />
 
             <TextView
                 android:id="@+id/textMCDivisionDescription"
@@ -250,7 +250,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtAddition3"
+                android:id="@+id/txtMultiplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -261,7 +261,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textMCSubtractionDescription" />
 
             <TextView
-                android:id="@+id/txtAddition4"
+                android:id="@+id/txtDivision"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
