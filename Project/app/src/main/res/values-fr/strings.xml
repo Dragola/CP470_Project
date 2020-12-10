@@ -64,30 +64,13 @@
     <string name="btnCombined">Défis</string>
     <string name="btnMC">Choix multiple</string>
 
-    <string name="textAdditionDesc">Addition Description Here</string>
-    <string name="textSubtractionDesc">Subtraction Description Here</string>
-    <string name="textMultiplicationDesc">Multiplication Description Here</string>
-    <string name="textDivisionDesc">Division Description Here</string>
-    <string name="textAreaDesc">Area Description Here</string>
-    <string name="textPerimeterDesc">Perimeter Description Here</string>
-
     <string name = "btnMCStan"> Standard </string>
     <string name = "btnMCTime"> Temporisé </string>
     <string name = "btnMCStreak"> Streak </string>
     <string name = "btnMCCombo"> Combiné </string>
     <string name = "textMCCombo"> Combiné </string>
 
-    <string name="textMCAdditionDesc">MC Addition Description Here</string>
-    <string name="textMCSubtractionDesc">MC Subtraction Description Here</string>
-    <string name="textMCMultiplicationDesc">MC Multiplication Description Here</string>
-    <string name="textMCDivisionDesc">MC Division Description Here</string>
-    <string name="textMCComboDesc">MC Combo Description Here</string>
-
-    <string name="textMCQStandardDesc">MCQ Description Here</string>
-    <string name="textMCQTimerDesc">MCQ Description Here</string>
-    <string name="textMCQStreakDesc">MCQ Description Here</string>
     <string name="textCalculate">Algèbre combinée</string>
-    <string name="textCalculateDesc">Entrez la valeur</string>
     <string name="sharedPrefFailed">Échec de la génération des niveaux</string>
 
     <!--activity_level_select.xml Level Descriptions-->
@@ -108,30 +91,6 @@
     <string name="Medium">Moyen</string>
     <string name="Hard">Dur</string>
 
-    <string name="AdditionEasyDescription">insert description and rules</string>
-    <string name="AdditionMediumDescription">insert description and rules</string>
-    <string name="AdditionHardDescription">insert description and rules</string>
-    <string name="SubtractionEasyDescription">insert description and rules</string>
-    <string name="SubtractionMediumDescription">insert description and rules</string>
-    <string name="SubtractionHardDescription">insert description and rules</string>
-    <string name="MultiplicationEasyDescription">insert description and rules</string>
-    <string name="MultiplicationMediumDescription">insert description and rules</string>
-    <string name="MultiplicationHardDescription">insert description and rules</string>
-    <string name="DivisionEasyDescription">insert description and rules</string>
-    <string name="DivisionMediumDescription">insert description and rules</string>
-    <string name="DivisionHardDescription">insert description and rules</string>
-    <string name="AreaEasyDescription">insert description and rules</string>
-    <string name="AreaMediumDescription">insert description and rules</string>
-    <string name="AreaHardDescription">insert description and rules</string>
-    <string name="PerimeterEasyDescription">insert description and rules</string>
-    <string name="PerimeterMediumDescription">insert description and rules</string>
-    <string name="PerimeterHardDescription">insert description and rules</string>
-    <string name="AlgebraEasyDescription">insert description and rules</string>
-    <string name="AlgebraMediumDescription">insert description and rules</string>
-    <string name="AlgebraHardDescription">insert description and rules</string>
-    <string name="MCQEasyDescription">insert description and rules</string>
-    <string name="MCQMediumDescription">insert description and rules</string>
-    <string name="MCQHardDescription">insert description and rules</string>
     <string name="MCStandardAddition"></string>
     <string name="MCTimerAddition"></string>
     <string name="MCStreakAddition"></string>
@@ -169,21 +128,47 @@
     <string name = "Mode"> Mode </string>
     <string name = "Operation"> Opération </string>
     <string name = "Difficulty"> Difficulté </string>
-    <string-array name = "Modes">
-        <item> Standard </item>
+    <string name="locateStat">Locate state</string>
+    <string name = "correctAnswers"> Réponses correctes\: </string>
+    <string name = "incorrectAnswers"> Réponses incorrectes\: </string>
+    <string name = "totalTime"> Temps total\: </string>
+    <string name = "second"> sec </string>
+    <string name = "highestStreak"> Série la plus élevée\: </string>
+    <string-array name = "Difficulty">
+        <item> Facile </item>
+        <item> Moyen </item>
+        <item> Difficile </item>
+    </string-array>
+    <string-array name="Activities">
+        <item>Multiple Choice</item>
+        <item>Math Template</item>
+        <item>Algebra Input</item>
+        <item>Geometry Input</item>
+    </string-array>
+    <string-array name="MCModes">
+        <item>Standard</item>
         <item> Série </item>
         <item> Temporisé </item>
+    </string-array>
+    <string-array name="AlgebraModes">
+        <item>Standard</item>
         <item> Combinaison </item>
     </string-array>
-    <string-array name = "Types">
+    <string-array name="GeometryModes">
+        <item>Standard</item>
+    </string-array>
+    <string-array name="MCTypes">
         <item> Ajout </item>
         <item> Soustraction </item>
         <item> Multiplication </item>
         <item> Division </item>
     </string-array>
-    <string-array name = "Difficulty">
-        <item> Facile </item>
-        <item> Moyen </item>
-        <item> Difficile </item>
+    <string-array name="AGTypes">
+        <item> Ajout </item>
+        <item> Soustraction </item>
+        <item> Multiplication </item>
+        <item> Division </item>
+        <item>surface</item>
+        <item>périmètre</item>
     </string-array>
 </resources>

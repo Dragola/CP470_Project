@@ -338,14 +338,14 @@ public class StatsActivity extends AppCompatActivity {
     private void updateTexts(){
         if(highestStreak.compareTo("") != 0) {
             //set text and show
-            highestStreakTextView.setText("Highest Streak: " + highestStreak);
+            highestStreakTextView.setText(getString(R.string.highestStreak) + highestStreak);
             highestStreakTextView.setVisibility(View.VISIBLE);
         }
 
         //set texts
-        correctAnswerCountTextView.setText("Correct Answers: " + correctAnswerCount);
-        incorrectAnswerCountTextView.setText("Incorrect Answers: " + incorrectAnswerCount);
-        totalTimeTextView.setText("Total time: " + totalTime + "sec");
+        correctAnswerCountTextView.setText(getString(R.string.correctAnswers) + correctAnswerCount);
+        incorrectAnswerCountTextView.setText(getString(R.string.incorrectAnswers) + incorrectAnswerCount);
+        totalTimeTextView.setText(getString(R.string.totalTime) + totalTime + getString(R.string.second));
 
         //show texts
         correctAnswerCountTextView.setVisibility(View.VISIBLE);
