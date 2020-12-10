@@ -3,6 +3,7 @@ package com.group17.mathreinforcementtool;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +24,7 @@ public class QuestionTypeGeometry extends Fragment {
     protected static final String ACTIVITY_NAME = "GeometryFragment";
 
     SharedPreferences fontPreference;
-    int smallSize = 15;
-    int medSize = 20;
-    int largeSize = 25;
+
     List<Button> btnList = new ArrayList<Button>();
 
     public QuestionTypeGeometry() {
@@ -67,12 +67,11 @@ public class QuestionTypeGeometry extends Fragment {
         });
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
-
-        if (fontPreference.getInt("Size", medSize) == 15) {
+        if (fontPreference.getInt("Size", 20) == 15) {
             for (Button b : btnList) {
                 b.setTextSize(10);
             }
-        } else if (fontPreference.getInt("Size", medSize) == 20) {
+        } else if (fontPreference.getInt("Size", 20) == 20) {
             for (Button b : btnList) {
                 b.setTextSize(15);
             }

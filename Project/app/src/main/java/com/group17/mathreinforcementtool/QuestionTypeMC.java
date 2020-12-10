@@ -3,6 +3,7 @@ package com.group17.mathreinforcementtool;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class    QuestionTypeMC extends Fragment {
     protected static final String ACTIVITY_NAME = "MCFragment";
 
     SharedPreferences fontPreference;
+    SharedPreferences darkPreference;
     int smallSize = 15;
     int medSize = 20;
     int largeSize = 25;
@@ -166,11 +168,20 @@ public class    QuestionTypeMC extends Fragment {
 
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+        darkPreference = this.getActivity().getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
 
-        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMultiplication), (TextView) view.findViewById(R.id.txtDivision), (TextView) view.findViewById(R.id.txtCombined)
-                //                , (TextView) view.findViewById(R.id.textMCSAdditionDescription), (TextView) view.findViewById(R.id.textMCSubtractionDescription), (TextView) view.findViewById(R.id.textMCMultiplicationDescription), (TextView) view.findViewById(R.id.textMCDivisionDescription), (TextView) view.findViewById(R.id.textMCComboDescription)
-        ));
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMultiplication), (TextView) view.findViewById(R.id.txtDivision), (TextView) view.findViewById(R.id.txtCombined)));
 
+        if(darkPreference.getBoolean("DarkStatus", true) == true){
+            for (TextView t : textViewList) {
+                t.setTextColor(Color.WHITE);
+            }
+        }
+        else{
+            for (TextView t : textViewList) {
+                t.setTextColor(Color.BLACK);
+            }
+        }
         if (fontPreference.getInt("Size", medSize) == 15) {
             for (Button b : btnList) {
                 b.setTextSize(10);

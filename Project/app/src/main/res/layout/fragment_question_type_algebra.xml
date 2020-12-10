@@ -24,16 +24,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textAdditionDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/textAdditionDesc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddition" />
-
             <Button
                 android:id="@+id/btnSubtraction"
                 android:layout_width="wrap_content"
@@ -42,17 +32,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/textSubtraction"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textAdditionDescription" />
-
-            <TextView
-                android:id="@+id/textSubtractionDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/textSubtractionDesc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSubtraction" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAddition" />
 
             <Button
                 android:id="@+id/btnMultiplication"
@@ -62,17 +42,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/textMultiplication"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textSubtractionDescription" />
-
-            <TextView
-                android:id="@+id/textMultiplicationDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/textMultiplicationDesc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMultiplication" />
+                app:layout_constraintTop_toBottomOf="@+id/btnSubtraction" />
 
             <Button
                 android:id="@+id/btnDivision"
@@ -82,17 +52,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/textDivision"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textMultiplicationDescription" />
-
-            <TextView
-                android:id="@+id/textDivisionDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/textDivisionDesc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnDivision" />
+                app:layout_constraintTop_toBottomOf="@+id/btnMultiplication" />
 
             <Button
                 android:id="@+id/btnCalculate"
@@ -102,19 +62,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/textCalculate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textDivisionDescription" />
-
-            <TextView
-                android:id="@+id/textCalculateDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/textCalculateDesc"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCalculate" />
+                app:layout_constraintTop_toBottomOf="@+id/btnDivision" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
