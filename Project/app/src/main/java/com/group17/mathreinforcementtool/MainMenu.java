@@ -67,7 +67,6 @@ public class MainMenu extends AppCompatActivity {
             for(Button b: buttonList){
                 b.setTextSize(medSize);
             }
-
         } else{
             title.setTextSize(50);
             for(Button b: buttonList){

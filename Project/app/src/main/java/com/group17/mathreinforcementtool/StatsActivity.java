@@ -207,6 +207,9 @@ public class StatsActivity extends AppCompatActivity {
     private class backgroundQuestionGeneration extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
+            String correctCount = "";
+            String temp = "";
+
             try {
                 Log.i("Stats", "backgroundQuestionGeneration created");
                 if (activity.compareTo("Multiple Choice") == 0) {
@@ -214,9 +217,14 @@ public class StatsActivity extends AppCompatActivity {
 
                     SharedPreferences prefs = getSharedPreferences("MCStats" + difficulty + type + mode, Context.MODE_PRIVATE);
 
-                    Log.i("Stats", "Correct answers=" + prefs.getString("CorrectAnswerCount", ""));
+                    correctCount = prefs.getString("CorrectAnswerCount", "");
+
+                    Log.i("Stats", "Correct answers=" + correctCount);
                     Log.i("Stats", "Incorrect answers=" + prefs.getString("IncorrectAnswerCount", ""));
                     Log.i("Stats", "TotalTimeSeconds =" + prefs.getString("TotalTimeSeconds", ""));
+                    Log.i("Stats", "Difficulty =" + prefs.getString("Difficulty", ""));
+                    Log.i("Stats", "Operation =" + prefs.getString("Operation", ""));
+                    Log.i("Stats", "Highest Streak =" + prefs.getString("HighestStreak", ""));
                 } else if (activity.compareTo("Algebra Input") == 0) {
                     SharedPreferences prefs = getSharedPreferences("AIStats" + difficulty + type + mode, Context.MODE_PRIVATE);
                 } else if (activity.compareTo("Geometry Input") == 0) {
