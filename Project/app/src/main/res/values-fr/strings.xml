@@ -62,7 +62,7 @@
     <string name="btnAlgebra">Algèbre</string>
     <string name="btnGeometry">Géométrie</string>
     <string name="btnCombined">Défis</string>
-    <string name="btnMC">Multiple Choice</string>
+    <string name="btnMC">Choix multiple</string>
 
     <string name="textAdditionDesc">Addition Description Here</string>
     <string name="textSubtractionDesc">Subtraction Description Here</string>
@@ -77,8 +77,6 @@
     <string name = "btnMCCombo"> Combiné </string>
     <string name = "textMCCombo"> Combiné </string>
 
-    <string name="textMCQ">MCQ</string>
-    <string name="textMCQDesc">MCQ Description Here</string>
     <string name="textMCAdditionDesc">MC Addition Description Here</string>
     <string name="textMCSubtractionDesc">MC Subtraction Description Here</string>
     <string name="textMCMultiplicationDesc">MC Multiplication Description Here</string>
