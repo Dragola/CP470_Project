@@ -88,19 +88,20 @@
     <string name="Medium">Medium</string>
     <string name="Hard">Hard</string>
 
-    <string name="MCStandardAddition"></string>
-    <string name="MCTimerAddition"></string>
-    <string name="MCStreakAddition"></string>
-    <string name="MCStandardSubtraction"></string>
-    <string name="MCTimerSubtraction"></string>
-    <string name="MCStreakSubtraction"></string>
-    <string name="MCStandardMultiplication"></string>
-    <string name="MCTimerMultiplication"></string>
-    <string name="MCStreakMultiplication"></string>
-    <string name="MCStandardDivision"></string>
-    <string name="MCTimerDivision"></string>
-    <string name="MCStreakDivision"></string>
-    <string name="MCCombo"></string>
+
+    <string name="MCStandardAddition">MC Standard Addition</string>
+    <string name="MCTimerAddition">MC Timer Addition</string>
+    <string name="MCStreakAddition">MC Streak Addition</string>
+    <string name="MCStandardSubtraction">MC Standard Subtraction</string>
+    <string name="MCTimerSubtraction">MC Timer Subtraction</string>
+    <string name="MCStreakSubtraction">MC Streak Subtraction</string>
+    <string name="MCStandardMultiplication">MC Standard Multiplication</string>
+    <string name="MCTimerMultiplication">MC Timer Multiplication</string>
+    <string name="MCStreakMultiplication">MC Streak Multiplication</string>
+    <string name="MCStandardDivision">MC Standard Division</string>
+    <string name="MCTimerDivision">MC Timer Division</string>
+    <string name="MCStreakDivision">MC Streak Division</string>
+    <string name="MCCombo">MC Combo</string>
 
     <!--activity_multiple_choice.xml UI Text-->
     <string name="streakText">Streak: </string>

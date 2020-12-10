@@ -91,19 +91,19 @@
     <string name="Medium">Moyen</string>
     <string name="Hard">Dur</string>
 
-    <string name="MCStandardAddition"></string>
-    <string name="MCTimerAddition"></string>
-    <string name="MCStreakAddition"></string>
-    <string name="MCStandardSubtraction"></string>
-    <string name="MCTimerSubtraction"></string>
-    <string name="MCStreakSubtraction"></string>
-    <string name="MCStandardMultiplication"></string>
-    <string name="MCTimerMultiplication"></string>
-    <string name="MCStreakMultiplication"></string>
-    <string name="MCStandardDivision"></string>
-    <string name="MCTimerDivision"></string>
-    <string name="MCStreakDivision"></string>
-    <string name="MCCombo"></string>
+    <string name="MCStandardAddition">Ajout standard à choix multiples</string>
+    <string name="MCTimerAddition">Ajout de minuterie à choix multiple</string>
+    <string name="MCStreakAddition">Ajout de séries de choix multiples</string>
+    <string name="MCStandardSubtraction">Soustraction standard à choix multiples</string>
+    <string name="MCTimerSubtraction">Soustraction de minuterie à choix multiples</string>
+    <string name="MCStreakSubtraction">Soustraction de séries de choix multiples</string>
+    <string name="MCStandardMultiplication">Multiplication standard MC</string>
+    <string name="MCTimerMultiplication">Multiplication de la minuterie à choix multiples</string>
+    <string name="MCStreakMultiplication">Multiplication des séries de choix multiples</string>
+    <string name="MCStandardDivision">Division standard à choix multiples</string>
+    <string name="MCTimerDivision">Division de la minuterie à choix multiple</string>
+    <string name="MCStreakDivision">Division des séries de choix multiples</string>
+    <string name="MCCombo">Combo à choix multiples</string>
 
     <!--activity_multiple_choice.xml UI Text-->
     <string name = "streakText"> Streak: </string>
