@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,8 +27,7 @@ public class    QuestionTypeMC extends Fragment {
     int medSize = 20;
     int largeSize = 25;
     List<Button> btnList = new ArrayList<Button>();
-    List<TextView> textViewList = new ArrayList<TextView>();
-//    TextView addTxt;
+    List<TextView> textViewList;
     public QuestionTypeMC() {}
 
     @Override
@@ -166,34 +163,22 @@ public class    QuestionTypeMC extends Fragment {
                 startActivity(intent);
             }
         });
+        
 
         fontPreference = this.getActivity().getSharedPreferences("FontSize", Context.MODE_PRIVATE);
-
-        textViewList.addAll((Collection<? extends TextView>) Arrays.asList((TextView) view.findViewById(R.id.txtAddition), (TextView) view.findViewById(R.id.txtSubtraction), (TextView) view.findViewById(R.id.txtMulptiplication), (TextView) view.findViewById(R.id.txtDivision), (TextView) view.findViewById(R.id.txtCombined)
-                //                , (TextView) view.findViewById(R.id.textMCSAdditionDescription), (TextView) view.findViewById(R.id.textMCSubtractionDescription), (TextView) view.findViewById(R.id.textMCMultiplicationDescription), (TextView) view.findViewById(R.id.textMCDivisionDescription), (TextView) view.findViewById(R.id.textMCComboDescription)
-        ));
 
         if(fontPreference.getInt("Size", medSize) == 15){
             for(Button b: btnList){
                 b.setTextSize(10);
-            }
-            for(TextView t: textViewList){
-                t.setTextSize(15);
             }
         }
         else if(fontPreference.getInt("Size", medSize) == 20){
             for(Button b: btnList){
                 b.setTextSize(15);
             }
-            for(TextView t: textViewList){
-                t.setTextSize(20);
-            }
         } else{
             for(Button b: btnList){
                 b.setTextSize(20);
-            }
-            for(TextView t: textViewList){
-                t.setTextSize(25);
             }
         }
     }
