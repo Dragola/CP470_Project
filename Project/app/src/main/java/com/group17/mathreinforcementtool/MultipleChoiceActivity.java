@@ -650,7 +650,6 @@ public class MultipleChoiceActivity extends AppCompatActivity {
             long timeEnd = Calendar.getInstance().getTimeInMillis();
             totalTimeSeconds = (timeEnd - timeStart) / 1000;
         }
-        Log.i("MC", "exitActivity called");
         SharedPreferences prefs = getSharedPreferences("MCStats" + difficultyToString(difficulty) + typeToString(type) + modeToString(mode), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -670,6 +669,7 @@ public class MultipleChoiceActivity extends AppCompatActivity {
         //highest streak of correct answers the user had
         editor.putString("HighestStreak", Integer.toString(highestCorrectAnswerStreak));
 
+        //commit changes
         editor.commit();
 
         //set result and finish activity
