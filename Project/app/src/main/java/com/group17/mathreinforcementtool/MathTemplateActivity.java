@@ -576,20 +576,27 @@ public class MathTemplateActivity extends AppCompatActivity implements View.OnTo
         long totalTimeSeconds = (timeEnd - timeStart) / 1000;
 
         Intent stats = new Intent();
-        stats.putExtra("Operation", currentOperation);
-        stats.putExtra("Difficulty", currentDifficulty);
-
-        // The time elapsed since starting the activity, in seconds
-        stats.putExtra("TotalTimeSeconds", Long.toString(totalTimeSeconds));
-
-        // How many times the user inputted an incorrect answer
-        stats.putExtra("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
-
         // Percentage of correct answers
         stats.putExtra("PercentCorrect", Double.toString(correctAnswerCount/20.0));
 
-        // The amount of times the user pressed a button (fun stat)
-        stats.putExtra("ButtonPressCount", Integer.toString(buttonPressCount));
+        SharedPreferences prefs = getSharedPreferences("MTStats" + currentDifficulty + currentOperation + 0, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        //add operation and difficulty to intent
+        editor.putString("Operation", currentOperation);
+        editor.putString("Difficulty", currentDifficulty);
+
+        //add time elapsed since starting the activity (in seconds) to intent
+        editor.putString("TotalTimeSeconds", Long.toString(totalTimeSeconds));
+
+        //add number of times the user answered with a wrong answer
+        editor.putString("CorrectAnswerCount", Integer.toString(correctAnswerCount));
+
+        //add number of times the user answered with a wrong answer
+        editor.putString("IncorrectAnswerCount", Integer.toString(incorrectAnswerCount));
+
+        //commit changes
+        editor.commit();
 
         setResult(RESULT_OK, stats);
         finish();
