@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/activityTextView"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Activity"
         android:textAlignment="center"
@@ -31,7 +31,7 @@
     <TextView
         android:id="@+id/modeTextView"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Mode"
         android:textAlignment="center"
@@ -52,7 +52,7 @@
     <TextView
         android:id="@+id/typeTextView"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Operation"
         android:textAlignment="center"
@@ -73,7 +73,7 @@
     <TextView
         android:id="@+id/difficultyTextView"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Difficulty"
         android:textAlignment="center"

@@ -1,9 +1,12 @@
 package com.group17.mathreinforcementtool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +14,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
@@ -23,6 +30,7 @@ public class StatsActivity extends AppCompatActivity {
     private Spinner modeSpinner = null;
     private Spinner typeSpinner = null;
     private Spinner difficultySpinner = null;
+
     private List<String> activitiesList;
     private List<String> modesList;
     private List<String> typesList;
@@ -46,6 +54,20 @@ public class StatsActivity extends AppCompatActivity {
     private String highestStreak = "";
 
     boolean gotAnswers = false;
+
+    List<TextView> textViewList = new ArrayList<TextView>();
+    List<Button> buttonList = new ArrayList<Button>();
+    List<Spinner> spinnerList = new ArrayList<Spinner>();
+
+    int smallSize = 15;
+    int medSize = 20;
+    int largeSize = 25;
+
+
+    SharedPreferences darkPreference;
+    SharedPreferences fontPreference;
+
+    ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +98,44 @@ public class StatsActivity extends AppCompatActivity {
         difficultySpinner.setVisibility(View.INVISIBLE);
 
         activitiesSpinner();
+
+        darkPreference = getSharedPreferences("DarkStatus", Context.MODE_PRIVATE);
+        fontPreference = getSharedPreferences("FontSize", Context.MODE_PRIVATE);
+
+        layout =  findViewById(R.id.statsConstraintLayout);
+
+        spinnerList.addAll((Collection<? extends Spinner>) Arrays.asList(activitySpinner, modeSpinner, typeSpinner, difficultySpinner));
+        textViewList.addAll((Collection<? extends TextView>) Arrays.asList(correctAnswerCountTextView,incorrectAnswerCountTextView,totalTimeTextView,highestStreakTextView, (TextView) findViewById(R.id.activityTextView), (TextView) findViewById(R.id.difficultyTextView), (TextView) findViewById(R.id.modeTextView), (TextView) findViewById(R.id.typeTextView)));
+
+
+
+        if(darkPreference.getBoolean("DarkStatus", true) == true){
+            layout.setBackgroundColor(Color.BLACK);
+            for (TextView t: textViewList){
+                t.setTextColor(Color.WHITE);
+            }
+            for(Spinner s: spinnerList){
+//                s.setBackgroundColor();
+                s.setBackgroundColor(Color.GRAY);
+            }
+        }
+        if(fontPreference.getInt("Size", medSize) == smallSize){
+            for (TextView t: textViewList){
+                t.setTextSize(smallSize);
+            }
+        }
+        else if(fontPreference.getInt("Size", medSize) == medSize){
+
+            for (TextView t: textViewList){
+                t.setTextSize(medSize);
+            }
+        }
+        else{
+            for (TextView t: textViewList){
+                t.setTextSize(largeSize);
+            }
+
+        }
     }
 
     public void activitiesSpinner() {
